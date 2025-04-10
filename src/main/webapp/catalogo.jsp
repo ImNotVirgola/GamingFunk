@@ -1,5 +1,4 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html lang="it">
 <head>
@@ -20,18 +19,23 @@
             <a href="carrello.jsp">Carrello</a>
         </div>
         <div class="navbar-right">
-            <c:choose>
-                <c:when test="${not empty sessionScope.utente}">
-                    <a href="profilo.jsp"><img src="${sessionScope.fotoProfilo}" alt="Foto Profilo" class="profile-pic"></a>
+            <%
+                // Verifica se l'utente è loggato
+                if (session.getAttribute("utente") != null) {
+                    String fotoProfilo = (String) session.getAttribute("fotoProfilo");
+            %>
+                    <a href="profilo.jsp"><img src="<%= fotoProfilo %>" alt="Foto Profilo" class="profile-pic"></a>
                     <form action="logout" method="post" style="display: inline;">
                         <button type="submit" class="btn-logout">Logout</button>
                     </form>
-                </c:when>
-                <c:otherwise>
+            <%
+                } else {
+            %>
                     <button class="btn-login" onclick="window.location.href='login.jsp'">Login</button>
                     <button class="btn-register" onclick="window.location.href='register.jsp'">Registrazione</button>
-                </c:otherwise>
-            </c:choose>
+            <%
+                }
+            %>
         </div>
     </nav>
     <div class="container">
@@ -41,15 +45,30 @@
             <button class="btn-search">Cerca</button>
         </div>
         <div class="catalogo">
-            <c:forEach var="prodotto" items="${prodotti}" varStatus="loop">
-                <div class="prodotto" id="prod${loop.index + 1}">
-                    <img src="${prodotto.pathImmagine}" alt="${prodotto.nome}">
-                    <h2>${prodotto.nome}</h2>
-                    <p>Descrizione del prodotto...</p>
-                    <p class="prezzo">€ ${prodotto.prezzo}</p>
-                    <button class="btn">Aggiungi al carrello</button>
-                </div>
-            </c:forEach>
+            <%
+                // Recupera la lista di prodotti dalla request
+                java.util.List<?> prodotti = (java.util.List<?>) request.getAttribute("prodotti");
+                if (prodotti != null) {
+                    int counter = 1; // Contatore per generare ID univoci
+                    for (Object prodottoObj : prodotti) {
+                        // Assumi che ogni prodotto sia un oggetto con getter per nome, prezzo e pathImmagine
+                        Object prodotto = prodottoObj;
+                        String nome = (String) prodotto.getClass().getMethod("getNome").invoke(prodotto);
+                        double prezzo = (double) prodotto.getClass().getMethod("getPrezzo").invoke(prodotto);
+                        String pathImmagine = (String) prodotto.getClass().getMethod("getPathImmagine").invoke(prodotto);
+            %>
+                        <div class="prodotto" id="prod<%= counter %>">
+                            <img src="<%= pathImmagine %>" alt="<%= nome %>">
+                            <h2><%= nome %></h2>
+                            <p>Descrizione del prodotto...</p>
+                            <p class="prezzo">€ <%= prezzo %></p>
+                            <button class="btn">Aggiungi al carrello</button>
+                        </div>
+            <%
+                        counter++;
+                    }
+                }
+            %>
         </div>
     </div>
     <script type="text/javascript">
