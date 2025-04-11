@@ -2,6 +2,15 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
+	<%
+	    if (request.getAttribute("fromServlet") == null) {
+	        // Logica da eseguire solo se la pagina è stata richiamata direttamente
+	        response.sendRedirect(request.getContextPath() + "/catalogo");
+	        return;
+	    } else {
+	    	request.setAttribute("formServlet", null);
+	    }
+	%>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Catalogo GamingFunk</title>
@@ -13,7 +22,7 @@
             <img src="path/to/logo.png" alt="Logo" class="logo">
         </div>
         <div class="navbar-center">
-            <a href="catalogo">Catalogo</a>
+            <a href="catalogo.jsp">Catalogo</a>
             <a href="community.jsp">Community</a>
             <a href="blog.jsp">Blog</a>
             <a href="carrello.jsp">Carrello</a>

@@ -28,6 +28,8 @@ public class Catalogo extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    	request.setAttribute("fromServlet", true);
+    	
         // Recupera tutti i prodotti dal database
         List<Prodotto> prodotti = prodottoDAO.getAll();
 
@@ -35,6 +37,6 @@ public class Catalogo extends HttpServlet {
         request.setAttribute("prodotti", prodotti);
 
         // Inoltra la richiesta alla View JSP
-        request.getRequestDispatcher("/WEB-INF/views/catalogo.jsp").forward(request, response);
+        request.getRequestDispatcher("catalogo.jsp").forward(request, response);
     }
 }
