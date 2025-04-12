@@ -33,7 +33,7 @@
                 if (session.getAttribute("utente") != null) {
                     String fotoProfilo = (String) session.getAttribute("fotoProfilo");
             %>
-                    <a href="profilo.jsp"><img src="<%= fotoProfilo %>" alt="Foto Profilo" class="profile-pic"></a>
+                    <a href="profilo.jsp"><img src="<%= fotoProfilo != null ? fotoProfilo : "images/default/profile.png" %>" alt="Foto Profilo" class="profile-pic"></a>
                     <form action="logout" method="post" style="display: inline;">
                         <button type="submit" class="btn-logout">Logout</button>
                     </form>

@@ -79,26 +79,26 @@
 
         <!-- Form per la modifica dei dati -->
         <div id="edit-form" class="edit-form">
-            <h2>Modifica Dati</h2>
-            <form action="updateProfile" method="post" enctype="multipart/form-data">
-                <label for="nome">Nome:</label>
-                <input type="text" id="nome" name="nome" value="<%= nome %>" required>
-
-                <label for="cognome">Cognome:</label>
-                <input type="text" id="cognome" name="cognome" value="<%= cognome %>">
-
-                <label for="email">Email:</label>
-                <input type="email" id="email" name="email" value="<%= email %>" required>
-
-                <label for="indirizzo">Indirizzo:</label>
-                <input type="text" id="indirizzo" name="indirizzo" value="<%= indirizzo != null ? indirizzo : "" %>">
-
-                <label for="immagine">Carica immagine profilo:</label>
-                <input type="file" id="immagine" name="immagine" accept="image/*">
-
-                <button type="submit" class="btn-save">Salva Modifiche</button>
-            </form>
-        </div>
+    		<h2>Modifica Dati</h2>
+			    <form action="updateProfile" method="post" enctype="multipart/form-data">
+			        <label for="nome">Nome:</label>
+			        <input type="text" id="nome" name="nome" value="<%= nome %>" required>
+			
+			        <label for="cognome">Cognome:</label>
+			        <input type="text" id="cognome" name="cognome" value="<%= cognome %>">
+			
+			        <label for="email">Email:</label>
+			        <input type="email" id="email" name="email" value="<%= email %>" required>
+			
+			        <label for="indirizzo">Indirizzo:</label>
+			        <input type="text" id="indirizzo" name="indirizzo" value="<%= indirizzo != null ? indirizzo : "" %>">
+			
+			        <label for="immagine">Carica immagine profilo:</label>
+			        <input type="file" id="immagine" name="immagine" accept="image/*">
+			
+			        <button type="submit" class="btn-save">Salva Modifiche</button>
+			    </form>
+			</div>
 
         <%
             }
@@ -108,16 +108,16 @@
     <script>
         // Funzione per mostrare/nascondere il form di modifica
         function toggleEditForm() {
-            var editForm = document.getElementById("edit-form");
-            if (editForm.style.display === "none") {
-                editForm.style.display = "block";
-            } else {
-                editForm.style.display = "none";
-            }
-        }
-
-        // Aggiungi un listener al pulsante "Modifica Dati"
-        document.getElementById("edit-profile-btn").addEventListener("click", toggleEditForm);
+		    var editForm = document.getElementById("edit-form");
+		    if (editForm.style.display === "none" || editForm.style.display === "") {
+		        editForm.style.display = "block"; // Mostra il form
+		    } else {
+		        editForm.style.display = "none"; // Nascondi il form
+		    }
+		}
+		
+		// Aggiungi un listener al pulsante "Modifica Dati"
+		document.getElementById("edit-profile-btn").addEventListener("click", toggleEditForm);
     </script>
 </body>
 </html>
