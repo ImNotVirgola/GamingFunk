@@ -14,11 +14,11 @@ public class ProdottoDAOImpl extends GenericDAOImpl<Prodotto, Integer> {
     protected Prodotto mapResultSetToEntity(ResultSet rs) throws SQLException {
         return new Prodotto(
                 rs.getInt("id_prodotto"),
-                rs.getInt("quantità_disponibile"),
+                rs.getInt("quantita_disponibile"),
                 rs.getDouble("prezzo"),
                 rs.getDouble("media_recensioni"),
                 rs.getString("nome"),
-                rs.getInt("quantità_venduta"),
+                rs.getInt("quantita_venduta"),
                 rs.getString("path_immagine"),
                 rs.getString("descrizione"),
                 rs.getInt("id_categoria"),
@@ -28,7 +28,7 @@ public class ProdottoDAOImpl extends GenericDAOImpl<Prodotto, Integer> {
 
     @Override
     protected String getInsertColumns() {
-        return "quantità_disponibile, prezzo, media_recensioni, nome, quantità_venduta, path_immagine, descrizione, id_categoria, id_admin";
+        return "quantita_disponibile, prezzo, media_recensioni, nome, quantita_venduta, path_immagine, descrizione, id_categoria, id_admin";
     }
 
     @Override
@@ -51,7 +51,7 @@ public class ProdottoDAOImpl extends GenericDAOImpl<Prodotto, Integer> {
 
     @Override
     protected String getUpdateSetClause() {
-        return "quantità_disponibile = ?, prezzo = ?, media_recensioni = ?, nome = ?, quantità_venduta = ?, path_immagine = ?, descrizione = ?, id_categoria = ?, id_admin = ?";
+        return "quantita_disponibile = ?, prezzo = ?, media_recensioni = ?, nome = ?, quantita_venduta = ?, path_immagine = ?, descrizione = ?, id_categoria = ?, id_admin = ?";
     }
 
     @Override
