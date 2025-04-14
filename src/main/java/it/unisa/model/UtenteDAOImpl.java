@@ -73,50 +73,54 @@ public class UtenteDAOImpl extends GenericDAOImpl<Utente, Integer> {
         stmt.setString(5, utente.getCitta());
         stmt.setString(6, utente.getProvincia());
         stmt.setString(7,utente.getCap());
-        stmt.setString(8, utente.getRuolo());
+        stmt.setString(8, utente.getPassword());
+        stmt.setString(9, utente.getRuolo());
         Integer numOrdini = utente.getNumOrdini();
         if (numOrdini == null) {
-            stmt.setNull(9, java.sql.Types.INTEGER);
+            stmt.setNull(10, java.sql.Types.INTEGER);
         } else {
-            stmt.setInt(9, numOrdini);
+            stmt.setInt(10, numOrdini);
         }
 
         Double totaleSpeso = utente.getTotaleSpeso();
         if (totaleSpeso == null) {
-            stmt.setNull(10, java.sql.Types.DOUBLE);
+            stmt.setNull(11, java.sql.Types.DOUBLE);
         } else {
-            stmt.setDouble(10, totaleSpeso);
+            stmt.setDouble(11, totaleSpeso);
         }
-        stmt.setString(11, utente.getIndirizzo());
+        stmt.setString(12, utente.getIndirizzo());
     }
 
     @Override
     protected String getUpdateSetClause() {
-        return "nome = ?, email = ?, password = ?, indirizzo = ?, cognome = ?, ruolo = ?, num_ordini = ?, totale_speso = ?, percorsoImmagine = ?";
+        return "email = ?, nome = ?, cognome = ?, indirizzo = ?, citta = ?, provincia = ?, cap = ?, password = ?, ruolo = ?, num_ordini = ?, totale_speso = ?, percorsoImmagine = ?";
     }
 
     @Override
     protected void setPreparedStatementValuesForUpdate(PreparedStatement stmt, Utente utente) throws SQLException {
-        stmt.setString(1, utente.getNome());
-        stmt.setString(2, utente.getEmail());
-        stmt.setString(3, utente.getPassword());
+    	stmt.setString(1, utente.getEmail());
+        stmt.setString(2, utente.getNome());
+        stmt.setString(3, utente.getCognome());
         stmt.setString(4, utente.getIndirizzo());
-        stmt.setString(5, utente.getCognome());
-        stmt.setString(6, utente.getRuolo());
+        stmt.setString(5, utente.getCitta());
+        stmt.setString(6, utente.getProvincia());
+        stmt.setString(7,utente.getCap());
+        stmt.setString(8, utente.getPassword());
+        stmt.setString(9, utente.getRuolo());
         Integer numOrdini = utente.getNumOrdini();
         if (numOrdini == null) {
-            stmt.setNull(7, java.sql.Types.INTEGER);
+            stmt.setNull(10, java.sql.Types.INTEGER);
         } else {
-            stmt.setInt(7, numOrdini);
+            stmt.setInt(10, numOrdini);
         }
-        
+
         Double totaleSpeso = utente.getTotaleSpeso();
         if (totaleSpeso == null) {
-            stmt.setNull(8, java.sql.Types.DOUBLE);
+            stmt.setNull(11, java.sql.Types.DOUBLE);
         } else {
-            stmt.setDouble(8, totaleSpeso);
+            stmt.setDouble(11, totaleSpeso);
         }
-        stmt.setString(9, utente.getImmagine());
-        stmt.setInt(10, utente.getIdUtente());
+        stmt.setString(12, utente.getIndirizzo());
+        stmt.setInt(13, utente.getIdUtente());
     }
 }
