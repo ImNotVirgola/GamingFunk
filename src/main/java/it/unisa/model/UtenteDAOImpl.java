@@ -39,11 +39,14 @@ public class UtenteDAOImpl extends GenericDAOImpl<Utente, Integer> {
     protected Utente mapResultSetToEntity(ResultSet rs) throws SQLException {
         return new Utente(
                 rs.getInt("id_utente"),
-                rs.getString("nome"),
                 rs.getString("email"),
-                rs.getString("password"),
-                rs.getString("indirizzo"),
+                rs.getString("nome"),
                 rs.getString("cognome"),
+                rs.getString("indirizzo"),
+                rs.getString("citta"),
+                rs.getString("provincia"),
+                rs.getString("cap"),
+                rs.getString("password"),
                 rs.getString("ruolo"),
                 rs.getInt("num_ordini"),
                 rs.getDouble("totale_speso"),
@@ -53,36 +56,38 @@ public class UtenteDAOImpl extends GenericDAOImpl<Utente, Integer> {
 
     @Override
     protected String getInsertColumns() {
-        return "nome, email, password, indirizzo, cognome, ruolo, num_ordini, totale_speso, percorsoImmagine";
+        return "email, nome, cognome, indirizzo, citta, provincia, cap, password, ruolo, num_ordini, totale_speso, percorsoImmagine";
     }
 
     @Override
     protected String getInsertPlaceholders() {
-        return "?, ?, ?, ?, ?, ?, ?, ?, ?";
+        return "?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?";
     }
 
     @Override
     protected void setPreparedStatementValues(PreparedStatement stmt, Utente utente) throws SQLException {
-        stmt.setString(1, utente.getNome());
-        stmt.setString(2, utente.getEmail());
-        stmt.setString(3, utente.getPassword());
+        stmt.setString(1, utente.getEmail());
+        stmt.setString(2, utente.getNome());
+        stmt.setString(3, utente.getCognome());
         stmt.setString(4, utente.getIndirizzo());
-        stmt.setString(5, utente.getCognome());
-        stmt.setString(6, utente.getRuolo());
+        stmt.setString(5, utente.getCitta());
+        stmt.setString(6, utente.getProvincia());
+        stmt.setString(7,utente.getCap());
+        stmt.setString(8, utente.getRuolo());
         Integer numOrdini = utente.getNumOrdini();
         if (numOrdini == null) {
-            stmt.setNull(7, java.sql.Types.INTEGER);
+            stmt.setNull(9, java.sql.Types.INTEGER);
         } else {
-            stmt.setInt(7, numOrdini);
+            stmt.setInt(9, numOrdini);
         }
 
         Double totaleSpeso = utente.getTotaleSpeso();
         if (totaleSpeso == null) {
-            stmt.setNull(8, java.sql.Types.DOUBLE);
+            stmt.setNull(10, java.sql.Types.DOUBLE);
         } else {
-            stmt.setDouble(8, totaleSpeso);
+            stmt.setDouble(10, totaleSpeso);
         }
-        stmt.setString(9, utente.getIndirizzo());
+        stmt.setString(11, utente.getIndirizzo());
     }
 
     @Override

@@ -2,25 +2,31 @@ package it.unisa.model;
 
 public class Utente {
     private int idUtente;
-    private String nome;
     private String email;
-    private String password;
-    private String indirizzo;
+    private String nome;
     private String cognome;
-    private String ruolo; // "admin" o "regular"
+    private String indirizzo;
+    private String citta;
+    private String provincia;
+    private String cap;
+    private String password;
+    private String ruolo;
     private Integer numOrdini;
     private Double totaleSpeso;
     private String fotoProfilo;
 
     public Utente() {}
 
-    public Utente(int idUtente, String nome, String email, String password, String indirizzo, String cognome, String ruolo, Integer numOrdini, Double totaleSpeso, String fotoProfilo) {
+    public Utente(int idUtente, String email, String nome, String cognome, String indirizzo, String citta, String provincia, String cap, String password, String ruolo, Integer numOrdini, Double totaleSpeso, String fotoProfilo) {
         this.idUtente = idUtente;
-        this.nome = nome;
         this.email = email;
-        this.password = password;
-        this.indirizzo = indirizzo;
+        this.nome = nome;
         this.cognome = cognome;
+        this.indirizzo = indirizzo;
+        this.citta = citta;
+        this.provincia = provincia;
+        this.cap = cap;
+        this.password = password;
         this.ruolo = ruolo;
         this.numOrdini = numOrdini;
         this.totaleSpeso = totaleSpeso;
@@ -38,6 +44,12 @@ public class Utente {
     public void setPassword(String password) { this.password = password; }
     public String getIndirizzo() { return indirizzo; }
     public void setIndirizzo(String indirizzo) { this.indirizzo = indirizzo; }
+    public String getCitta() { return this.citta; }
+    public void setCitta(String citta) { this.citta = citta; }
+    public String getProvincia() { return this.provincia; }
+    public void setProvincia(String provincia) { this.provincia = provincia; }
+    public String getCap() { return this.cap; }
+    public void setCap(String cap) { this.cap = cap; }
     public String getCognome() { return cognome; }
     public void setCognome(String cognome) { this.cognome = cognome; }
     public String getRuolo() { return ruolo; }
