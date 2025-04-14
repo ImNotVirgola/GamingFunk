@@ -37,7 +37,7 @@ public class UtenteDAOImpl extends GenericDAOImpl<Utente, Integer> {
 
     @Override
     protected Utente mapResultSetToEntity(ResultSet rs) throws SQLException {
-        return new Utente(
+        return new Utente( 
                 rs.getInt("id_utente"),
                 rs.getString("email"),
                 rs.getString("nome"),
