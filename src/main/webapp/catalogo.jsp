@@ -60,127 +60,164 @@
             <input type="text" placeholder="Cerca nel catalogo...">
             <button class="btn-search">Cerca</button>
         </div>
-        <div class="catalogo">
-            <%
-                // Recupera la lista di prodotti dalla request
-                java.util.List<?> prodotti = (java.util.List<?>) request.getAttribute("prodotti");
-                if (prodotti != null) {
-                    int counter = 1; // Contatore per generare ID univoci
-                    for (Object prodottoObj : prodotti) {
-                        // Assumi che ogni prodotto sia un oggetto con getter per nome, prezzo e pathImmagine
-                        Object prodotto = prodottoObj;
-                        String nome = (String) prodotto.getClass().getMethod("getNome").invoke(prodotto);
-                        double prezzo = (double) prodotto.getClass().getMethod("getPrezzo").invoke(prodotto);
-                        String pathImmagine = (String) prodotto.getClass().getMethod("getPathImmagine").invoke(prodotto);
-            %>
-                        <div class="prodotto" id="prod<%= counter %>">
-                            <img src="<%= pathImmagine %>" alt="<%= nome %>">
-                            <h2><%= nome %></h2>
-                            <p>Descrizione del prodotto...</p>
-                            <p class="prezzo">€ <%= prezzo %></p>
-                            <button class="btn aggiungi-carrello">Aggiungi al carrello</button>
-                        </div>
-            <%
-                        counter++;
-                    }
-                }
-            %>
-        </div>
+       <div class="catalogo">
+		    <%
+		        // Recupera la lista di prodotti dalla request
+		        java.util.List<?> prodotti = (java.util.List<?>) request.getAttribute("prodotti");
+		        if (prodotti != null) {
+		            int counter = 1; // Contatore per generare ID univoci
+		            for (Object prodottoObj : prodotti) {
+		                // Assumi che ogni prodotto sia un oggetto con getter per nome, prezzo e pathImmagine
+		                Object prodotto = prodottoObj;
+		                String nome = (String) prodotto.getClass().getMethod("getNome").invoke(prodotto);
+		                double prezzo = (double) prodotto.getClass().getMethod("getPrezzo").invoke(prodotto);
+		                String pathImmagine = (String) prodotto.getClass().getMethod("getPathImmagine").invoke(prodotto);
+		    %>
+		                <div class="prodotto" id="prod<%= counter %>">
+		                    <img src="<%= pathImmagine %>" alt="<%= nome %>">
+		                    <h2><%= nome %></h2>
+		                    <p>Descrizione del prodotto...</p>
+		                    <p class="prezzo">€ <%= prezzo %></p>
+		                    <button 
+		                        class="btn aggiungi-carrello" 
+		                        data-nome="<%= nome %>" 
+		                        data-prezzo="<%= prezzo %>"
+		                    >
+		                        Aggiungi al carrello
+		                    </button>
+		                </div>
+		    <%
+		                counter++;
+		            }
+		        }
+		    %>
+		</div>
     </div>
     <script type="text/javascript">
- 	// Inizializza il carrello
-    var carrello = {
-        items: JSON.parse(localStorage.getItem("carrello")) || [], // Recupera il carrello da localStorage
-        aggiungiArticolo: function (nome, prezzo) {
-            // Cerca se il prodotto è già nel carrello
-            const prodottoEsistente = this.items.find(item => item.nome === nome);
-
-            if (prodottoEsistente) {
-                // Se il prodotto esiste, incrementa la quantità
-                prodottoEsistente.quantità = (prodottoEsistente.quantità || 1) + 1;
-            } else {
-                // Altrimenti, aggiungi il nuovo prodotto con quantità 1
-                this.items.push({ nome: nome, prezzo: prezzo, quantità: 1 });
-            }
-
-            // Salva il carrello aggiornato in localStorage
-            localStorage.setItem("carrello", JSON.stringify(this.items));
-
-            // Crea un popup di conferma
-            creaPopup(`"${nome}" aggiunto al carrello`);
-        },
-        visualizzaCarrello: function () {
-            console.log("Articoli nel carrello:", this.items);
-        }
-    };
-
-    // Funzione per creare un popup
-    function creaPopup(messaggio) {
-        const container = document.querySelector('.popup-container') || creaPopupContainer();
-
-        // Crea il popup
-        const popup = document.createElement('div');
-        popup.className = 'popup';
-        popup.textContent = messaggio;
-
-        // Aggiungi il popup al contenitore
-        container.appendChild(popup);
-
-        // Rimuovi il popup dopo l'animazione
-        setTimeout(() => {
-            popup.remove();
-        }, 3000);
-
-        // Limita il numero massimo di popup a 3
-        if (container.children.length > 3) {
-            setTimeout(() => {
-                container.removeChild(container.firstChild);
-            }, 500); // Rimuovi dopo 0.5 secondi
-        }
-    }
-
-    // Funzione per creare il contenitore dei popup se non esiste
-    function creaPopupContainer() {
-        const container = document.createElement('div');
-        container.className = 'popup-container';
-        document.body.appendChild(container);
-        return container;
-    }
-
-    // Aggiungi evento click ai pulsanti
-    document.querySelectorAll('.btn').forEach(function (btn) {
-        // Rimuovi eventuali listener già presenti
-        btn.removeEventListener('click', handleAddToCart);
-
-        // Aggiungi il listener una sola volta
-        btn.addEventListener('click', handleAddToCart);
-    });
-
-    function handleAddToCart(event) {
-        const btn = event.target;
-        const parentElement = btn.parentElement;
-
-        // Recupera i dettagli del prodotto
-        const nome = parentElement.querySelector('h2')?.textContent.trim() || 'Prodotto Sconosciuto';
-        const prezzoElement = parentElement.querySelector('.prezzo');
-        const prezzoText = prezzoElement?.textContent.trim() || '€ 0';
-        const prezzo = parseFloat(prezzoText.replace(/[^0-9.-]/g, ''));
-
-        // Debugging: verifica i dati estratti
-        console.log(`Prodotto selezionato: ${nome}, Prezzo: ${prezzo}`);
-
-        // Aggiungi l'articolo al carrello
-        carrello.aggiungiArticolo(nome, prezzo);
-
-        // Visualizza il carrello in console per debug
-        carrello.visualizzaCarrello();
-
-        // Animazione del pulsante
-        btn.classList.add('clicked');
-        setTimeout(() => {
-            btn.classList.remove('clicked');
-        }, 100);
-    }
+	    document.addEventListener("DOMContentLoaded", function () {
+	        // Recupera il carrello da localStorage
+	        var carrello = JSON.parse(localStorage.getItem("carrello")) || [];
+	
+	        // Funzione per aggiornare il carrello
+	        function aggiornaCarrello() {
+	            const listaCarrello = document.getElementById("lista-carrello");
+	            const totale = document.getElementById("totale");
+	
+	            // Pulisce la lista corrente
+	            if (listaCarrello) {
+	                listaCarrello.innerHTML = "";
+	            }
+	
+	            // Calcola il totale e genera gli elementi della lista
+	            let totalePrezzo = 0;
+	            carrello.forEach((item, index) => {
+	                if (listaCarrello) {
+	                    let li = document.createElement("li");
+	                    li.innerHTML = `
+	                        ${item.nome} - €${item.prezzo.toFixed(2)} x ${item.quantità}
+	                        <button onclick="rimuoviDalCarrello(${index})">Rimuovi</button>
+	                    `;
+	                    listaCarrello.appendChild(li);
+	                }
+	
+	                totalePrezzo += item.prezzo * item.quantità;
+	            });
+	
+	            if (totale) {
+	                totale.textContent = `Totale: €${totalePrezzo.toFixed(2)}`;
+	            }
+	
+	            // Salva il carrello aggiornato in localStorage
+	            localStorage.setItem("carrello", JSON.stringify(carrello));
+	            console.log("Carrello salvato:", JSON.parse(localStorage.getItem("carrello")));
+	        }
+	
+	        // Funzione per rimuovere un articolo dal carrello
+	        window.rimuoviDalCarrello = function (index) {
+	            carrello.splice(index, 1);
+	            aggiornaCarrello();
+	        };
+	
+	        // Evento per svuotare il carrello
+	        const svuotaCarrelloButton = document.getElementById("svuota-carrello");
+	        if (svuotaCarrelloButton) {
+	            svuotaCarrelloButton.addEventListener("click", function () {
+	                carrello = [];
+	                aggiornaCarrello();
+	            });
+	        }
+	
+	        // Aggiungi evento click ai pulsanti "Aggiungi al carrello"
+	        document.querySelectorAll('.aggiungi-carrello').forEach(function (btn) {
+	            btn.addEventListener('click', function () {
+	                // Trova il contenitore del prodotto (elemento padre)
+	                const prodottoElement = this.closest('.prodotto');
+	
+	                // Recupera il nome del prodotto dall'elemento <h2>
+	                const nomeElement = prodottoElement.querySelector('h2');
+	                const nome = nomeElement ? nomeElement.textContent.trim() : 'Prodotto Sconosciuto';
+	
+	                // Recupera il prezzo del prodotto dall'elemento .prezzo
+	                const prezzoElement = prodottoElement.querySelector('.prezzo');
+	                const prezzoText = prezzoElement ? prezzoElement.textContent.trim() : '€ 0';
+	                const prezzo = parseFloat(prezzoText.replace(/[^0-9.-]/g, ''));
+	
+	                // Debugging: verifica i dati estratti
+	                console.log(`Prodotto selezionato: Nome=${nome}, Prezzo=${prezzo}`);
+	
+	                if (!nome || isNaN(prezzo)) {
+	                    console.error("Errore: Dati del prodotto non validi.");
+	                    return;
+	                }
+	
+	                // Aggiungi l'articolo al carrello
+	                const prodottoEsistente = carrello.find(item => item.nome === nome);
+	                if (prodottoEsistente) {
+	                    prodottoEsistente.quantità += 1;
+	                } else {
+	                    carrello.push({ nome: nome, prezzo: prezzo, quantità: 1 });
+	                }
+	
+	                // Aggiorna il carrello
+	                aggiornaCarrello();
+	
+	                // Crea un popup di conferma
+	                creaPopup(`"${nome}" aggiunto al carrello`);
+	            });
+	        });
+	
+	        // Aggiorna il carrello all'avvio
+	        aggiornaCarrello();
+	    });
+	
+	    // Funzione per creare un popup
+	    function creaPopup(messaggio) {
+	        const container = document.querySelector('.popup-container') || creaPopupContainer();
+	
+	        const popup = document.createElement('div');
+	        popup.className = 'popup';
+	        popup.textContent = messaggio;
+	
+	        container.appendChild(popup);
+	
+	        setTimeout(() => {
+	            popup.remove();
+	        }, 3000);
+	
+	        if (container.children.length > 3) {
+	            setTimeout(() => {
+	                container.removeChild(container.firstChild);
+	            }, 500);
+	        }
+	    }
+	
+	    // Funzione per creare il contenitore dei popup se non esiste
+	    function creaPopupContainer() {
+	        const container = document.createElement('div');
+	        container.className = 'popup-container';
+	        document.body.appendChild(container);
+	        return container;
+	    }
     </script>
 </body>
 </html>
