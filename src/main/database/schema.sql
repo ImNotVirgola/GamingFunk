@@ -36,7 +36,7 @@ CREATE TABLE `area_amministrativa` (
 --
 CREATE TABLE `carrello` (
   `id_carrello` int(11) NOT NULL AUTO_INCREMENT,
-  `quantità` int(11) DEFAULT NULL,
+  `quantita` int(11) DEFAULT NULL,
   `id_prodotto` int(11) NOT NULL,
   `id_utente` int(11) NOT NULL,
   PRIMARY KEY (`id_carrello`),
@@ -139,11 +139,11 @@ CREATE TABLE `pagamento` (
 --
 CREATE TABLE `prodotto` (
   `id_prodotto` int(4) NOT NULL AUTO_INCREMENT,
-  `quantità_disponibile` int(4) NOT NULL,
+  `quantita_disponibile` int(4) NOT NULL,
   `prezzo` decimal(10,2) NOT NULL,
   `media_recensioni` decimal(10,2) NOT NULL,
   `nome` varchar(255) NOT NULL,
-  `quantità_venduta` int(11) NOT NULL,
+  `quantita_venduta` int(11) NOT NULL,
   `path_immagine` text NOT NULL,
   `descrizione` text DEFAULT NULL,
   `id_categoria` int(4) NOT NULL,
