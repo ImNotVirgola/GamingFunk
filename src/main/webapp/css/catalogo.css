@@ -129,6 +129,11 @@ body {
     transform: scale(1.05);
 }
 
+.btn:active {
+    transform: scale(0.95);
+    transition: transform 0.1s ease-in-out;
+}
+
 /* Container styling */
 .container {
     width: 90%;

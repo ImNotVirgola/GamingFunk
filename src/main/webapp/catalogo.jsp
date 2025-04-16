@@ -88,71 +88,74 @@
         </div>
     </div>
     <script type="text/javascript">
-        // Inizializza il carrello
-		var carrello = {
-		    items: [],
-		    aggiungiArticolo: function (nome, prezzo) {
-		        this.items.push({ nome: nome, prezzo: prezzo });
-		        sessionStorage.setItem("carrello", JSON.stringify(this.items));
-		
-		        // Crea un popup di conferma
-		        creaPopup(`"${nome}" aggiunto al carrello`);
-		    },
-		    visualizzaCarrello: function () {
-		        console.log("Articoli nel carrello:", this.items);
-		    }
-		};
-		
-		// Funzione per creare un popup
-		function creaPopup(messaggio) {
-		    const container = document.querySelector('.popup-container') || creaPopupContainer();
-		
-		    // Crea il popup
-		    const popup = document.createElement('div');
-		    popup.className = 'popup';
-		    popup.textContent = messaggio;
-		
-		    // Aggiungi il popup al contenitore
-		    container.appendChild(popup);
-		
-		    // Rimuovi il popup dopo l'animazione
-		    setTimeout(() => {
-		        popup.remove();
-		    }, 3000);
-		
-		    // Limita il numero massimo di popup a 3
-		    if (container.children.length > 3) {
-		        container.removeChild(container.firstChild);
-		    }
-		}
-		
-		// Funzione per creare il contenitore dei popup se non esiste
-		function creaPopupContainer() {
-		    const container = document.createElement('div');
-		    container.className = 'popup-container';
-		    document.body.appendChild(container);
-		    return container;
-		}
-		
-		// Aggiungi evento click ai pulsanti
-		document.querySelectorAll('.btn').forEach(function (btn) {
-		    btn.addEventListener('click', function () {
-		        // Animazione del pulsante
-		        btn.style.transform = 'scale(0.95)';
-		        setTimeout(() => {
-		            btn.style.transform = 'scale(1)';
-		        }, 100);
-		
-		        // Recupera i dettagli del prodotto
-		        var parentElement = this.parentElement;
-		        var nome = parentElement.querySelector('h2').textContent;
-		        var prezzo = parentElement.querySelector('.prezzo').textContent;
-		
-		        // Aggiungi l'articolo al carrello
-		        carrello.aggiungiArticolo(nome, parseFloat(prezzo.replace('€ ', '')));
-		        carrello.visualizzaCarrello(); // Opzionale: visualizza il carrello in console
-		    });
-		});
+ // Inizializza il carrello
+    var carrello = {
+        items: JSON.parse(localStorage.getItem("carrello")) || [], // Recupera il carrello da localStorage
+        aggiungiArticolo: function (nome, prezzo) {
+            this.items.push({ nome: nome, prezzo: prezzo });
+            localStorage.setItem("carrello", JSON.stringify(this.items)); // Salva nel localStorage
+
+            // Crea un popup di conferma
+            creaPopup(`"${nome}" aggiunto al carrello`);
+        },
+        visualizzaCarrello: function () {
+            console.log("Articoli nel carrello:", this.items);
+        }
+    };
+
+    // Funzione per creare un popup
+    function creaPopup(messaggio) {
+        const container = document.querySelector('.popup-container') || creaPopupContainer();
+
+        // Crea il popup
+        const popup = document.createElement('div');
+        popup.className = 'popup';
+        popup.textContent = messaggio;
+
+        // Aggiungi il popup al contenitore
+        container.appendChild(popup);
+
+        // Rimuovi il popup dopo l'animazione
+        setTimeout(() => {
+            popup.remove();
+        }, 3000);
+
+        // Limita il numero massimo di popup a 3
+        if (container.children.length > 3) {
+            setTimeout(() => {
+                container.removeChild(container.firstChild);
+            }, 500); // Rimuovi dopo 0.5 secondi
+        }
+    }
+
+    // Funzione per creare il contenitore dei popup se non esiste
+    function creaPopupContainer() {
+        const container = document.createElement('div');
+        container.className = 'popup-container';
+        document.body.appendChild(container);
+        return container;
+    }
+
+    // Aggiungi evento click ai pulsanti
+    document.querySelectorAll('.btn').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+            // Animazione del pulsante (gestita tramite CSS)
+            this.classList.add('clicked');
+            setTimeout(() => {
+                this.classList.remove('clicked');
+            }, 100);
+
+            // Recupera i dettagli del prodotto
+            const parentElement = this.parentElement;
+            const nome = parentElement.querySelector('h2')?.textContent || 'Prodotto Sconosciuto';
+            const prezzoElement = parentElement.querySelector('.prezzo');
+            const prezzo = prezzoElement ? parseFloat(prezzoElement.textContent.replace(/[^0-9.-]/g, '')) : 0;
+
+            // Aggiungi l'articolo al carrello
+            carrello.aggiungiArticolo(nome, prezzo);
+            carrello.visualizzaCarrello(); // Opzionale: visualizza il carrello in console
+        });
+    });
     </script>
 </body>
 </html>
