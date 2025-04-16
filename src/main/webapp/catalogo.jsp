@@ -57,9 +57,19 @@
     <div class="container">
         <h1>🎭 Catalogo GamingFunk 🎨</h1>
         <div class="search-bar">
-            <input type="text" placeholder="Cerca nel catalogo...">
-            <button class="btn-search">Cerca</button>
-        </div>
+		    <input type="text" placeholder="Cerca nel catalogo...">
+		    <button class="btn-search">Cerca</button>
+		    <%
+		        // Verifica se l'utente è admin
+		        if (session != null && session.getAttribute("ruolo") != null && session.getAttribute("ruolo").equals("admin")) {
+		    %>
+		    <button class="btn-add-product-circle" onclick="window.location.href='aggiungi-prodotto.jsp'">
+		        +
+		    </button>
+		    <%
+		        }
+		    %>
+		</div>
        <div class="catalogo">
 		    <%
 		        // Recupera la lista di prodotti dalla request
