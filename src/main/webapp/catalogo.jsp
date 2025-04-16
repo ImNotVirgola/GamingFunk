@@ -71,6 +71,9 @@
 		        }
 		    %>
 		</div>
+            <input type="text" placeholder="Cerca nel catalogo...">
+            <button class="btn-search">Cerca</button>
+        </div>
        <div class="catalogo">
 		    <%
 		        // Recupera la lista di prodotti dalla request

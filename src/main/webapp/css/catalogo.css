@@ -147,17 +147,16 @@ h1 {
     font-size: 3em;
 }
 
-/* Modifica del layout della barra di ricerca */
+/* Search bar styling */
 .search-bar {
     display: flex;
-    align-items: center; /* Allinea gli elementi verticalmente */
-    gap: 10px; /* Spazio tra gli elementi */
+    justify-content: center;
     margin: 30px auto;
     max-width: 600px;
 }
 
 .search-bar input {
-    width: calc(70% - 50px); /* Riduci leggermente la larghezza per fare spazio al pulsante "+" */
+    width: 70%;
     padding: 10px 15px;
     border: 3px solid #A833FF;
     border-radius: 5px 0 0 5px;
@@ -218,29 +217,6 @@ h1 {
 .prodotto p {
     font-size: 1em;
     color: #FFFFFF;
-}
-
-/* Stile per il pulsante "+" */
-.btn-add-product-circle {
-    width: 40px; /* Dimensione fissa per un cerchio */
-    height: 40px; /* Altezza uguale alla larghezza */
-    background-color: #A833FF; /* Colore di sfondo */
-    color: white; /* Colore del testo */
-    border: none; /* Nessun bordo */
-    border-radius: 50%; /* Forma tonda */
-    font-size: 1.5em; /* Dimensione del carattere "+" */
-    font-weight: bold; /* Grassetto */
-    cursor: pointer; /* Cursore a puntatore */
-    display: flex; /* Allineamento del contenuto */
-    align-items: center; /* Allinea verticalmente */
-    justify-content: center; /* Allinea orizzontalmente */
-    box-shadow: 2px 2px 0px #212121; /* Ombra per dare profondità */
-    transition: transform 0.2s ease-in-out, background-color 0.2s ease-in-out; /* Animazione hover */
-}
-
-.btn-add-product-circle:hover {
-    background-color: #9122E6; /* Colore più scuro al passaggio del mouse */
-    transform: scale(1.1); /* Effetto zoom */
 }
 
 .prezzo {
