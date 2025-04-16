@@ -78,6 +78,13 @@ body {
     transform: scale(1.1); /* Effetto zoom al passaggio del mouse */
 }
 
+.navbar-right .auth-buttons {
+    display: flex;
+    flex-direction: column; /* Impila i pulsanti verticalmente */
+    gap: 10px; /* Spazio tra i pulsanti */
+    align-items: flex-end; /* Allinea i pulsanti a destra */
+}
+
 /* Pulsante Logout */
 .navbar-right .btn-logout {
     padding: 8px 15px;
@@ -109,7 +116,7 @@ body {
     cursor: pointer;
     font-size: 1em;
     box-shadow: 2px 2px 0px #212121;
-    width: 120px;
+    width: 120px; /* Larghezza fissa */
     transition: 0.2s;
 }
 

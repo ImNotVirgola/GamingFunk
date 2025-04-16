@@ -21,25 +21,30 @@
 	        <a href="carrello.jsp">Carrello</a>
 	    </div>
 	    <div class="navbar-right">
-	        <%
-	            // Recupera la sessione corrente
-	            if (session != null && session.getAttribute("utente") != null) {
-	                String fotoProfilo = (String) session.getAttribute("fotoProfilo");
-	        %>
-	                <a href="profilo.jsp"><img src="<%= fotoProfilo %>" alt="Foto Profilo" class="profile-pic"></a>
-	                <form action="logout" method="post" style="display: inline;">
-	                    <button type="submit" class="btn-logout">Logout</button>
-	                </form>
-	        <%
-	            } else {
-	                // Utente non connesso: mostra i pulsanti Login e Registrazione
-	        %>
-	                <button class="btn-login" onclick="window.location.href='login.jsp'">Login</button>
-	                <button class="btn-register" onclick="window.location.href='register.jsp'">Registrazione</button>
-	        <%
-	            }
-	        %>
-	    </div>
+		    <%
+		        // Verifica se l'utente è loggato
+		        if (session.getAttribute("utente") != null) {
+		            String fotoProfilo = (String) session.getAttribute("fotoProfilo");
+		    %>
+		    <div class="profile-actions">
+		        <a href="profilo.jsp">
+		            <img src="<%= fotoProfilo != null ? fotoProfilo : "images/default/profile.png" %>" alt="Foto Profilo" class="profile-pic">
+		        </a>
+		        <form action="logout" method="post" style="display: inline;">
+		            <button type="submit" class="btn-logout">Logout</button>
+		        </form>
+		    </div>
+		    <%
+		        } else {
+		    %>
+		    <div class="auth-buttons">
+		        <button class="btn-login" onclick="window.location.href='login.jsp'">Login</button>
+		        <button class="btn-register" onclick="window.location.href='register.jsp'">Registrazione</button>
+		    </div>
+		    <%
+		        }
+		    %>
+		</div>
 	</nav>
 
 	<div class="container">
