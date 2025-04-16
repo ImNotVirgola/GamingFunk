@@ -1,11 +1,13 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page import="java.util.Map" %>
+<%@ page import="java.util.List" %>
 <!DOCTYPE html>
 <html lang="it">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Carrello - GamingFunk</title>
-    <link href="css/catalogo.css" rel="stylesheet" type="text/css">
+    <link href="css/carrello.css" rel="stylesheet" type="text/css">
 </head>
 
 <body>
@@ -50,61 +52,42 @@
         <h1>🛒 Il tuo carrello</h1>
         <div class="carrello">
             <ul id="lista-carrello">
-                <!-- Gli articoli verranno aggiunti qui dinamicamente -->
+                <%
+                    // Recupera il carrello dalla sessione
+                    @SuppressWarnings("unchecked")
+                    java.util.List<Map<String, Object>> carrello = (java.util.List<Map<String, Object>>) session.getAttribute("carrello");
+
+                    double totalePrezzo = 0;
+
+                    if (carrello == null || carrello.isEmpty()) {
+                %>
+                        <li>Il tuo carrello è vuoto.</li>
+                <%
+                    } else {
+                        for (Map<String, Object> item : carrello) {
+                            String nome = (String) item.get("nome");
+                            double prezzo = Double.parseDouble(item.get("prezzo").toString());
+                            int quantita = Integer.parseInt(item.get("quantità").toString());
+
+                            totalePrezzo += prezzo * quantita;
+                %>
+                            <li>
+                                <%= nome %> - €<%= String.format("%.2f", prezzo) %> x <%= quantita %>
+                                <form action="rimuovi-dal-carrello" method="post" style="display: inline;">
+                                    <input type="hidden" name="indice" value="<%= carrello.indexOf(item) %>">
+                                    <button type="submit" class="btn">Rimuovi</button>
+                                </form>
+                            </li>
+                <%
+                        }
+                    }
+                %>
             </ul>
-            <p id="totale">Totale: 0.00</p>
-            <button id="svuota-carrello" class="btn">Svuota Carrello</button>
+            <p>Totale: €<%= String.format("%.2f", totalePrezzo) %></p>
+            <form action="svuota-carrello" method="post" style="display: inline;">
+                <button type="submit" class="btn-svuota-carrello">Svuota Carrello</button>
+            </form>
         </div>
     </div>
-
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            // Recupera il carrello dalla sessione (localStorage)
-            var carrello = JSON.parse(localStorage.getItem("carrello")) || [];
-
-            console.log("Carrello caricato:", carrello);
-
-            // Funzione per aggiornare il carrello
-            function aggiornaCarrello() {
-                const listaCarrello = document.getElementById("lista-carrello");
-                const totale = document.getElementById("totale");
-
-                // Pulisce la lista corrente
-                listaCarrello.innerHTML = "";
-
-                // Calcola il totale e genera gli elementi della lista
-                let totalePrezzo = 0;
-                carrello.forEach((item, index) => {
-                    console.log(`Prodotto nel carrello: Nome=${item.nome}, Prezzo=${item.prezzo}`);
-                    let li = document.createElement("li");
-                    li.innerHTML = `
-                        ${item.nome} - €${item.prezzo.toFixed(2)} x ${item.quantità}
-                        <button onclick="rimuoviDalCarrello(${index})">Rimuovi</button>
-                    `;
-                    listaCarrello.appendChild(li);
-
-                    totalePrezzo += item.prezzo * item.quantità;
-                });
-
-                totale.textContent = `Totale: €${totalePrezzo.toFixed(2)}`;
-                localStorage.setItem("carrello", JSON.stringify(carrello));
-            }
-
-            // Funzione per rimuovere un articolo dal carrello
-            window.rimuoviDalCarrello = function (index) {
-                carrello.splice(index, 1); // Rimuove l'articolo dall'array
-                aggiornaCarrello(); // Aggiorna la visualizzazione
-            };
-
-            // Evento per svuotare il carrello
-            document.getElementById("svuota-carrello").addEventListener("click", function () {
-                carrello = []; // Svuota l'array del carrello
-                aggiornaCarrello(); // Aggiorna la visualizzazione
-            });
-
-            // Aggiorna il carrello all'avvio
-            aggiornaCarrello();
-        });
-    </script>
 </body>
 </html>
