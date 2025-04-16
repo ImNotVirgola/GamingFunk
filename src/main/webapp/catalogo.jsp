@@ -88,12 +88,23 @@
         </div>
     </div>
     <script type="text/javascript">
- // Inizializza il carrello
+ 	// Inizializza il carrello
     var carrello = {
         items: JSON.parse(localStorage.getItem("carrello")) || [], // Recupera il carrello da localStorage
         aggiungiArticolo: function (nome, prezzo) {
-            this.items.push({ nome: nome, prezzo: prezzo });
-            localStorage.setItem("carrello", JSON.stringify(this.items)); // Salva nel localStorage
+            // Cerca se il prodotto è già nel carrello
+            const prodottoEsistente = this.items.find(item => item.nome === nome);
+
+            if (prodottoEsistente) {
+                // Se il prodotto esiste, incrementa la quantità
+                prodottoEsistente.quantità = (prodottoEsistente.quantità || 1) + 1;
+            } else {
+                // Altrimenti, aggiungi il nuovo prodotto con quantità 1
+                this.items.push({ nome: nome, prezzo: prezzo, quantità: 1 });
+            }
+
+            // Salva il carrello aggiornato in localStorage
+            localStorage.setItem("carrello", JSON.stringify(this.items));
 
             // Crea un popup di conferma
             creaPopup(`"${nome}" aggiunto al carrello`);
@@ -138,24 +149,38 @@
 
     // Aggiungi evento click ai pulsanti
     document.querySelectorAll('.btn').forEach(function (btn) {
-        btn.addEventListener('click', function () {
-            // Animazione del pulsante (gestita tramite CSS)
-            this.classList.add('clicked');
-            setTimeout(() => {
-                this.classList.remove('clicked');
-            }, 100);
+        // Rimuovi eventuali listener già presenti
+        btn.removeEventListener('click', handleAddToCart);
 
-            // Recupera i dettagli del prodotto
-            const parentElement = this.parentElement;
-            const nome = parentElement.querySelector('h2')?.textContent || 'Prodotto Sconosciuto';
-            const prezzoElement = parentElement.querySelector('.prezzo');
-            const prezzo = prezzoElement ? parseFloat(prezzoElement.textContent.replace(/[^0-9.-]/g, '')) : 0;
-
-            // Aggiungi l'articolo al carrello
-            carrello.aggiungiArticolo(nome, prezzo);
-            carrello.visualizzaCarrello(); // Opzionale: visualizza il carrello in console
-        });
+        // Aggiungi il listener una sola volta
+        btn.addEventListener('click', handleAddToCart);
     });
+
+    function handleAddToCart(event) {
+        const btn = event.target;
+        const parentElement = btn.parentElement;
+
+        // Recupera i dettagli del prodotto
+        const nome = parentElement.querySelector('h2')?.textContent.trim() || 'Prodotto Sconosciuto';
+        const prezzoElement = parentElement.querySelector('.prezzo');
+        const prezzoText = prezzoElement?.textContent.trim() || '€ 0';
+        const prezzo = parseFloat(prezzoText.replace(/[^0-9.-]/g, ''));
+
+        // Debugging: verifica i dati estratti
+        console.log(`Prodotto selezionato: ${nome}, Prezzo: ${prezzo}`);
+
+        // Aggiungi l'articolo al carrello
+        carrello.aggiungiArticolo(nome, prezzo);
+
+        // Visualizza il carrello in console per debug
+        carrello.visualizzaCarrello();
+
+        // Animazione del pulsante
+        btn.classList.add('clicked');
+        setTimeout(() => {
+            btn.classList.remove('clicked');
+        }, 100);
+    }
     </script>
 </body>
 </html>
