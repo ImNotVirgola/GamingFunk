@@ -24,14 +24,14 @@ import javax.servlet.http.Part;
 )
 public class AggiornaProfilo extends HttpServlet {
 
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-	@Override
+    @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
         HttpSession session = request.getSession(false);
-        
+
         final UtenteDAOImpl utenteDAO = new UtenteDAOImpl();
 
         // Verifica se la sessione esiste
@@ -40,20 +40,28 @@ public class AggiornaProfilo extends HttpServlet {
             return;
         }
 
+        // Recupera l'utente dalla sessione
+        Utente utente = (Utente) session.getAttribute("utente");
+
         // Recupera i parametri del form
         String nome = request.getParameter("nome");
         String cognome = request.getParameter("cognome");
         String email = request.getParameter("email");
         String indirizzo = request.getParameter("indirizzo");
-
-        // Recupera l'utente dalla sessione
-        Utente utente = (Utente) session.getAttribute("utente");
+        String citta = request.getParameter("citta");
+        String provincia = request.getParameter("provincia");
+        String cap = request.getParameter("cap");
+        String password = request.getParameter("password");
 
         // Controlla e assegna i valori per ciascun parametro
         nome = (nome == null || nome.trim().isEmpty()) ? utente.getNome() : nome;
         cognome = (cognome == null || cognome.trim().isEmpty()) ? utente.getCognome() : cognome;
         email = (email == null || email.trim().isEmpty()) ? utente.getEmail() : email;
         indirizzo = (indirizzo == null || indirizzo.trim().isEmpty()) ? utente.getIndirizzo() : indirizzo;
+        citta = (citta == null || citta.trim().isEmpty()) ? utente.getCitta() : citta;
+        provincia = (provincia == null || provincia.trim().isEmpty()) ? utente.getProvincia() : provincia;
+        cap = (cap == null || cap.trim().isEmpty()) ? utente.getCap() : cap;
+        password = (password == null || password.trim().isEmpty()) ? utente.getPassword() : password;
 
         // Gestione del file caricato
         Part filePart = request.getPart("immagine");
@@ -86,6 +94,8 @@ public class AggiornaProfilo extends HttpServlet {
 
             // Costruisci il percorso relativo per salvarlo nel database o utilizzarlo altrove
             fileName = relativePath.replace("\\", "/") + "/" + fileName;
+        } else {
+            fileName = utente.getImmagine(); // Usa l'immagine esistente se non viene caricata una nuova
         }
 
         // Aggiorna i dati dell'utente
@@ -93,9 +103,11 @@ public class AggiornaProfilo extends HttpServlet {
         utente.setCognome(cognome);
         utente.setEmail(email);
         utente.setIndirizzo(indirizzo);
-        if (!fileName.isEmpty()) {
-            utente.setImmagine(fileName); // Aggiorna il path dell'immagine profilo
-        }
+        utente.setCitta(citta);
+        utente.setProvincia(provincia);
+        utente.setCap(cap);
+        utente.setPassword(password);
+        utente.setImmagine(fileName); // Aggiorna il path dell'immagine profilo
 
         // Aggiorna i dati nel database tramite il DAO
         try {
@@ -116,6 +128,9 @@ public class AggiornaProfilo extends HttpServlet {
         session.setAttribute("cognome", cognome);
         session.setAttribute("email", email);
         session.setAttribute("indirizzo", indirizzo);
+        session.setAttribute("citta", citta);
+        session.setAttribute("provincia", provincia);
+        session.setAttribute("cap", cap);
         session.setAttribute("fotoProfilo", fileName);
 
         // Reindirizza alla pagina del profilo

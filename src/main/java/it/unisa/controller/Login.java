@@ -39,10 +39,13 @@ public class Login extends HttpServlet {
             // Login riuscito: crea una sessione e reindirizza alla home
             HttpSession session = request.getSession();
             session.setAttribute("utente", utente);
+            session.setAttribute("email", utente.getEmail());
             session.setAttribute("nome", utente.getNome());
             session.setAttribute("cognome", utente.getCognome());
-            session.setAttribute("email", utente.getEmail());
-            session.setAttribute("Indirizzo", utente.getIndirizzo());
+            session.setAttribute("indirizzo", utente.getIndirizzo());
+            session.setAttribute("citta", utente.getCitta());
+            session.setAttribute("provincia", utente.getProvincia());
+            session.setAttribute("cap", utente.getCap());
             session.setAttribute("ruolo", utente.getRuolo());
             session.setAttribute("fotoProfilo", utente.getImmagine());
             response.sendRedirect(request.getContextPath() + "/catalogo.jsp");

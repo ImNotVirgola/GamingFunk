@@ -88,12 +88,12 @@ public class UtenteDAOImpl extends GenericDAOImpl<Utente, Integer> {
         } else {
             stmt.setDouble(11, totaleSpeso);
         }
-        stmt.setString(12, utente.getIndirizzo());
+        stmt.setString(12, utente.getImmagine());
     }
 
     @Override
     protected String getUpdateSetClause() {
-        return "nome = ?, email = ?, password = ?, indirizzo = ?, cognome = ?, ruolo = ?, num_ordini = ?, totale_speso = ?, percorsoImmagine = ?";
+        return "email = ?, nome = ?, cognome = ?, indirizzo = ?, citta = ?, provincia = ?, cap = ?, password = ?, ruolo = ?, num_ordini = ?, totale_speso = ?, percorsoImmagine = ?";
     }
 
     @Override
@@ -120,7 +120,7 @@ public class UtenteDAOImpl extends GenericDAOImpl<Utente, Integer> {
         } else {
             stmt.setDouble(11, totaleSpeso);
         }
-        stmt.setString(12, utente.getIndirizzo());
+        stmt.setString(12, utente.getImmagine());
         stmt.setInt(13, utente.getIdUtente());
     }
 }
