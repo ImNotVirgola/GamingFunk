@@ -60,8 +60,9 @@
 		    <input type="text" placeholder="Cerca nel catalogo...">
 		    <button class="btn-search">Cerca</button>
 		    <%
-		        // Verifica se l'utente è admin
-		        if (session != null && session.getAttribute("ruolo") != null && session.getAttribute("ruolo").equals("admin")) {
+		        // Verifica se l'utente è loggato e ha il ruolo admin
+		        HttpSession sessione = request.getSession(false);
+		        if (sessione != null && sessione.getAttribute("utente") != null && "admin".equals(sessione.getAttribute("ruolo"))) {
 		    %>
 		    <button class="btn-add-product-circle" onclick="window.location.href='aggiungi-prodotto.jsp'">
 		        +
@@ -104,130 +105,166 @@
 		</div>
     </div>
     <script type="text/javascript">
-	    document.addEventListener("DOMContentLoaded", function () {
-	        // Recupera il carrello da localStorage
-	        var carrello = JSON.parse(localStorage.getItem("carrello")) || [];
-	
-	        // Funzione per aggiornare il carrello
-	        function aggiornaCarrello() {
-	            const listaCarrello = document.getElementById("lista-carrello");
-	            const totale = document.getElementById("totale");
-	
-	            // Pulisce la lista corrente
-	            if (listaCarrello) {
-	                listaCarrello.innerHTML = "";
-	            }
-	
-	            // Calcola il totale e genera gli elementi della lista
-	            let totalePrezzo = 0;
-	            carrello.forEach((item, index) => {
-	                if (listaCarrello) {
-	                    let li = document.createElement("li");
-	                    li.innerHTML = `
-	                        ${item.nome} - €${item.prezzo.toFixed(2)} x ${item.quantità}
-	                        <button onclick="rimuoviDalCarrello(${index})">Rimuovi</button>
-	                    `;
-	                    listaCarrello.appendChild(li);
-	                }
-	
-	                totalePrezzo += item.prezzo * item.quantità;
-	            });
-	
-	            if (totale) {
-	                totale.textContent = `Totale: €${totalePrezzo.toFixed(2)}`;
-	            }
-	
-	            // Salva il carrello aggiornato in localStorage
-	            localStorage.setItem("carrello", JSON.stringify(carrello));
-	            console.log("Carrello salvato:", JSON.parse(localStorage.getItem("carrello")));
-	        }
-	
-	        // Funzione per rimuovere un articolo dal carrello
-	        window.rimuoviDalCarrello = function (index) {
-	            carrello.splice(index, 1);
-	            aggiornaCarrello();
-	        };
-	
-	        // Evento per svuotare il carrello
-	        const svuotaCarrelloButton = document.getElementById("svuota-carrello");
-	        if (svuotaCarrelloButton) {
-	            svuotaCarrelloButton.addEventListener("click", function () {
-	                carrello = [];
-	                aggiornaCarrello();
-	            });
-	        }
-	
-	        // Aggiungi evento click ai pulsanti "Aggiungi al carrello"
-	        document.querySelectorAll('.aggiungi-carrello').forEach(function (btn) {
-	            btn.addEventListener('click', function () {
-	                // Trova il contenitore del prodotto (elemento padre)
-	                const prodottoElement = this.closest('.prodotto');
-	
-	                // Recupera il nome del prodotto dall'elemento <h2>
-	                const nomeElement = prodottoElement.querySelector('h2');
-	                const nome = nomeElement ? nomeElement.textContent.trim() : 'Prodotto Sconosciuto';
-	
-	                // Recupera il prezzo del prodotto dall'elemento .prezzo
-	                const prezzoElement = prodottoElement.querySelector('.prezzo');
-	                const prezzoText = prezzoElement ? prezzoElement.textContent.trim() : '€ 0';
-	                const prezzo = parseFloat(prezzoText.replace(/[^0-9.-]/g, ''));
-	
-	                // Debugging: verifica i dati estratti
-	                console.log(`Prodotto selezionato: Nome=${nome}, Prezzo=${prezzo}`);
-	
-	                if (!nome || isNaN(prezzo)) {
-	                    console.error("Errore: Dati del prodotto non validi.");
-	                    return;
-	                }
-	
-	                // Aggiungi l'articolo al carrello
-	                const prodottoEsistente = carrello.find(item => item.nome === nome);
-	                if (prodottoEsistente) {
-	                    prodottoEsistente.quantità += 1;
-	                } else {
-	                    carrello.push({ nome: nome, prezzo: prezzo, quantità: 1 });
-	                }
-	
-	                // Aggiorna il carrello
-	                aggiornaCarrello();
-	
-	                // Crea un popup di conferma
-	                creaPopup(`"${nome}" aggiunto al carrello`);
-	            });
-	        });
-	
-	        // Aggiorna il carrello all'avvio
-	        aggiornaCarrello();
-	    });
-	
-	    // Funzione per creare un popup
-	    function creaPopup(messaggio) {
-	        const container = document.querySelector('.popup-container') || creaPopupContainer();
-	
-	        const popup = document.createElement('div');
-	        popup.className = 'popup';
-	        popup.textContent = messaggio;
-	
-	        container.appendChild(popup);
-	
-	        setTimeout(() => {
-	            popup.remove();
-	        }, 3000);
-	
-	        if (container.children.length > 3) {
-	            setTimeout(() => {
-	                container.removeChild(container.firstChild);
-	            }, 500);
-	        }
-	    }
-	
-	    // Funzione per creare il contenitore dei popup se non esiste
-	    function creaPopupContainer() {
-	        const container = document.createElement('div');
-	        container.className = 'popup-container';
-	        document.body.appendChild(container);
-	        return container;
-	    }
+    document.addEventListener("DOMContentLoaded", function () {
+        // Funzione per recuperare il carrello dalla sessione tramite AJAX
+        async function getCarrello() {
+            try {
+                const response = await fetch('carrello-servlet?action=get', {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                });
+                const data = await response.json();
+                return data.carrello || [];
+            } catch (error) {
+                console.error("Errore durante il recupero del carrello:", error);
+                return [];
+            }
+        }
+
+        // Funzione per aggiornare il carrello nella sessione tramite AJAX
+        async function updateCarrello(carrello) {
+            try {
+                await fetch('carrello-servlet?action=update', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ carrello })
+                });
+            } catch (error) {
+                console.error("Errore durante l'aggiornamento del carrello:", error);
+            }
+        }
+
+        // Recupera il carrello dalla sessione
+        let carrello = [];
+
+        async function initCarrello() {
+            carrello = await getCarrello();
+            aggiornaCarrello();
+        }
+
+        // Funzione per aggiornare il carrello
+        function aggiornaCarrello() {
+            const listaCarrello = document.getElementById("lista-carrello");
+            const totale = document.getElementById("totale");
+
+            // Pulisce la lista corrente
+            if (listaCarrello) {
+                listaCarrello.innerHTML = "";
+            }
+
+            // Calcola il totale e genera gli elementi della lista
+            let totalePrezzo = 0;
+            carrello.forEach((item, index) => {
+                if (listaCarrello) {
+                    let li = document.createElement("li");
+                    li.innerHTML = `
+                        ${item.nome} - €${item.prezzo.toFixed(2)} x ${item.quantità}
+                        <button onclick="rimuoviDalCarrello(${index})">Rimuovi</button>
+                    `;
+                    listaCarrello.appendChild(li);
+                }
+
+                totalePrezzo += item.prezzo * item.quantità;
+            });
+
+            if (totale) {
+                totale.textContent = `Totale: €${totalePrezzo.toFixed(2)}`;
+            }
+
+            // Salva il carrello aggiornato nella sessione
+            updateCarrello(carrello);
+        }
+
+        // Funzione per rimuovere un articolo dal carrello
+        window.rimuoviDalCarrello = function (index) {
+            carrello.splice(index, 1);
+            aggiornaCarrello();
+        };
+
+        // Evento per svuotare il carrello
+        const svuotaCarrelloButton = document.getElementById("svuota-carrello");
+        if (svuotaCarrelloButton) {
+            svuotaCarrelloButton.addEventListener("click", function () {
+                carrello = [];
+                aggiornaCarrello();
+            });
+        }
+
+        // Aggiungi evento click ai pulsanti "Aggiungi al carrello"
+        document.querySelectorAll('.aggiungi-carrello').forEach(function (btn) {
+            btn.addEventListener('click', function () {
+                // Trova il contenitore del prodotto (elemento padre)
+                const prodottoElement = this.closest('.prodotto');
+
+                // Recupera il nome del prodotto dall'elemento <h2>
+                const nomeElement = prodottoElement.querySelector('h2');
+                const nome = nomeElement ? nomeElement.textContent.trim() : 'Prodotto Sconosciuto';
+
+                // Recupera il prezzo del prodotto dall'elemento .prezzo
+                const prezzoElement = prodottoElement.querySelector('.prezzo');
+                const prezzoText = prezzoElement ? prezzoElement.textContent.trim() : '€ 0';
+                const prezzo = parseFloat(prezzoText.replace(/[^0-9.-]/g, ''));
+
+                // Debugging: verifica i dati estratti
+                console.log("Prodotto selezionato: Nome=" + nome + ", Prezzo= " + prezzo);
+
+                if (!nome || isNaN(prezzo)) {
+                    console.error("Errore: Dati del prodotto non validi.");
+                    return;
+                }
+
+                // Aggiungi l'articolo al carrello
+                const prodottoEsistente = carrello.find(item => item.nome === nome);
+                if (prodottoEsistente) {
+                    prodottoEsistente.quantità += 1;
+                } else {
+                    carrello.push({ "nome": nome, "prezzo": prezzo, "quantità": 1 });
+                }
+
+                // Aggiorna il carrello
+                aggiornaCarrello();
+
+                // Crea un popup di conferma
+                creaPopup(nome + ' aggiunto al carrello');
+            });
+        });
+
+        // Inizializza il carrello all'avvio
+        initCarrello();
+    });
+
+    // Funzione per creare un popup
+    function creaPopup(messaggio) {
+        const container = document.querySelector('.popup-container') || creaPopupContainer();
+
+        const popup = document.createElement('div');
+        popup.className = 'popup';
+        popup.textContent = messaggio;
+
+        container.appendChild(popup);
+
+        setTimeout(() => {
+            popup.remove();
+        }, 3000);
+
+        if (container.children.length > 3) {
+            setTimeout(() => {
+                container.removeChild(container.firstChild);
+            }, 500);
+        }
+    }
+
+    // Funzione per creare il contenitore dei popup se non esiste
+    function creaPopupContainer() {
+        const container = document.createElement('div');
+        container.className = 'popup-container';
+        document.body.appendChild(container);
+        return container;
+    }
     </script>
 </body>
 </html>
