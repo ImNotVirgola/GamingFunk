@@ -66,9 +66,9 @@
 				let totalePrezzo = 0;
 				carrello.forEach((item, index) => {
 					let li = document.createElement("li");
-					li.innerHTML = `${item.nome} - ${item.prezzo} <button onclick="rimuoviDalCarrello(${index})">â</button>`;
+					li.innerHTML = `${item.nome} - ${item.prezzo} <button onclick="rimuoviDalCarrello(${index})">x</button>`;
 					listaCarrello.appendChild(li);
-					totalePrezzo += parseFloat(item.prezzo.replace("â¬", ""));
+					totalePrezzo += parseFloat(item.prezzo.replace("", ""));
 				});
 				totale.textContent = `Totale: ${totalePrezzo.toFixed(2)}`;
 				sessionStorage.setItem("carrello", JSON.stringify(carrello));

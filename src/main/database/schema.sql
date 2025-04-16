@@ -1,5 +1,5 @@
 -- phpMyAdmin SQL Dump
--- Versione finale ottimizzata
+-- Versione ottimizzata con gestione esclusiva dei prodotti e eventi dall'area amministrativa
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
 SET time_zone = "+00:00";
@@ -144,38 +144,14 @@ CREATE TABLE `prodotto` (
   `media_recensioni` decimal(10,2) NOT NULL,
   `nome` varchar(255) NOT NULL,
   `quantita_venduta` int(11) NOT NULL,
-  `path_immagine` text NOT NULL,
+  `path_immagine` varchar(255) NOT NULL,
   `descrizione` text DEFAULT NULL,
   `id_categoria` int(4) NOT NULL,
   `id_admin` int(4) NOT NULL,
   PRIMARY KEY (`id_prodotto`),
-  UNIQUE KEY `path_immagine` (`path_immagine`) USING HASH,
+  UNIQUE KEY `path_immagine` (`path_immagine`),
   KEY `rela_prodotto_categoria` (`id_categoria`),
   KEY `rela_prodotto_admin` (`id_admin`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
--- --------------------------------------------------------
--- Struttura della tabella `profilo`
---
-CREATE TABLE `profilo` (
-  `id_profilo` int(11) NOT NULL AUTO_INCREMENT,
-  `id_utente` int(11) NOT NULL,
-  PRIMARY KEY (`id_profilo`),
-  UNIQUE KEY `id_utente` (`id_utente`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
--- --------------------------------------------------------
--- Struttura della tabella `recensione`
---
-CREATE TABLE `recensione` (
-  `id_recensione` int(11) NOT NULL AUTO_INCREMENT,
-  `commento` text DEFAULT NULL,
-  `voto` int(11) DEFAULT NULL,
-  `id_prodotto` int(11) NOT NULL,
-  `id_utente` int(11) NOT NULL,
-  PRIMARY KEY (`id_recensione`),
-  KEY `rela_recensione_utente` (`id_utente`),
-  KEY `rela_recensione_prodotto` (`id_prodotto`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -183,14 +159,18 @@ CREATE TABLE `recensione` (
 --
 CREATE TABLE `utente` (
   `id_utente` int(4) NOT NULL AUTO_INCREMENT,
-  `nome` varchar(255) NOT NULL,
   `email` varchar(255) NOT NULL,
-  `password` varchar(255) NOT NULL,
-  `indirizzo` varchar(255) DEFAULT NULL,
+  `nome` varchar(255) NOT NULL,
   `cognome` varchar(255) DEFAULT NULL,
+  `indirizzo` varchar(255) DEFAULT NULL,
+  `citta` varchar(255) DEFAULT NULL,
+  `provincia` varchar(255) DEFAULT NULL,
+  `cap` varchar(10) DEFAULT NULL,
+  `password` varchar(255) NOT NULL,
   `ruolo` enum('admin','regular') NOT NULL,
   `num_ordini` int(4) DEFAULT NULL,
   `totale_speso` decimal(10,2) DEFAULT NULL,
+  `percorsoImmagine` text DEFAULT NULL,
   PRIMARY KEY (`id_utente`),
   UNIQUE KEY `email` (`email`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -244,19 +224,8 @@ ALTER TABLE `prodotto`
   ADD CONSTRAINT `rela_prodotto_categoria` FOREIGN KEY (`id_categoria`) REFERENCES `categoria` (`id_categoria`),
   ADD CONSTRAINT `rela_prodotto_admin` FOREIGN KEY (`id_admin`) REFERENCES `area_amministrativa` (`id_admin`);
 
-ALTER TABLE `profilo`
-  ADD CONSTRAINT `Profilo_ibfk_1` FOREIGN KEY (`id_utente`) REFERENCES `utente` (`id_utente`) ON DELETE CASCADE;
-
-ALTER TABLE `recensione`
-  ADD CONSTRAINT `rela_recensione_prodotto` FOREIGN KEY (`id_prodotto`) REFERENCES `prodotto` (`id_prodotto`),
-  ADD CONSTRAINT `rela_recensione_utente` FOREIGN KEY (`id_utente`) REFERENCES `utente` (`id_utente`);
-
 ALTER TABLE `wishlist`
   ADD CONSTRAINT `rela_wishlist_Utente` FOREIGN KEY (`id_utente`) REFERENCES `utente` (`id_utente`),
   ADD CONSTRAINT `rela_wishlist_prodotto` FOREIGN KEY (`id_prodotto`) REFERENCES `prodotto` (`id_prodotto`);
 
 COMMIT;
-
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

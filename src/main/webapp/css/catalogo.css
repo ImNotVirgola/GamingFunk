@@ -271,3 +271,72 @@ h1 {
         margin: 0 auto;
     }
 }
+
+/* Stile per i popup di conferma */
+.popup-container {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    z-index: 1000;
+}
+
+.popup {
+    background: #222222;
+    color: #FFFFFF;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 5px 5px 0px #212121;
+    border: 3px solid #FF007F;
+    font-family: 'Bangers', cursive;
+    font-size: 1em;
+    animation: fadeInOut 3s ease-in-out forwards;
+    opacity: 0;
+    transform: translateY(20px);
+}
+
+@keyframes fadeInOut {
+    0% {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    10% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    90% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    100% {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+}
+
+/* Animazione del pulsante "Aggiungi al carrello" */
+.btn.aggiungi-carrello {
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.2s ease-in-out;
+}
+
+.btn.aggiungi-carrello::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 300px;
+    height: 300px;
+    background: rgba(0, 174, 239, 0.5); /* Colore blu trasparente */
+    border-radius: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    transition: transform 0.4s ease-out;
+    z-index: -1;
+}
+
+.btn.aggiungi-carrello:active::after {
+    transform: translate(-50%, -50%) scale(1);
+}
