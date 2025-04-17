@@ -10,22 +10,35 @@
 <body>
     <!-- Navbar -->
     <nav class="navbar">
-    	<div class="navbar-left">
+        <div class="navbar-left">
             <img src="images/logo/logo.png" alt="Logo" class="logo">
         </div>
-	    <div class="navbar-center">
-	        <a href="catalogo.jsp">Catalogo</a>
-	        <a href="community.jsp">Community</a>
-	        <a href="blog.jsp">Blog</a>
-	        <a href="carrello.jsp">Carrello</a>
-	    </div>
-	    <div class="navbar-right">
-	    </div>
-	</nav>
+        <div class="navbar-center">
+            <a href="catalogo.jsp">Catalogo</a>
+            <a href="community.jsp">Community</a>
+            <a href="blog.jsp">Blog</a>
+            <a href="carrello.jsp">Carrello</a>
+        </div>
+        <div class="navbar-right">
+        </div>
+    </nav>
 
     <!-- Contenitore principale -->
     <div class="container">
         <h1>🔑 Accesso</h1>
+
+        <!-- Messaggio di errore -->
+        <%
+            // Verifica se ci sono messaggi di errore passati tramite request o session
+            String errorMessage = (String) request.getAttribute("errorMessage");
+            if (errorMessage != null) {
+        %>
+                <div class="error-message">
+                    <%= errorMessage %>
+                </div>
+        <%
+            }
+        %>
 
         <!-- Form di login -->
         <form class="login-form" action="login" method="post">
