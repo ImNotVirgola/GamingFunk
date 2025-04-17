@@ -4,8 +4,8 @@
 <html lang="it">
 <head>
     <%
+        // Reindirizza alla servlet /catalogo se la pagina è stata richiamata direttamente
         if (request.getAttribute("fromServlet") == null) {
-            // Logica da eseguire solo se la pagina è stata richiamata direttamente
             response.sendRedirect(request.getContextPath() + "/catalogo");
             return;
         } else {
@@ -20,7 +20,7 @@
 <body>
     <nav class="navbar">
         <div class="navbar-left">
-            <img src="path/to/logo.png" alt="Logo" class="logo">
+            <img src="images/logo/logo.png" alt="Logo" class="logo">
         </div>
         <div class="navbar-center">
             <a href="catalogo.jsp">Catalogo</a>
@@ -57,8 +57,10 @@
     <div class="container">
         <h1>🎭 Catalogo GamingFunk 🎨</h1>
         <div class="search-bar">
-            <input type="text" placeholder="Cerca nel catalogo...">
+            <input type="text" id="search-input" placeholder="Cerca nel catalogo..." oninput="filtraProdotti()">
             <button class="btn-search">Cerca</button>
+            <!-- Pulsante per mostrare/nascondere i filtri -->
+            <button class="btn-filtri" onclick="toggleFiltri()">Filtra</button>
             <%
                 // Verifica se l'utente è admin
                 if (session != null && session.getAttribute("ruolo") != null && session.getAttribute("ruolo").equals("admin")) {
@@ -70,29 +72,59 @@
                 }
             %>
         </div>
-        <div class="catalogo">
+        <!-- Menu dei filtri -->
+        <div id="menu-filtri" style="display: none; margin-top: 20px;">
+            <label for="filtro-categoria">Categoria:</label>
+            <select id="filtro-categoria" onchange="cambiaPaginaConFiltro()">
+                <option value="tutti" <%= "tutti".equals(request.getParameter("categoria")) ? "selected" : "" %>>Tutte</option>
+                <%
+                    // Recupera le categorie dalla request (assumendo che siano state passate dal server)
+                    java.util.List<?> categorie = (java.util.List<?>) request.getAttribute("categorie");
+                    if (categorie != null) {
+                        for (Object categoriaObj : categorie) {
+                            Object categoria = categoriaObj;
+                            String nomeCategoria = (String) categoria.getClass().getMethod("getNomeCategoria").invoke(categoria);
+                %>
+                <option value="<%= nomeCategoria %>" <%= nomeCategoria.equals(request.getParameter("categoria")) ? "selected" : "" %>><%= nomeCategoria %></option>
+                <%
+                        }
+                    }
+                %>
+            </select>
+        </div>
+        <div class="catalogo" id="catalogo-container">
             <%
                 // Recupera la lista di prodotti dalla request
                 java.util.List<?> prodotti = (java.util.List<?>) request.getAttribute("prodotti");
                 if (prodotti != null) {
                     int counter = 1; // Contatore per generare ID univoci
                     for (Object prodottoObj : prodotti) {
-                        // Assumi che ogni prodotto sia un oggetto con getter per nome, prezzo e pathImmagine
                         Object prodotto = prodottoObj;
                         String nome = (String) prodotto.getClass().getMethod("getNome").invoke(prodotto);
                         double prezzo = (double) prodotto.getClass().getMethod("getPrezzo").invoke(prodotto);
                         String pathImmagine = (String) prodotto.getClass().getMethod("getPathImmagine").invoke(prodotto);
             %>
-                        <div class="prodotto" id="prod<%= counter %>">
+                        <div class="prodotto" id="prod<%= counter %>" data-nome="<%= nome.toLowerCase() %>">
                             <img src="<%= pathImmagine %>" alt="<%= nome %>">
                             <h2><%= nome %></h2>
                             <p>Descrizione del prodotto...</p>
                             <p class="prezzo">€ <%= prezzo %></p>
+                            <%
+                                // Verifica se l'utente è loggato
+                                if (session.getAttribute("utente") != null) {
+                            %>
                             <form action="aggiungi-al-carrello" method="post" style="display: inline;">
                                 <input type="hidden" name="nome" value="<%= nome %>">
                                 <input type="hidden" name="prezzo" value="<%= prezzo %>">
                                 <button type="submit" class="btn aggiungi-carrello">Aggiungi al carrello</button>
                             </form>
+                            <%
+                                } else {
+                            %>
+                            <button class="btn aggiungi-carrello" onclick="mostraPopup()">Aggiungi al carrello</button>
+                            <%
+                                }
+                            %>
                         </div>
             <%
                         counter++;
@@ -101,37 +133,62 @@
             %>
         </div>
     </div>
-    <script type="text/javascript">
-        document.addEventListener("DOMContentLoaded", function () {
-            // Funzione per creare un popup
-            function creaPopup(messaggio) {
-                const container = document.querySelector('.popup-container') || creaPopupContainer();
+    <!-- Popup Container -->
+    <div id="popup-container" style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: #222222; color: white; padding: 20px; border-radius: 10px; box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5); z-index: 1000;">
+        <p>Devi effettuare il login per aggiungere prodotti al carrello!</p>
+        <button onclick="nascondiPopup()" style="background-color: #FF007F; color: white; border: none; padding: 10px; border-radius: 5px; cursor: pointer;">Chiudi</button>
+    </div>
+    <div id="overlay" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.5); z-index: 999;"></div>
+    <script type="text/javascript">	
+        // Funzione per mostrare/nascondere il menu dei filtri
+        function toggleFiltri() {
+            const menuFiltri = document.getElementById('menu-filtri');
+            if (menuFiltri.style.display === 'none' || menuFiltri.style.display === '') {
+                menuFiltri.style.display = 'block';
+            } else {
+                menuFiltri.style.display = 'none';
+            }
+        }
 
-                const popup = document.createElement('div');
-                popup.className = 'popup';
-                popup.textContent = messaggio;
+        // Funzione per applicare i filtri cambiando pagina con il parametro di query "categoria"
+        function cambiaPaginaConFiltro() {
+            const selectElement = document.getElementById("filtro-categoria");
+            const categoriaId = selectElement.value;
+            let url = window.location.pathname; // Ottieni il percorso corrente
+            if (categoriaId) {
+                url += "?categoria=" + encodeURIComponent(categoriaId);
+            }
+            window.location.href = url;
+        }
 
-                container.appendChild(popup);
+        // Funzione per mostrare il popup
+        function mostraPopup() {
+            document.getElementById('popup-container').style.display = 'block';
+            document.getElementById('overlay').style.display = 'block';
+        }
 
-                setTimeout(() => {
-                    popup.remove();
-                }, 3000);
+        // Funzione per nascondere il popup
+        function nascondiPopup() {
+            document.getElementById('popup-container').style.display = 'none';
+            document.getElementById('overlay').style.display = 'none';
+        }
 
-                if (container.children.length > 3) {
-                    setTimeout(() => {
-                        container.removeChild(container.firstChild);
-                    }, 500);
+        // Funzione per filtrare i prodotti in base alla ricerca
+        function filtraProdotti() {
+            const input = document.getElementById('search-input');
+            const filter = input.value.toLowerCase();
+            const catalogo = document.getElementById('catalogo-container');
+            const prodotti = catalogo.getElementsByClassName('prodotto');
+
+            for (let i = 0; i < prodotti.length; i++) {
+                const nomeProdotto = prodotti[i].getAttribute('data-nome');
+                if (nomeProdotto.includes(filter)) {
+                    prodotti[i].style.display = '';
+                } else {
+                    prodotti[i].style.display = 'none';
                 }
             }
-
-            // Funzione per creare il contenitore dei popup se non esiste
-            function creaPopupContainer() {
-                const container = document.createElement('div');
-                container.className = 'popup-container';
-                document.body.appendChild(container);
-                return container;
-            }
-        });
+        }
     </script>
 </body>
 </html>

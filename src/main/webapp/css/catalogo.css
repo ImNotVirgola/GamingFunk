@@ -23,11 +23,18 @@ body {
 
 .navbar-left {
     padding-left: 1.5%;
-    margin-right: 5.5%;
+    margin-right: 3%;
 }
 
 .navbar-left .logo {
     height: 40px;
+    width: auto;
+    margin-right: 10px;
+    transition: transform 0.2s ease-in-out;
+}
+
+.navbar-left .logo:hover {
+    transform: scale(1.1);
 }
 
 .navbar-center {
@@ -165,6 +172,84 @@ h1 {
     font-size: 1.1em;
     background-color: #222222;
     color: white;
+}
+
+/* Stile generale per il menu dei filtri */
+#menu-filtri {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 20px;
+    padding: 20px;
+    background-color: #1A1A2E;
+    border-radius: 10px;
+    /*box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.5);*/
+}
+
+/* Stile per ogni filtro */
+#menu-filtri label {
+    font-family: 'Bangers', cursive;
+    font-size: 1.2em;
+    color: #E6E300;
+    text-shadow: 1px 1px 0px #212121;
+    margin-right: 10px;
+}
+
+/* Stile per i dropdown (categorie) */
+#menu-filtri select {
+    padding: 10px;
+    font-family: 'Bangers', cursive;
+    font-size: 1em;
+    border: 3px solid #A833FF;
+    border-radius: 5px;
+    background-color: #222222;
+    color: white;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+#menu-filtri select:hover {
+    border-color: #9122E6;
+    transform: scale(1.05);
+}
+
+/* Stile per gli input numerici (prezzo minimo e massimo) */
+#menu-filtri input[type="number"] {
+    width: 100px;
+    padding: 10px;
+    font-family: 'Bangers', cursive;
+    font-size: 1em;
+    border: 3px solid #A833FF;
+    border-radius: 5px;
+    background-color: #222222;
+    color: white;
+    text-align: center;
+    transition: 0.2s;
+}
+
+#menu-filtri input[type="number"]:hover {
+    border-color: #9122E6;
+    transform: scale(1.05);
+}
+
+/* Stile per il pulsante "Filtra" */
+.btn-filtri {
+    padding: 10px 20px;
+    font-family: 'Bangers', cursive;
+    font-size: 1.1em;
+    background-color: #FF007F;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    box-shadow: 2px 2px 0px #212121;
+    transition: 0.2s;
+}
+
+.btn-filtri:hover {
+    background-color: #E6006E;
+    transform: scale(1.1);
 }
 
 .btn-search {
@@ -376,3 +461,4 @@ h1 {
 .btn.aggiungi-carrello:active::after {
     transform: translate(-50%, -50%) scale(1);
 }
+

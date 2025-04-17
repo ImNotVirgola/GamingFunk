@@ -12,7 +12,7 @@
     <!-- Navbar -->
     <nav class="navbar">
         <div class="navbar-left">
-            <img src="path/to/logo.png" alt="Logo" class="logo">
+            <img src="images/logo/logo.png" alt="Logo" class="logo">
         </div>
         <div class="navbar-center">
             <a href="catalogo.jsp">Catalogo</a>
