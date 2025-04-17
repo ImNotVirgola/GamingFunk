@@ -52,7 +52,7 @@ INSERT INTO `prodotto` (`id_prodotto`, `quantita_disponibile`, `prezzo`, `media_
 
 -- Dump dei dati della tabella gamingfunk.utente: ~1 rows (circa)
 INSERT INTO `utente` (`id_utente`, `email`, `nome`, `cognome`, `indirizzo`, `citta`, `provincia`, `cap`, `password`, `ruolo`, `num_ordini`, `totale_speso`, `percorsoImmagine`) VALUES
-	(1, 'gamingfunk@admin.it', 'admin', 'admin1', 'via dell\'admin', 'adminonia', 'am', '1', 'admin', 'admin', 0, 0.00, 'images/profile/admin1.png');
+	(1, 'gamingfunk@admin.it', 'admin', 'admin1', "via dell'admin", 'adminonia', 'am', '1', 'admin', 'admin', 0, 0.00, "images/profile/admin1.png");
 
 -- Dump dei dati della tabella gamingfunk.wishlist: ~0 rows (circa)
 
