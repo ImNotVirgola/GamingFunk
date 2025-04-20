@@ -1,0 +1,91 @@
+/* community.css - stile base per la sezione community/forum */
+
+.container {
+    max-width: 900px;
+    margin: 40px auto;
+    background: #fff;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+
+h1 {
+    color: #2d3250;
+    margin-bottom: 20px;
+}
+
+.btn-new {
+    background: #2d3250;
+    color: #fff;
+    padding: 10px 18px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    margin-bottom: 18px;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.btn-new:hover {
+    background: #424769;
+}
+
+.community-list, .discussion-list, .discussion-detail {
+    margin-top: 30px;
+}
+
+input[type="text"], textarea {
+    width: 100%;
+    padding: 8px;
+    margin: 8px 0 16px 0;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 1em;
+}
+
+label {
+    font-weight: 600;
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #2d3250;
+    padding: 12px 30px;
+}
+
+.navbar a {
+    color: #fff;
+    text-decoration: none;
+    margin: 0 12px;
+    font-weight: 500;
+}
+
+.navbar a.active, .navbar a:hover {
+    color: #f8b400;
+}
+
+.profile-pic {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 10px;
+}
+
+.auth-buttons button, .btn-logout {
+    background: #f8b400;
+    color: #2d3250;
+    border: none;
+    border-radius: 6px;
+    padding: 8px 14px;
+    margin-left: 8px;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.auth-buttons button:hover, .btn-logout:hover {
+    background: #ffd966;
+    color: #2d3250;
+}

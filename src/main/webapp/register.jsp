@@ -16,7 +16,7 @@
         </div>
         <div class="navbar-center">
             <a href="catalogo.jsp">Catalogo</a>
-            <a href="community.jsp">Community</a>
+            <a href="CommunityServlet">Community</a>
             <a href="blog.jsp">Blog</a>
             <a href="carrello.jsp">Carrello</a>
         </div>
