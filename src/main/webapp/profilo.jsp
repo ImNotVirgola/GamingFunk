@@ -11,25 +11,16 @@
 <body>
     <nav class="navbar">
         <div class="navbar-left">
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
             <img src="images/logo/logo.png" alt="Logo" class="logo">
         </div>
         <div class="navbar-center">
             <a href="catalogo.jsp">Catalogo</a>
             <a href="CommunityServlet">Community</a>
-=======
-=======
->>>>>>> Stashed changes
             <img src="path/to/logo.png" alt="Logo" class="logo">
         </div>
         <div class="navbar-center">
             <a href="catalogo.jsp">Catalogo</a>
             <a href="community.jsp">Community</a>
-<<<<<<< Updated upstream
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
             <a href="blog.jsp">Blog</a>
             <a href="carrello.jsp">Carrello</a>
         </div>
@@ -37,8 +28,6 @@
             <%
                 // Recupera la sessione corrente
                 if (session != null && session.getAttribute("utente") != null) {
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
                     String fotoProfilo = (String) session.getAttribute("fotoProfilo");
             %>
             <div class="profile-actions">
@@ -47,9 +36,6 @@
                     <button type="submit" class="btn-logout">Logout</button>
                 </form>
             </div>
-=======
-=======
->>>>>>> Stashed changes
 
                     String fotoProfilo = (String) session.getAttribute("fotoProfilo");
                 	if (fotoProfilo == null || fotoProfilo.isEmpty()) {
@@ -62,26 +48,16 @@
                         <button type="submit" class="btn-logout">Logout</button>
                     </form>
               	</div>
-<<<<<<< Updated upstream
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
             <%
                 } else {
                     // Utente non connesso: mostra i pulsanti Login e Registrazione
             %>
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
             <button class="btn-login" onclick="window.location.href='login.jsp'">Login</button>
             <button class="btn-register" onclick="window.location.href='register.jsp'">Registrazione</button>
-=======
                     <button class="btn-login" onclick="window.location.href='login.jsp'">Login</button>
                     <button class="btn-register" onclick="window.location.href='register.jsp'">Registrazione</button>
->>>>>>> Stashed changes
-=======
                     <button class="btn-login" onclick="window.location.href='login.jsp'">Login</button>
                     <button class="btn-register" onclick="window.location.href='register.jsp'">Registrazione</button>
->>>>>>> Stashed changes
             <%
                 }
             %>
@@ -103,14 +79,7 @@
                 String citta = (String) session.getAttribute("citta");
                 String provincia = (String) session.getAttribute("provincia");
                 String cap = (String) session.getAttribute("cap");
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-=======
                 String password = (String) session.getAttribute("password");
->>>>>>> Stashed changes
-=======
-                String password = (String) session.getAttribute("password");
->>>>>>> Stashed changes
                 String fotoProfilo = (String) session.getAttribute("fotoProfilo");
 
                 // Fallback per utenti senza foto profilo
@@ -130,18 +99,12 @@
             <p><b>Nome:</b> <%= nome %></p>
             <p><b>Cognome:</b> <%= cognome %></p>
             <p><b>Indirizzo:</b> <%= indirizzo != null ? indirizzo : "Non specificato" %></p>
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
             <p><b>Città:</b> <%= citta != null ? citta : "Non specificata" %></p>
             <p><b>Provincia:</b> <%= provincia != null ? provincia : "Non specificata" %></p>
-=======
             <p><b>Città:</b> <%= citta != null ? citta : "Non specificato" %></p>
             <p><b>Provincia:</b> <%= provincia != null ? provincia : "Non specificato" %></p>
->>>>>>> Stashed changes
-=======
             <p><b>Città:</b> <%= citta != null ? citta : "Non specificato" %></p>
             <p><b>Provincia:</b> <%= provincia != null ? provincia : "Non specificato" %></p>
->>>>>>> Stashed changes
             <p><b>CAP:</b> <%= cap != null ? cap : "Non specificato" %></p>
         </div>
 
@@ -149,7 +112,6 @@
         <button id="edit-profile-btn" class="btn-edit">Modifica Dati</button>
 
         <!-- Form per la modifica dei dati -->
-<<<<<<< Updated upstream
         <div id="edit-form" class="edit-form" style="display: none;">
             <h2>Modifica Dati</h2>
             <form action="updateProfile" method="post" enctype="multipart/form-data">
@@ -183,7 +145,6 @@
                 <button type="submit" class="btn-save">Salva Modifiche</button>
             </form>
         </div>
-=======
         <div id="edit-form" class="edit-form">
             <h2>Modifica Dati</h2>
                 <form action="updateProfile" method="post" enctype="multipart/form-data">
@@ -217,11 +178,6 @@
                     <button type="submit" class="btn-save">Salva Modifiche</button>
                 </form>
             </div>
-<<<<<<< Updated upstream
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
-
         <%
             }
         %>
@@ -237,15 +193,6 @@
                 editForm.style.display = "none"; // Nascondi il form
             }
         }
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-
-=======
-        
->>>>>>> Stashed changes
-=======
-        
->>>>>>> Stashed changes
         // Aggiungi un listener al pulsante "Modifica Dati"
         document.getElementById("edit-profile-btn").addEventListener("click", toggleEditForm);
     </script>
