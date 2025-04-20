@@ -12,17 +12,23 @@
     <nav class="navbar">
         <div class="navbar-left">
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
             <img src="images/logo/logo.png" alt="Logo" class="logo">
         </div>
         <div class="navbar-center">
             <a href="catalogo.jsp">Catalogo</a>
             <a href="CommunityServlet">Community</a>
 =======
+=======
+>>>>>>> Stashed changes
             <img src="path/to/logo.png" alt="Logo" class="logo">
         </div>
         <div class="navbar-center">
             <a href="catalogo.jsp">Catalogo</a>
             <a href="community.jsp">Community</a>
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
             <a href="blog.jsp">Blog</a>
             <a href="carrello.jsp">Carrello</a>
@@ -31,6 +37,7 @@
             <%
                 // Recupera la sessione corrente
                 if (session != null && session.getAttribute("utente") != null) {
+<<<<<<< Updated upstream
 <<<<<<< Updated upstream
                     String fotoProfilo = (String) session.getAttribute("fotoProfilo");
             %>
@@ -41,6 +48,8 @@
                 </form>
             </div>
 =======
+=======
+>>>>>>> Stashed changes
 
                     String fotoProfilo = (String) session.getAttribute("fotoProfilo");
                 	if (fotoProfilo == null || fotoProfilo.isEmpty()) {
@@ -53,14 +62,22 @@
                         <button type="submit" class="btn-logout">Logout</button>
                     </form>
               	</div>
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
             <%
                 } else {
                     // Utente non connesso: mostra i pulsanti Login e Registrazione
             %>
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
             <button class="btn-login" onclick="window.location.href='login.jsp'">Login</button>
             <button class="btn-register" onclick="window.location.href='register.jsp'">Registrazione</button>
+=======
+                    <button class="btn-login" onclick="window.location.href='login.jsp'">Login</button>
+                    <button class="btn-register" onclick="window.location.href='register.jsp'">Registrazione</button>
+>>>>>>> Stashed changes
 =======
                     <button class="btn-login" onclick="window.location.href='login.jsp'">Login</button>
                     <button class="btn-register" onclick="window.location.href='register.jsp'">Registrazione</button>
@@ -87,6 +104,10 @@
                 String provincia = (String) session.getAttribute("provincia");
                 String cap = (String) session.getAttribute("cap");
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
+=======
+                String password = (String) session.getAttribute("password");
+>>>>>>> Stashed changes
 =======
                 String password = (String) session.getAttribute("password");
 >>>>>>> Stashed changes
@@ -110,8 +131,13 @@
             <p><b>Cognome:</b> <%= cognome %></p>
             <p><b>Indirizzo:</b> <%= indirizzo != null ? indirizzo : "Non specificato" %></p>
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
             <p><b>Città:</b> <%= citta != null ? citta : "Non specificata" %></p>
             <p><b>Provincia:</b> <%= provincia != null ? provincia : "Non specificata" %></p>
+=======
+            <p><b>Città:</b> <%= citta != null ? citta : "Non specificato" %></p>
+            <p><b>Provincia:</b> <%= provincia != null ? provincia : "Non specificato" %></p>
+>>>>>>> Stashed changes
 =======
             <p><b>Città:</b> <%= citta != null ? citta : "Non specificato" %></p>
             <p><b>Provincia:</b> <%= provincia != null ? provincia : "Non specificato" %></p>
@@ -191,6 +217,9 @@
                     <button type="submit" class="btn-save">Salva Modifiche</button>
                 </form>
             </div>
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
 
         <%
@@ -209,7 +238,11 @@
             }
         }
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 
+=======
+        
+>>>>>>> Stashed changes
 =======
         
 >>>>>>> Stashed changes

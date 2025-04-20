@@ -58,6 +58,7 @@ public class Login extends HttpServlet {
             session.setAttribute("provincia", utente.getProvincia());
             session.setAttribute("cap", utente.getCap());
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
             session.setAttribute("ruolo", utente.getRuolo());
             session.setAttribute("fotoProfilo", utente.getImmagine());
 
@@ -70,6 +71,9 @@ public class Login extends HttpServlet {
             }
 =======
             session.setAttribute("fotoProfilo", utente.getImmagine());
+=======
+            session.setAttribute("fotoProfilo", utente.getImmagine());
+>>>>>>> Stashed changes
             session.setAttribute("password", utente.getPassword());
             response.sendRedirect(request.getContextPath() + "/catalogo.jsp");
 >>>>>>> Stashed changes
