@@ -33,7 +33,11 @@
                 // Verifica se l'utente è loggato
                 if (session.getAttribute("utente") != null) {
                     String fotoProfilo = (String) session.getAttribute("fotoProfilo");
+                    if (fotoProfilo == null || fotoProfilo.isEmpty()) {
+                    	fotoProfilo = "images/default/profile.png";
+                    }
             %>
+<<<<<<< Updated upstream
             <div class="profile-actions">
                 <a href="profilo.jsp">
                     <img src="${pageContext.request.contextPath}<%= fotoProfilo != null ? fotoProfilo : "images/default/profile.png" %>" alt="Foto Profilo" class="profile-pic">
@@ -42,6 +46,12 @@
                     <button type="submit" class="btn-logout">Logout</button>
                 </form>
             </div>
+=======
+                    <a href="profilo.jsp"><img src="<%= fotoProfilo %>" alt="Foto Profilo" class="profile-pic"></a>
+                    <form action="logout" method="post" style="display: inline;">
+                        <button type="submit" class="btn-logout">Logout</button>
+                    </form>
+>>>>>>> Stashed changes
             <%
                 } else {
             %>

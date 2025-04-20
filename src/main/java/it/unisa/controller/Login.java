@@ -57,6 +57,7 @@ public class Login extends HttpServlet {
             session.setAttribute("citta", utente.getCitta());
             session.setAttribute("provincia", utente.getProvincia());
             session.setAttribute("cap", utente.getCap());
+<<<<<<< Updated upstream
             session.setAttribute("ruolo", utente.getRuolo());
             session.setAttribute("fotoProfilo", utente.getImmagine());
 
@@ -67,6 +68,11 @@ public class Login extends HttpServlet {
             } else {
                 response.sendRedirect(request.getContextPath() + "/catalogo.jsp");
             }
+=======
+            session.setAttribute("fotoProfilo", utente.getImmagine());
+            session.setAttribute("password", utente.getPassword());
+            response.sendRedirect(request.getContextPath() + "/catalogo.jsp");
+>>>>>>> Stashed changes
         } else {
             // Login fallito: mostra un messaggio di errore
             request.setAttribute("errorMessage", "Email o password errati.");
