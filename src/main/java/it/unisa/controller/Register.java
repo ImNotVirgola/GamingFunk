@@ -2,6 +2,7 @@ package it.unisa.controller;
 
 import it.unisa.model.*;
 import it.unisa.model.Utente;
+import org.mindrot.jbcrypt.BCrypt; // Importa BCrypt
 
 import java.io.IOException;
 import java.util.regex.Pattern;
@@ -94,12 +95,15 @@ public class Register extends HttpServlet {
             return;
         }
 
+        // Cripta la password usando BCrypt
+        String hashedPassword = BCrypt.hashpw(password, BCrypt.gensalt());
+
         // Crea un nuovo oggetto Utente
         Utente nuovoUtente = new Utente();
         nuovoUtente.setNome(nome);
         nuovoUtente.setCognome(cognome);
         nuovoUtente.setEmail(email);
-        nuovoUtente.setPassword(password);
+        nuovoUtente.setPassword(hashedPassword); // Salva la password criptata
         nuovoUtente.setIndirizzo(indirizzo);
         nuovoUtente.setCitta(citta);
         nuovoUtente.setProvincia(provincia);

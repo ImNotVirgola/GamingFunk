@@ -36,7 +36,7 @@
             %>
             <div class="profile-actions">
                 <a href="profilo.jsp">
-                    <img src="<%= fotoProfilo != null ? fotoProfilo : "images/default/profile.png" %>" alt="Foto Profilo" class="profile-pic">
+                    <img src="${pageContext.request.contextPath}<%= fotoProfilo != null ? fotoProfilo : "images/default/profile.png" %>" alt="Foto Profilo" class="profile-pic">
                 </a>
                 <form action="logout" method="post" style="display: inline;">
                     <button type="submit" class="btn-logout">Logout</button>

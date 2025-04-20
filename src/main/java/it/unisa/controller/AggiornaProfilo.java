@@ -48,19 +48,19 @@ public class AggiornaProfilo extends HttpServlet {
         String cognome = request.getParameter("cognome");
         String email = request.getParameter("email");
         String indirizzo = request.getParameter("indirizzo");
-        String citta = request.getParameter("citta");
-        String provincia = request.getParameter("provincia");
-        String cap = request.getParameter("cap");
+        String citta = request.getParameter("citta"); // Nuovo parametro
+        String provincia = request.getParameter("provincia"); // Nuovo parametro
+        String cap = request.getParameter("cap"); // Nuovo parametro
         String password = request.getParameter("password");
 
-        // Controlla e assegna i valori per ciascun parametro
+        // Assegna i valori predefiniti se i campi sono vuoti
         nome = (nome == null || nome.trim().isEmpty()) ? utente.getNome() : nome;
         cognome = (cognome == null || cognome.trim().isEmpty()) ? utente.getCognome() : cognome;
         email = (email == null || email.trim().isEmpty()) ? utente.getEmail() : email;
         indirizzo = (indirizzo == null || indirizzo.trim().isEmpty()) ? utente.getIndirizzo() : indirizzo;
-        citta = (citta == null || citta.trim().isEmpty()) ? utente.getCitta() : citta;
-        provincia = (provincia == null || provincia.trim().isEmpty()) ? utente.getProvincia() : provincia;
-        cap = (cap == null || cap.trim().isEmpty()) ? utente.getCap() : cap;
+        citta = (citta == null || citta.trim().isEmpty()) ? utente.getCitta() : citta; // Gestione città
+        provincia = (provincia == null || provincia.trim().isEmpty()) ? utente.getProvincia() : provincia; // Gestione provincia
+        cap = (cap == null || cap.trim().isEmpty()) ? utente.getCap() : cap; // Gestione CAP
         password = (password == null || password.trim().isEmpty()) ? utente.getPassword() : password;
 
         // Gestione del file caricato
@@ -72,7 +72,7 @@ public class AggiornaProfilo extends HttpServlet {
             fileName = utente.getNome() + utente.getIdUtente() + ".png";
 
             // Percorso relativo alla directory "images/profile"
-            String relativePath = "images/profile";
+            String relativePath = "/images/profile";
 
             // Percorso assoluto della directory di upload
             String uploadPath = getServletContext().getRealPath(relativePath);
@@ -103,9 +103,9 @@ public class AggiornaProfilo extends HttpServlet {
         utente.setCognome(cognome);
         utente.setEmail(email);
         utente.setIndirizzo(indirizzo);
-        utente.setCitta(citta);
-        utente.setProvincia(provincia);
-        utente.setCap(cap);
+        utente.setCitta(citta); // Aggiorna la città
+        utente.setProvincia(provincia); // Aggiorna la provincia
+        utente.setCap(cap); // Aggiorna il CAP
         utente.setPassword(password);
         utente.setImmagine(fileName); // Aggiorna il path dell'immagine profilo
 
@@ -128,9 +128,9 @@ public class AggiornaProfilo extends HttpServlet {
         session.setAttribute("cognome", cognome);
         session.setAttribute("email", email);
         session.setAttribute("indirizzo", indirizzo);
-        session.setAttribute("citta", citta);
-        session.setAttribute("provincia", provincia);
-        session.setAttribute("cap", cap);
+        session.setAttribute("citta", citta); // Aggiorna la città in sessione
+        session.setAttribute("provincia", provincia); // Aggiorna la provincia in sessione
+        session.setAttribute("cap", cap); // Aggiorna il CAP in sessione
         session.setAttribute("fotoProfilo", fileName);
 
         // Reindirizza alla pagina del profilo

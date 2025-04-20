@@ -26,7 +26,7 @@
                     String fotoProfilo = (String) session.getAttribute("fotoProfilo");
             %>
             <div class="profile-actions">
-                <a href="profilo.jsp"><img src="<%= fotoProfilo %>" alt="Foto Profilo" class="profile-pic"></a>
+                <a href="profilo.jsp"><img src="${pageContext.request.contextPath}<%= fotoProfilo %>" alt="Foto Profilo" class="profile-pic"></a>
                 <form action="logout" method="post" style="display: inline;">
                     <button type="submit" class="btn-logout">Logout</button>
                 </form>
@@ -68,7 +68,7 @@
 
         <!-- Foto Profilo -->
         <div class="profile-picture">
-            <img src="<%= fotoProfilo %>" alt="Foto Profilo" class="profile-pic-large">
+            <img src="${pageContext.request.contextPath}<%= fotoProfilo %>" alt="Foto Profilo" class="profile-pic-large">
         </div>
 
         <!-- Visualizzazione dei dati dell'utente -->

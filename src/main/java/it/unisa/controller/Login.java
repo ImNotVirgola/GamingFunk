@@ -8,6 +8,8 @@ import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
 
+import org.mindrot.jbcrypt.BCrypt;
+
 @WebServlet("/login")
 public class Login extends HttpServlet {
 
@@ -41,15 +43,20 @@ public class Login extends HttpServlet {
 
         // Cerca l'utente nel database
         Utente utente = servizio.getUtenteByEmail(email);
+        
+        String storedHashedPassword = utente.getPassword(); // Recupera l'hash dal database
+        String enteredPassword = request.getParameter("password"); // Password inserita dall'utente
 
-        if (utente != null && password.equals(utente.getPassword())) {
-            // Login riuscito: crea una sessione e salva i dati dell'utente
-            HttpSession session = request.getSession();
+        if (BCrypt.checkpw(enteredPassword, storedHashedPassword) && utente != null) {
+        	HttpSession session = request.getSession();
             session.setAttribute("utente", utente);
             session.setAttribute("email", utente.getEmail());
             session.setAttribute("nome", utente.getNome());
             session.setAttribute("cognome", utente.getCognome());
             session.setAttribute("indirizzo", utente.getIndirizzo());
+            session.setAttribute("citta", utente.getCitta());
+            session.setAttribute("provincia", utente.getProvincia());
+            session.setAttribute("cap", utente.getCap());
             session.setAttribute("ruolo", utente.getRuolo());
             session.setAttribute("fotoProfilo", utente.getImmagine());
 
