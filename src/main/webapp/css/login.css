@@ -154,3 +154,19 @@ h1 {
 	transform: scale(1.05);
 	transition: 0.2s;
 }
+
+/* Messaggio di errore */
+.error-message {
+    background-color: #FF4D4D; /* Rosso acceso */
+    color: white;
+    padding: 15px; /* Padding uniforme per allinearsi con il form */
+    border-radius: 5px; /* Stesso bordo arrotondato del form */
+    margin-bottom: 20px; /* Spazio tra il messaggio e il form */
+    text-align: center;
+    font-size: 1em; /* Dimensione del testo simile agli altri elementi */
+    box-shadow: 5px 5px 0px #212121; /* Ombra simile a quella del form */
+    width: 350px; /* Stessa larghezza del form */
+    margin: auto; /* Centrato rispetto alla pagina */
+    margin-bottom: 5px;
+    border: 3px solid #FF007F; /* Bordo coordinato con il form */
+}

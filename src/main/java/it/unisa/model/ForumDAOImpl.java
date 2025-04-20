@@ -3,6 +3,8 @@ package it.unisa.model;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.PreparedStatement;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ForumDAOImpl extends GenericDAOImpl<Forum, Integer> {
 
@@ -51,5 +53,22 @@ public class ForumDAOImpl extends GenericDAOImpl<Forum, Integer> {
         stmt.setString(3, forum.getDescrizione());
         stmt.setInt(4, forum.getIdCreatore());
         stmt.setInt(5, forum.getIdForum());
+    }
+
+    public List<Forum> getForumByCommunity(int communityId) {
+        List<Forum> forumList = new ArrayList<>();
+        String sql = "SELECT * FROM forum WHERE id_community = ?";
+        try (java.sql.Connection conn = getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setInt(1, communityId);
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    forumList.add(mapResultSetToEntity(rs));
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return forumList;
     }
 }

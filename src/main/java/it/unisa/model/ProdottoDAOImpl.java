@@ -1,15 +1,41 @@
 package it.unisa.model;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ProdottoDAOImpl extends GenericDAOImpl<Prodotto, Integer> {
 
     public ProdottoDAOImpl() {
         super("prodotto", "id_prodotto");
     }
-
+    
+    public List<Prodotto> getFilteredProducts(int cat) throws SQLException {
+        String query = "SELECT * FROM prodotto WHERE id_categoria = ?";
+        List<Prodotto> entities = new ArrayList<>();
+        
+        try (Connection conn = getConnection();
+             PreparedStatement stmt = conn.prepareStatement(query)) {
+            
+            // Imposta il parametro della query
+            stmt.setInt(1, cat);
+            
+            // Esegui la query e ottieni i risultati
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    entities.add(mapResultSetToEntity(rs));
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        
+        return entities;
+    }
+    
     @Override
     protected Prodotto mapResultSetToEntity(ResultSet rs) throws SQLException {
         return new Prodotto(

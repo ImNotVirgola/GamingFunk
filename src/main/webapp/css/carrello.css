@@ -1,231 +1,318 @@
 @charset "UTF-8";
 @import url('https://fonts.googleapis.com/css2?family=Bangers&display=swap');
 
+/* Stili generali */
 body {
-	font-family: 'Bangers', cursive;
-	background-color: #1A1A2E;
-	margin: 0;
-	padding: 0;
-	text-align: center;
-	color: #FFFFFF;
+    font-family: 'Bangers', cursive;
+    background-color: #1A1A2E;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+    color: #FFFFFF;
 }
 
-/* Navbar styling con layout ripristinato */
+/* Navbar styling */
 .navbar {
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-	background-color: #222222;
-	padding: 15px 0;
-	box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.5);
-	border-bottom: 3px solid #FF007F;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #222222;
+    padding: 15px 0;
+    box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.5);
+    border-bottom: 3px solid #FF007F;
 }
 
 .navbar-left {
-	padding-left: 1.5%;
-	margin-right: 5.5%;
+    padding-left: 1.5%;
+    margin-right: 5.5%;
 }
 
 .navbar-left .logo {
-	height: 40px;
+    height: 40px;
 }
 
 .navbar-center {
-	display: flex;
-	gap: 20px;
-	justify-content: center;
+    display: flex;
+    gap: 20px;
+    justify-content: center;
 }
 
 .navbar-center a {
-	color: #00AEEF;
-	text-decoration: none;
-	font-size: 1.2em;
-	text-shadow: 1px 1px 0px #212121;
-	transition: 0.2s;
+    color: #00AEEF;
+    text-decoration: none;
+    font-size: 1.2em;
+    text-shadow: 1px 1px 0px #212121;
+    transition: 0.2s;
 }
 
 .navbar-center a:hover {
-	color: #E6E300;
-	transform: scale(1.1);
+    color: #E6E300;
+    transform: scale(1.1);
 }
 
+/* Navbar Right */
 .navbar-right {
-	padding-right: 2.5%;
-	display: flex;
-	flex-direction: column;
-	gap: 5px;
+    padding-right: 2.5%;
+    display: flex;
+    align-items: center; /* Allinea verticalmente gli elementi */
+    gap: 10px; /* Spazio tra gli elementi */
 }
 
+/* Contenitore per l'immagine e il pulsante logout */
+.navbar-right .profile-actions {
+    display: flex;
+    align-items: center; /* Allinea verticalmente immagine e pulsante */
+    gap: 10px; /* Spazio tra l'immagine e il pulsante */
+}
+
+/* Stile per l'immagine del profilo */
+.navbar-right .profile-pic {
+    width: 40px; /* Dimensione fissa per l'immagine */
+    height: 40px; /* Dimensione fissa per l'immagine */
+    border-radius: 50%; /* Forma circolare */
+    border: 2px solid #A833FF; /* Bordo colorato */
+    box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.5); /* Ombra per dare profondità */
+    transition: transform 0.2s ease-in-out; /* Animazione hover */
+}
+
+.navbar-right .profile-pic:hover {
+    transform: scale(1.1); /* Effetto zoom al passaggio del mouse */
+}
+
+.navbar-right .auth-buttons {
+    display: flex;
+    flex-direction: column; /* Impila i pulsanti verticalmente */
+    gap: 10px; /* Spazio tra i pulsanti */
+    align-items: flex-end; /* Allinea i pulsanti a destra */
+}
+
+/* Pulsante Logout */
+.navbar-right .btn-logout {
+    padding: 8px 15px;
+    font-family: 'Bangers', cursive;
+    background-color: #FF007F; /* Colore rosso acceso */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1em;
+    box-shadow: 2px 2px 0px #212121;
+    transition: background-color 0.2s ease-in-out;
+}
+
+.navbar-right .btn-logout:hover {
+    background-color: #E6006E; /* Colore più scuro al passaggio del mouse */
+    transform: scale(1.05);
+}
+
+/* Pulsanti Login e Registrazione */
 .btn-login,
 .btn-register {
-	padding: 8px 15px;
-	font-family: 'Bangers', cursive;
-	background-color: #008FCC;
-	color: white;
-	border: none;
-	border-radius: 5px;
-	cursor: pointer;
-	font-size: 1em;
-	box-shadow: 2px 2px 0px #212121;
-	width: 120px;
+    padding: 8px 15px;
+    font-family: 'Bangers', cursive;
+    background-color: #008FCC;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1em;
+    box-shadow: 2px 2px 0px #212121;
+    width: 120px; /* Larghezza fissa */
+    transition: 0.2s;
 }
 
 .btn-register {
-	background-color: #A833FF;
+    background-color: #A833FF;
 }
 
 .btn-login:hover,
 .btn-register:hover {
-	transform: scale(1.05);
-	transition: 0.2s;
+    transform: scale(1.05);
 }
 
+.btn:active {
+    transform: scale(0.95);
+    transition: transform 0.1s ease-in-out;
+}
 /* Container styling */
 .container {
-	width: 90%;
-	margin: 20px auto;
-	text-align: center;
+    width: 90%;
+    max-width: 1200px; /* Limita la larghezza massima */
+    margin: 20px auto;
+    text-align: center;
 }
 
 h1 {
-	color: #E6E300;
-	text-shadow: 3px 3px 0px #212121;
-	font-size: 3em;
+    color: #E6E300;
+    text-shadow: 3px 3px 0px #212121;
+    font-size: 3em;
 }
 
 /* Search bar styling */
 .search-bar {
-	display: flex;
-	justify-content: center;
-	margin: 30px auto;
-	max-width: 600px;
+    display: flex;
+    justify-content: center;
+    margin: 30px auto;
+    max-width: 600px;
 }
 
 .search-bar input {
-	width: 70%;
-	padding: 10px 15px;
-	border: 3px solid #A833FF;
-	border-radius: 5px 0 0 5px;
-	font-family: 'Bangers', cursive;
-	font-size: 1.1em;
-	background-color: #222222;
-	color: white;
+    width: 70%;
+    padding: 10px 15px;
+    border: 3px solid #A833FF;
+    border-radius: 5px 0 0 5px;
+    font-family: 'Bangers', cursive;
+    font-size: 1.1em;
+    background-color: #222222;
+    color: white;
 }
 
 .btn-search {
-	padding: 10px 20px;
-	background-color: #A833FF;
-	color: white;
-	border: none;
-	border-radius: 0 5px 5px 0;
-	cursor: pointer;
-	font-family: 'Bangers', cursive;
-	font-size: 1.1em;
-	box-shadow: 2px 2px 0px #212121;
+    padding: 10px 20px;
+    background-color: #A833FF;
+    color: white;
+    border: none;
+    border-radius: 0 5px 5px 0;
+    cursor: pointer;
+    font-family: 'Bangers', cursive;
+    font-size: 1.1em;
+    box-shadow: 2px 2px 0px #212121;
 }
 
 .btn-search:hover {
-	background-color: #9122E6;
+    background-color: #9122E6;
 }
 
-/* Product catalog styling */
-.catalogo {
-	display: flex;
-	flex-wrap: wrap;
-	gap: 20px;
-	justify-content: center;
+/* Stile specifico per il contenitore del carrello */
+.carrello {
+    max-width: 1200px; /* Limita la larghezza massima */
+    margin: 0 auto; /* Centra il contenitore orizzontalmente */
+    padding: 20px; /* Aggiunge spazio interno */
+    text-align: center; /* Allinea il testo al centro */
 }
 
-.prodotto {
-	background: #222222;
-	padding: 15px;
-	border-radius: 10px;
-	box-shadow: 5px 5px 0px #212121;
-	width: 250px;
-	text-align: center;
-	border: 3px solid #FF007F;
-	transition: 0.2s;
+/* Stile per gli elementi della lista del carrello */
+.carrello ul {
+    list-style-type: none; /* Rimuove i pallini */
+    padding: 0; /* Rimuove il padding predefinito */
+    margin: 0; /* Rimuove il margine predefinito */
+    width: 100%; /* Occupa tutta la larghezza disponibile */
 }
 
-.prodotto img {
-	max-width: 100%;
-	border-radius: 10px;
-	border: 3px solid #A833FF;
+.carrello ul li {
+    background: #222222;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 5px 5px 0px #212121;
+    width: 100%;
+    max-width: 600px; /* Limita la larghezza massima degli elementi */
+    text-align: left;
+    border: 3px solid #FF007F;
+    margin: 0 auto 10px; /* Centra gli elementi e aggiunge spazio sotto */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
-.prodotto h2 {
-	font-size: 1.5em;
-	margin: 10px 0;
-	color: #00AEEF;
-	text-shadow: 2px 2px 0px #212121;
+.carrello ul li p {
+    font-size: 1em;
+    color: #FFFFFF;
+    margin: 0;
 }
 
-.prodotto p {
-	font-size: 1em;
-	color: #FFFFFF;
+.carrello ul li .prezzo {
+    font-size: 1.2em;
+    color: #E6006E;
+    font-weight: bold;
 }
 
-.prezzo {
-	font-size: 1.2em;
-	color: #E6006E;
-	font-weight: bold;
+.carrello ul li button {
+    padding: 8px 15px;
+    font-family: 'Bangers', cursive;
+    background-color: #FF007F;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1em;
+    box-shadow: 2px 2px 0px #212121;
+    transition: background-color 0.2s ease-in-out;
 }
 
-.btn {
-	display: inline-block;
-	margin-top: 10px;
-	padding: 10px;
-	background-color: #008FCC;
-	color: white;
-	border: none;
-	border-radius: 5px;
-	cursor: pointer;
-	text-decoration: none;
-	font-size: 1.2em;
-	box-shadow: 3px 3px 0px #212121;
+.carrello ul li button:hover {
+    background-color: #E6006E;
+    transform: scale(1.05);
 }
 
-.btn:hover {
-	background-color: #00AEEF;
+/* Messaggio "Il carrello è vuoto" */
+.carrello p#messaggio-vuoto {
+    font-size: 1.5em;
+    color: #E6E300;
+    text-shadow: 2px 2px 0px #212121;
+    margin-top: 20px;
 }
 
-.prodotto:hover {
-	transform: scale(1.1);
+/* Stile specifico per il pulsante "Svuota Carrello" */
+.btn-svuota-carrello{
+    display: inline-block;
+    margin-top: 20px; /* Spazio sopra il pulsante */
+    padding: 10px 20px; /* Padding interno per dimensioni adeguate */
+    font-family: 'Bangers', cursive; /* Tipografia coerente */
+    background-color: #FF007F; /* Colore rosso acceso */
+    color: white; /* Testo bianco */
+    border: none; /* Nessun bordo */
+    border-radius: 5px; /* Bordi arrotondati */
+    cursor: pointer; /* Cursore a puntatore */
+    font-size: 1.2em; /* Dimensione del testo */
+    box-shadow: 3px 3px 0px #212121; /* Ombra per dare profondità */
+    transition: background-color 0.2s ease-in-out, transform 0.2s ease-in-out; /* Transizione fluida */
+}
+
+/* Effetto hover per il pulsante "Svuota Carrello" */
+.btn-svuota-carrello:hover {
+    background-color: #E6006E; /* Colore più scuro al passaggio del mouse */
+    transform: scale(1.05); /* Effetto di ingrandimento */
 }
 
 /* Responsive design */
 @media (max-width: 768px) {
-	.navbar {
-		flex-direction: column;
-		gap: 15px;
-	}
+    .navbar {
+        flex-direction: column;
+        gap: 15px;
+    }
 
-	.navbar-left {
-		margin-left: 0;
-	}
+    .navbar-left {
+        margin-left: 0;
+    }
 
-	.navbar-right {
-		margin-right: 0;
-	}
+    .navbar-right {
+        margin-right: 0;
+    }
 
-	.navbar-center {
-		flex-wrap: wrap;
-		justify-content: center;
-	}
+    .navbar-center {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
 
-	.search-bar {
-		flex-direction: column;
-		gap: 10px;
-	}
+    .search-bar {
+        flex-direction: column;
+        gap: 10px;
+    }
 
-	.search-bar input {
-		width: 100%;
-		border-radius: 5px;
-	}
+    .search-bar input {
+        width: 100%;
+        border-radius: 5px;
+    }
 
-	.btn-search {
-		border-radius: 5px;
-		width: 50%;
-		margin: 0 auto;
-	}
+    .btn-search {
+        border-radius: 5px;
+        width: 50%;
+        margin: 0 auto;
+    }
+
+    .carrello ul li {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
 }
