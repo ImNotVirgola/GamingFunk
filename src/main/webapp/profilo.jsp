@@ -86,10 +86,6 @@
             <p><b>Indirizzo:</b> <%= indirizzo != null ? indirizzo : "Non specificato" %></p>
             <p><b>Città:</b> <%= citta != null ? citta : "Non specificata" %></p>
             <p><b>Provincia:</b> <%= provincia != null ? provincia : "Non specificata" %></p>
-            <p><b>Città:</b> <%= citta != null ? citta : "Non specificato" %></p>
-            <p><b>Provincia:</b> <%= provincia != null ? provincia : "Non specificato" %></p>
-            <p><b>Città:</b> <%= citta != null ? citta : "Non specificato" %></p>
-            <p><b>Provincia:</b> <%= provincia != null ? provincia : "Non specificato" %></p>
             <p><b>CAP:</b> <%= cap != null ? cap : "Non specificato" %></p>
         </div>
 

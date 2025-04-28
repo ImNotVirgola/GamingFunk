@@ -50,6 +50,9 @@ public class Login extends HttpServlet {
                 session.setAttribute("nome", utente.getNome());
                 session.setAttribute("cognome", utente.getCognome());
                 session.setAttribute("indirizzo", utente.getIndirizzo());
+                session.setAttribute("citta", utente.getCitta());
+                session.setAttribute("provincia", utente.getProvincia());
+                session.setAttribute("cap", utente.getCap());
                 session.setAttribute("ruolo", utente.getRuolo());
                 session.setAttribute("fotoProfilo", utente.getImmagine());
 

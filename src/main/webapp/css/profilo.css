@@ -190,21 +190,46 @@ h1 {
     transform: scale(1.05);
 }
 
-/* Form di modifica */
+/* Stile generale del form */
 .edit-form {
     background: #222222;
-    padding: 15px;
-    border-radius: 10px;
-    box-shadow: 5px 5px 0px #212121;
-    width: 50%;
-    margin: 20px auto;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5);
+    width: 90%;
+    max-width: 600px; /* Limita la larghezza massima per schermi grandi */
+    margin: 40px auto; /* Centra il form verticalmente e orizzontalmente */
+    text-align: center;
     border: 3px solid #FF007F;
-    text-align: left;
-    display: none; /* Nascosto di default */
+    transition: transform 0.2s ease-in-out;
 }
 
-.edit-form input,
-.edit-form textarea {
+.edit-form:hover {
+    transform: scale(1.02); /* Effetto zoom leggero al passaggio del mouse */
+}
+
+.edit-form h2 {
+    font-size: 2.5em;
+    color: #E6E300;
+    text-shadow: 3px 3px 0px #212121;
+    margin-bottom: 20px;
+}
+
+/* Label styling */
+.edit-form label {
+    font-size: 1.2em;
+    color: #00AEEF;
+    text-shadow: 1px 1px 0px #212121;
+    display: block;
+    margin: 10px 0 5px; /* Spazio tra le etichette e gli input */
+    text-align: left; /* Allinea le etichette a sinistra */
+    width: 100%;
+}
+
+/* Input styling */
+.edit-form input[type="text"],
+.edit-form input[type="email"],
+.edit-form input[type="password"] {
     width: 100%;
     padding: 10px 15px;
     border: 3px solid #A833FF;
@@ -213,11 +238,39 @@ h1 {
     font-size: 1.1em;
     background-color: #222222;
     color: white;
-    margin-bottom: 10px;
+    transition: border-color 0.2s ease-in-out;
 }
 
-.edit-form button {
-    padding: 10px 20px;
+.edit-form input[type="text"]:focus,
+.edit-form input[type="email"]:focus,
+.edit-form input[type="password"]:focus {
+    border-color: #FF007F; /* Cambia il colore del bordo quando l'input è focalizzato */
+    outline: none;
+}
+
+/* File input styling */
+.edit-form input[type="file"] {
+    width: 100%;
+    padding: 10px 15px;
+    border: 3px solid #A833FF;
+    border-radius: 5px;
+    font-family: 'Bangers', cursive;
+    font-size: 1.1em;
+    background-color: #222222;
+    color: white;
+    cursor: pointer;
+    transition: border-color 0.2s ease-in-out;
+}
+
+.edit-form input[type="file"]:hover {
+    border-color: #FF007F;
+}
+
+/* Button styling */
+.btn-save {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 12px 20px;
     background-color: #A833FF;
     color: white;
     border: none;
@@ -225,10 +278,11 @@ h1 {
     cursor: pointer;
     font-family: 'Bangers', cursive;
     font-size: 1.2em;
-    box-shadow: 2px 2px 0px #212121;
+    box-shadow: 3px 3px 0px #212121;
+    transition: background-color 0.2s ease-in-out;
 }
 
-.edit-form button:hover {
+.btn-save:hover {
     background-color: #9122E6;
     transform: scale(1.05);
 }
@@ -255,6 +309,15 @@ h1 {
 
     .user-info,
     .edit-form {
-        width: 90%;
+        width: 90%; /* Aumentiamo la larghezza su dispositivi mobili */
+    }
+
+    .edit-form input,
+    .edit-form textarea {
+        width: 100%; /* Ocuppano tutto lo spazio disponibile */
+    }
+
+    .edit-form button {
+        width: 100%; /* Il pulsante occupa tutto lo spazio disponibile */
     }
 }
