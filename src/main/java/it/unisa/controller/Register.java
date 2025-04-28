@@ -109,6 +109,7 @@ public class Register extends HttpServlet {
         nuovoUtente.setProvincia(provincia);
         nuovoUtente.setCap(cap);
         nuovoUtente.setRuolo("regular"); // Imposta ruolo predefinito
+        nuovoUtente.setImmagine("images/default/profile.png");
 
         // Aggiungi l'utente al database
         boolean success = servizio.aggiungiUtente(nuovoUtente);

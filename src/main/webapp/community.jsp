@@ -19,21 +19,32 @@
             <a href="carrello.jsp">Carrello</a>
         </div>
         <div class="navbar-right">
-            <% if (session.getAttribute("utente") != null) { %>
+            <%
+                // Verifica se l'utente è loggato
+                if (session.getAttribute("utente") != null) {
+                    String fotoProfilo = (String) session.getAttribute("fotoProfilo");
+                    if (fotoProfilo == null || fotoProfilo.isEmpty()) {
+                    	fotoProfilo = "images/default/profile.png";
+                    }
+            %>
             <div class="profile-actions">
                 <a href="profilo.jsp">
-                    <img src="${pageContext.request.contextPath}<%= session.getAttribute("fotoProfilo") != null ? session.getAttribute("fotoProfilo") : "images/default/profile.png" %>" alt="Foto Profilo" class="profile-pic">
+                    <img src="${pageContext.request.contextPath}/<%= fotoProfilo %>" alt="Foto Profilo" class="profile-pic">
                 </a>
                 <form action="logout" method="post" style="display: inline;">
                     <button type="submit" class="btn-logout">Logout</button>
                 </form>
             </div>
-            <% } else { %>
+            <%
+                } else {
+            %>
             <div class="auth-buttons">
                 <button class="btn-login" onclick="window.location.href='login.jsp'">Login</button>
                 <button class="btn-register" onclick="window.location.href='register.jsp'">Registrazione</button>
             </div>
-            <% } %>
+            <%
+                }
+            %>
         </div>
     </nav>
     <div class="container">
@@ -41,7 +52,7 @@
         <a href="CommunityServlet?action=nuova" class="btn-new">Crea nuova community</a>
         <div class="community-list">
             <%-- Qui verrà inserita la lista delle community tramite backend --%>
-            <jsp:include page="CommunityServlet" />
+            <jsp:include page="/CommunityServlet" />
         </div>
     </div>
 </body>

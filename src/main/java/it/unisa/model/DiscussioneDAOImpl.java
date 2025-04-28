@@ -1,13 +1,39 @@
 package it.unisa.model;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 
 public class DiscussioneDAOImpl extends GenericDAOImpl<Discussione, Integer> {
 
     public DiscussioneDAOImpl() {
         super("discussione", "id_discussione");
+    }
+    
+    public List<Discussione> getAllByForum(int id) {
+        String query = "SELECT * FROM Discussione WHERE id_forum = ?";
+        List<Discussione> disc = null;
+
+        try (Connection conn = getConnection(); // Ottieni la connessione al database
+             PreparedStatement stmt = conn.prepareStatement(query)) {
+
+            // Imposta il parametro della query
+            stmt.setInt(1, id);
+
+            // Esegui la query
+            ResultSet rs = stmt.executeQuery();
+
+            // Se trovi un risultato, mappa l'oggetto Utente
+            if (rs.next()) {
+                disc.add(mapResultSetToEntity(rs));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return disc; // Restituisce null se l'utente non è stato trovato
     }
 
     @Override

@@ -7,6 +7,24 @@
     <welcome-file-list>
         <welcome-file>catalogo.jsp</welcome-file>
     </welcome-file-list>
+   <!-- 
+    <servlet>
+	    <servlet-name>DiscussioneServlet</servlet-name>
+	    <servlet-class>it.unisa.DiscussioneServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+	    <servlet-name>DiscussioneServlet</servlet-name>
+	    <url-pattern>/DiscussioneServlet</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+	    <servlet-name>CommunityServlet</servlet-name>
+	    <servlet-class>it.unisa.CommunityServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+	    <servlet-name>CommunityServlet</servlet-name>
+	    <url-pattern>/CommunityServlet</url-pattern>
+	  </servlet-mapping>-->
     
     <error-page>
         <error-code>404</error-code>

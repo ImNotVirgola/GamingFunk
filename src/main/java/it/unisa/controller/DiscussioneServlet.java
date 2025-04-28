@@ -14,6 +14,8 @@ import java.util.List;
 
 @WebServlet("/DiscussioneServlet")
 public class DiscussioneServlet extends HttpServlet {
+    private static final long serialVersionUID = 1L;
+	
     private DiscussioneDAOImpl discussioneDAO = new DiscussioneDAOImpl();
     private ForumDAOImpl forumDAO = new ForumDAOImpl();
 
@@ -23,13 +25,13 @@ public class DiscussioneServlet extends HttpServlet {
         if (action == null) {
             // Mostra tutte le discussioni di un forum
             int forumId = Integer.parseInt(request.getParameter("forumId"));
-            List<Discussione> discussioni = discussioneDAO.doRetrieveByForum(forumId);
+            List<Discussione> discussioni = discussioneDAO.getAllByForum(forumId);
             request.setAttribute("discussioni", discussioni);
             request.setAttribute("forumId", forumId);
             request.getRequestDispatcher("forum.jsp").forward(request, response);
         } else if (action.equals("dettaglio")) {
             int discussioneId = Integer.parseInt(request.getParameter("discussioneId"));
-            Discussione discussione = discussioneDAO.doRetrieveById(discussioneId);
+            Discussione discussione = discussioneDAO.getById(discussioneId);
             request.setAttribute("discussione", discussione);
             request.getRequestDispatcher("discussione.jsp").forward(request, response);
         } else if (action.equals("nuova")) {
@@ -51,15 +53,15 @@ public class DiscussioneServlet extends HttpServlet {
             String titolo = request.getParameter("titolo");
             String contenuto = request.getParameter("contenuto");
             Discussione discussione = new Discussione();
-            discussione.setForumId(forumId);
+            discussione.setIdForum(forumId);
             discussione.setTitolo(titolo);
             discussione.setContenuto(contenuto);
-            discussioneDAO.doSave(discussione);
+            discussioneDAO.add(discussione);
             response.sendRedirect("DiscussioneServlet?forumId=" + forumId);
         } else if (action != null && action.equals("creaPost")) {
             int discussioneId = Integer.parseInt(request.getParameter("discussioneId"));
             String contenuto = request.getParameter("contenuto");
-            discussioneDAO.doSavePost(discussioneId, contenuto);
+            //discussioneDAO.doSavePost(discussioneId, contenuto);
             response.sendRedirect("DiscussioneServlet?action=dettaglio&discussioneId=" + discussioneId);
         }
     }
