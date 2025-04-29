@@ -88,7 +88,7 @@ public class UtenteDAOImpl extends GenericDAOImpl<Utente, Integer> {
         } else {
             stmt.setDouble(11, totaleSpeso);
         }
-        stmt.setString(12, utente.getIndirizzo());
+        stmt.setString(12, utente.getImmagine());
     }
 
     @Override
@@ -120,7 +120,7 @@ public class UtenteDAOImpl extends GenericDAOImpl<Utente, Integer> {
         } else {
             stmt.setDouble(11, totaleSpeso);
         }
-        stmt.setString(12, utente.getIndirizzo());
+        stmt.setString(12, utente.getImmagine());
         stmt.setInt(13, utente.getIdUtente());
     }
 }

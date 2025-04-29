@@ -6,9 +6,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Profilo Utente - GamingFunk</title>
-    <link href="css/profilo.css" rel="stylesheet" type="text/css">
+    <link href="${pageContext.request.contextPath}/css/profilo.css" rel="stylesheet" type="text/css">
 </head>
 <body>
+    <!-- Navbar -->
     <nav class="navbar">
         <div class="navbar-left">
             <img src="images/logo/logo.png" alt="Logo" class="logo">
@@ -25,12 +26,18 @@
                 if (session.getAttribute("utente") != null) {
                     String fotoProfilo = (String) session.getAttribute("fotoProfilo");
                     if (fotoProfilo == null || fotoProfilo.isEmpty()) {
-                    	fotoProfilo = "images/default/profile.png";
+                        fotoProfilo = "images/default/profile.png";
                     }
             %>
             <div class="profile-actions">
+                <span class="user-name-navbar"><%
+                    String nome = (String) session.getAttribute("nome");
+                    if (nome != null && !nome.isEmpty()) {
+                        out.print(nome);
+                    }
+                %></span>
                 <a href="profilo.jsp">
-                    <img src="${pageContext.request.contextPath}/<%= fotoProfilo != null ? fotoProfilo : "images/default/profile.png" %>" alt="Foto Profilo" class="profile-pic">
+                    <img src="${pageContext.request.contextPath}/<%= fotoProfilo %>" alt="Foto Profilo" class="profile-pic">
                 </a>
                 <form action="logout" method="post" style="display: inline;">
                     <button type="submit" class="btn-logout">Logout</button>
@@ -49,10 +56,12 @@
         </div>
     </nav>
 
+    <!-- Contenitore principale -->
     <div class="container">
         <h1>Profilo Utente</h1>
 
         <%
+            // Verifica se l'utente è connesso
             if (session == null || session.getAttribute("utente") == null) {
                 response.sendRedirect("login.jsp"); // Reindirizza se l'utente non è connesso
             } else {
@@ -87,10 +96,10 @@
             <p><b>Città:</b> <%= citta != null ? citta : "Non specificata" %></p>
             <p><b>Provincia:</b> <%= provincia != null ? provincia : "Non specificata" %></p>
             <p><b>CAP:</b> <%= cap != null ? cap : "Non specificato" %></p>
+        
+	        <!-- Pulsante per modificare i dati -->
+	        <button id="edit-profile-btn" class="btn-save">Modifica Dati</button>
         </div>
-
-        <!-- Pulsante per modificare i dati -->
-        <button id="edit-profile-btn" class="btn-edit">Modifica Dati</button>
 
         <!-- Form per la modifica dei dati -->
         <div id="edit-form" class="edit-form" style="display: none;">
@@ -126,39 +135,6 @@
                 <button type="submit" class="btn-save">Salva Modifiche</button>
             </form>
         </div>
-        <div id="edit-form" class="edit-form">
-            <h2>Modifica Dati</h2>
-                <form action="updateProfile" method="post" enctype="multipart/form-data">
-                    <label for="email">Email:</label>
-                    <input type="email" id="email" name="email" value="<%= email %>" required>
-            
-                    <label for="nome">Nome:</label>
-                    <input type="text" id="nome" name="nome" value="<%= nome %>" required>
-            
-                    <label for="cognome">Cognome:</label>
-                    <input type="text" id="cognome" name="cognome" value="<%= cognome %>">
-            
-                    <label for="indirizzo">Indirizzo:</label>
-                    <input type="text" id="indirizzo" name="indirizzo" value="<%= indirizzo != null ? indirizzo : "" %>">
-            
-                    <label for="citta">Città:</label>
-                    <input type="text" id="citta" name="citta" value="<%= citta != null ? citta : "" %>">
-            
-                    <label for="provincia">Provincia:</label>
-                    <input type="text" id="provincia" name="provincia" value="<%= provincia != null ? provincia : "" %>">
-            
-                    <label for="cap">CAP:</label>
-                    <input type="text" id="cap" name="cap" value="<%= cap != null ? cap : "" %>">
-            
-                    <label for="password">Password:</label>
-                    <input type="password" id="password" name="password" placeholder="Nuova password" autocomplete="new-password">
-            
-                    <label for="immagine">Carica immagine profilo:</label>
-                    <input type="file" id="immagine" name="immagine" accept="image/*">
-            
-                    <button type="submit" class="btn-save">Salva Modifiche</button>
-                </form>
-            </div>
         <%
             }
         %>
@@ -174,6 +150,7 @@
                 editForm.style.display = "none"; // Nascondi il form
             }
         }
+
         // Aggiungi un listener al pulsante "Modifica Dati"
         document.getElementById("edit-profile-btn").addEventListener("click", toggleEditForm);
     </script>

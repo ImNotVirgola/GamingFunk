@@ -2,8 +2,6 @@ package it.unisa.controller;
 
 import it.unisa.model.Discussione;
 import it.unisa.model.DiscussioneDAOImpl;
-import it.unisa.model.Forum;
-import it.unisa.model.ForumDAOImpl;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -17,7 +15,6 @@ public class DiscussioneServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 	
     private DiscussioneDAOImpl discussioneDAO = new DiscussioneDAOImpl();
-    private ForumDAOImpl forumDAO = new ForumDAOImpl();
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -60,7 +57,7 @@ public class DiscussioneServlet extends HttpServlet {
             response.sendRedirect("DiscussioneServlet?forumId=" + forumId);
         } else if (action != null && action.equals("creaPost")) {
             int discussioneId = Integer.parseInt(request.getParameter("discussioneId"));
-            String contenuto = request.getParameter("contenuto");
+//            String contenuto = request.getParameter("contenuto");
             //discussioneDAO.doSavePost(discussioneId, contenuto);
             response.sendRedirect("DiscussioneServlet?action=dettaglio&discussioneId=" + discussioneId);
         }

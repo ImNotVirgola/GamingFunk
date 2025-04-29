@@ -1,7 +1,18 @@
 @charset "UTF-8";
 @import url('https://fonts.googleapis.com/css2?family=Bangers&display=swap');
-
-/* Stile generale */
+.user-name-navbar {
+    display: inline-block;
+    margin-right: 10px;
+    font-family: 'Bangers', cursive;
+    font-size: 1.1em;
+    color: #A833FF;
+    vertical-align: middle;
+    max-width: 120px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+/* Stili generali */
 body {
     font-family: 'Bangers', cursive;
     background-color: #1A1A2E;
@@ -11,7 +22,7 @@ body {
     color: #FFFFFF;
 }
 
-/* Navbar styling con layout ripristinato */
+/* Navbar styling */
 .navbar {
     display: flex;
     justify-content: space-between;
@@ -50,33 +61,49 @@ body {
     transform: scale(1.1);
 }
 
-/* Navbar Right */
 .navbar-right {
     padding-right: 2.5%;
     display: flex;
-    align-items: center; /* Allinea verticalmente gli elementi */
-    gap: 10px; /* Spazio tra gli elementi */
+    align-items: center;
+    gap: 10px;
 }
 
-/* Stile per l'immagine del profilo */
-.navbar-right .profile-pic {
+.navbar-right .profile-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+/* Immagine del profilo */
+.profile-pic {
     width: 40px; /* Dimensione fissa per l'immagine */
     height: 40px; /* Dimensione fissa per l'immagine */
     border-radius: 50%; /* Forma circolare */
     border: 2px solid #A833FF; /* Bordo colorato */
     box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.5); /* Ombra per dare profondità */
-    transition: transform 0.2s ease-in-out; /* Animazione hover */
+    object-fit: cover;
+    margin-right: 10px;
+    transition: transform 0.2s ease-in-out;
+}
+
+.navbar-right .profile-pic {
+    width: 40px;
+    object-fit: cover;
+    margin-right: 10px;
+    height: 40px;
+    border-radius: 50%;
+    border: 2px solid #A833FF;
+    box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.5);
+    transition: transform 0.2sease-in-out;
 }
 
 .navbar-right .profile-pic:hover {
-    transform: scale(1.1); /* Effetto zoom al passaggio del mouse */
+    transform: scale(1.1);
 }
 
-/* Pulsante Logout */
 .navbar-right .btn-logout {
     padding: 8px 15px;
     font-family: 'Bangers', cursive;
-    background-color: #FF007F; /* Colore rosso acceso */
+    background-color: #FF007F;
     color: white;
     border: none;
     border-radius: 5px;
@@ -87,43 +114,11 @@ body {
 }
 
 .navbar-right .btn-logout:hover {
-    background-color: #E6006E; /* Colore più scuro al passaggio del mouse */
+    background-color: #E6006E;
     transform: scale(1.05);
 }
 
-/* Contenitore per l'immagine e il pulsante logout */
-.navbar-right .profile-actions {
-    display: flex;
-    align-items: center; /* Allinea verticalmente immagine e pulsante */
-    gap: 10px; /* Spazio tra l'immagine e il pulsante */
-}
-
-/* Pulsanti Login e Registrazione */
-.btn-login,
-.btn-register {
-    padding: 8px 15px;
-    font-family: 'Bangers', cursive;
-    background-color: #008FCC;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 1em;
-    box-shadow: 2px 2px 0px #212121;
-    width: 120px;
-    transition: 0.2s;
-}
-
-.btn-register {
-    background-color: #A833FF;
-}
-
-.btn-login:hover,
-.btn-register:hover {
-    transform: scale(1.05);
-}
-
-/* Container styling */
+/* Contenitore principale */
 .container {
     width: 90%;
     margin: 20px auto;
@@ -136,141 +131,58 @@ h1 {
     font-size: 3em;
 }
 
-/* Foto profilo */
-.profile-picture img {
-    max-width: 200px;
-    border-radius: 10px;
-    border: 3px solid #A833FF;
-    box-shadow: 5px 5px 0px #212121;
-    transition: 0.2s;
+/* Foto profilo grande */
+.profile-picture {
+    margin: 20px auto;
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    overflow: hidden; /* Nasconde eventuali bordi irregolari */
+    border: 5px solid #A833FF;
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5);
+    transition: transform 0.2s ease-in-out;
 }
 
-.profile-picture img:hover {
-    transform: scale(1.05);
+.profile-picture img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Mantieni le proporzioni dell'immagine */
+}
+
+.profile-picture:hover {
+    transform: scale(1.1);
 }
 
 /* Informazioni utente */
 .user-info {
     background: #222222;
-    padding: 15px;
-    border-radius: 10px;
-    box-shadow: 5px 5px 0px #212121;
-    width: 50%;
-    margin: 20px auto;
-    border: 3px solid #FF007F;
-    text-align: center;
-    transition: 0.2s;
-}
-
-.user-info:hover {
-    transform: scale(1.05);
-}
-
-.user-info p {
-    font-size: 1em;
-    color: #FFFFFF;
-}
-
-/* Pulsante Modifica Dati */
-.btn-edit {
-    padding: 10px 20px;
-    background-color: #A833FF;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-family: 'Bangers', cursive;
-    font-size: 1.2em;
-    box-shadow: 2px 2px 0px #212121;
-    transition: 0.2s;
-}
-
-.btn-edit:hover {
-    background-color: #9122E6;
-    transform: scale(1.05);
-}
-
-/* Stile generale del form */
-.edit-form {
-    background: #222222;
     padding: 30px;
     border-radius: 15px;
     box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5);
-    width: 90%;
-    max-width: 600px; /* Limita la larghezza massima per schermi grandi */
-    margin: 40px auto; /* Centra il form verticalmente e orizzontalmente */
-    text-align: center;
+    max-width: 600px;
+    margin: 40px auto;
+    text-align: left;
     border: 3px solid #FF007F;
-    transition: transform 0.2s ease-in-out;
+    overflow: hidden;
 }
 
-.edit-form:hover {
-    transform: scale(1.02); /* Effetto zoom leggero al passaggio del mouse */
-}
-
-.edit-form h2 {
-    font-size: 2.5em;
-    color: #E6E300;
-    text-shadow: 3px 3px 0px #212121;
-    margin-bottom: 20px;
-}
-
-/* Label styling */
-.edit-form label {
+.user-info p {
     font-size: 1.2em;
+    color: #FFFFFF;
+    margin: 10px 0;
+}
+
+.user-info b {
     color: #00AEEF;
     text-shadow: 1px 1px 0px #212121;
-    display: block;
-    margin: 10px 0 5px; /* Spazio tra le etichette e gli input */
-    text-align: left; /* Allinea le etichette a sinistra */
-    width: 100%;
 }
 
-/* Input styling */
-.edit-form input[type="text"],
-.edit-form input[type="email"],
-.edit-form input[type="password"] {
-    width: 100%;
-    padding: 10px 15px;
-    border: 3px solid #A833FF;
-    border-radius: 5px;
-    font-family: 'Bangers', cursive;
-    font-size: 1.1em;
-    background-color: #222222;
-    color: white;
-    transition: border-color 0.2s ease-in-out;
-}
-
-.edit-form input[type="text"]:focus,
-.edit-form input[type="email"]:focus,
-.edit-form input[type="password"]:focus {
-    border-color: #FF007F; /* Cambia il colore del bordo quando l'input è focalizzato */
-    outline: none;
-}
-
-/* File input styling */
-.edit-form input[type="file"] {
-    width: 100%;
-    padding: 10px 15px;
-    border: 3px solid #A833FF;
-    border-radius: 5px;
-    font-family: 'Bangers', cursive;
-    font-size: 1.1em;
-    background-color: #222222;
-    color: white;
-    cursor: pointer;
-    transition: border-color 0.2s ease-in-out;
-}
-
-.edit-form input[type="file"]:hover {
-    border-color: #FF007F;
-}
-
-/* Button styling */
+/* Pulsante Modifica Dati */
 .btn-save {
-    display: inline-block;
+    display: block;
+    width: 100%;
     margin-top: 20px;
-    padding: 12px 20px;
+    padding: 12px;
     background-color: #A833FF;
     color: white;
     border: none;
@@ -287,37 +199,52 @@ h1 {
     transform: scale(1.05);
 }
 
-/* Responsive design */
+/* Form di modifica */
+.edit-form {
+    background: #222222;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5);
+    max-width: 600px;
+    margin: 40px auto;
+    text-align: left;
+    border: 3px solid #FF007F;
+}
+
+.edit-form label {
+    display: block;
+    margin: 15px 0 5px;
+    color: #00AEEF;
+    font-size: 1.2em;
+    text-shadow: 1px 1px 0px #212121;
+}
+
+.edit-form input[type="text"],
+.edit-form input[type="email"],
+.edit-form input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    margin: 5px 0 15px;
+    border: 3px solid #A833FF;
+    border-radius: 5px;
+    background-color: #222222;
+    color: white;
+    font-family: 'Bangers', cursive;
+    font-size: 1em;
+}
+
+.edit-form input[type="file"] {
+    margin: 10px 0;
+}
+
 @media (max-width: 768px) {
     .navbar {
         flex-direction: column;
         gap: 15px;
     }
 
-    .navbar-left {
-        margin-left: 0;
-    }
-
-    .navbar-right {
-        margin-right: 0;
-    }
-
-    .navbar-center {
-        flex-wrap: wrap;
-        justify-content: center;
-    }
-
-    .user-info,
-    .edit-form {
-        width: 90%; /* Aumentiamo la larghezza su dispositivi mobili */
-    }
-
-    .edit-form input,
-    .edit-form textarea {
-        width: 100%; /* Ocuppano tutto lo spazio disponibile */
-    }
-
-    .edit-form button {
-        width: 100%; /* Il pulsante occupa tutto lo spazio disponibile */
+    .profile-picture {
+        width: 120px;
+        height: 120px;
     }
 }

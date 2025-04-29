@@ -1,6 +1,17 @@
 @charset "UTF-8";
 @import url('https://fonts.googleapis.com/css2?family=Bangers&display=swap');
-
+.user-name-navbar {
+	display: inline-block;
+	margin-right: 10px;
+	font-family: 'Bangers', cursive;
+	font-size: 1.1em;
+	color: #A833FF;
+	vertical-align: middle;
+	max-width: 120px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
 body {
 	font-family: 'Bangers', cursive;
 	background-color: #1A1A2E;
@@ -56,13 +67,16 @@ body {
 	gap: 5px;
 }
 
+/* Immagine del profilo */
 .profile-pic {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%; /* Rende l'immagine circolare */
-    object-fit: cover; /* Mantieni le proporzioni */
-    cursor: pointer;   /* Indica che è cliccabile */
-    margin-left: 10px;
+    width: 40px; /* Dimensione fissa per l'immagine */
+    height: 40px; /* Dimensione fissa per l'immagine */
+    border-radius: 50%; /* Forma circolare */
+    border: 2px solid #A833FF; /* Bordo colorato */
+    box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.5); /* Ombra per dare profondità */
+    object-fit: cover;
+    margin-right: 10px;
+    transition: transform 0.2s ease-in-out;
 }
 
 .btn-login,

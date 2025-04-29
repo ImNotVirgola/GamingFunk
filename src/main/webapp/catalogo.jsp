@@ -38,6 +38,12 @@
                     }
             %>
             <div class="profile-actions">
+                <span class="user-name-navbar"><%
+                    String nome = (String) session.getAttribute("nome");
+                    if (nome != null && !nome.isEmpty()) {
+                        out.print(nome);
+                    }
+                %></span>
                 <a href="profilo.jsp">
                     <img src="${pageContext.request.contextPath}/<%= fotoProfilo %>" alt="Foto Profilo" class="profile-pic">
                 </a>
@@ -61,7 +67,7 @@
         <h1>🎭 Catalogo GamingFunk 🎨</h1>
         <div class="search-bar">
             <input type="text" id="search-input" placeholder="Cerca nel catalogo..." oninput="filtraProdotti()">
-            <button class="btn-search">Cerca</button>
+            <!-- <button class="btn-search">Cerca</button> -->
             <!-- Pulsante per mostrare/nascondere i filtri -->
             <button class="btn-filtri" onclick="toggleFiltri()">Filtra</button>
             <%

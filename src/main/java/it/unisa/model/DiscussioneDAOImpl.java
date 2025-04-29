@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class DiscussioneDAOImpl extends GenericDAOImpl<Discussione, Integer> {
@@ -14,7 +15,7 @@ public class DiscussioneDAOImpl extends GenericDAOImpl<Discussione, Integer> {
     
     public List<Discussione> getAllByForum(int id) {
         String query = "SELECT * FROM Discussione WHERE id_forum = ?";
-        List<Discussione> disc = null;
+        List<Discussione> disc = new ArrayList<>();
 
         try (Connection conn = getConnection(); // Ottieni la connessione al database
              PreparedStatement stmt = conn.prepareStatement(query)) {

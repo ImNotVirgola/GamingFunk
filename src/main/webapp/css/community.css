@@ -1,91 +1,256 @@
-/* community.css - stile base per la sezione community/forum */
+/* community.css - Stile aggiornato per la sezione community/forum */
 
+@charset "UTF-8";
+@import url('https://fonts.googleapis.com/css2?family=Bangers&display=swap');
+.user-name-navbar {
+    display: inline-block;
+    margin-right: 10px;
+    font-family: 'Bangers', cursive;
+    font-size: 1.1em;
+    color: #A833FF;
+    vertical-align: middle;
+    max-width: 120px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+/* Stile generale */
+body {
+    font-family: 'Bangers', cursive;
+    background-color: #1A1A2E;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+    color: #FFFFFF;
+}
+
+/* Contenitore principale */
 .container {
     max-width: 900px;
     margin: 40px auto;
-    background: #fff;
+    background: #222222;
     padding: 30px;
-    border-radius: 12px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    border-radius: 15px;
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5);
+    border: 3px solid #FF007F;
+    overflow: hidden;
 }
 
 h1 {
-    color: #2d3250;
+    color: #E6E300;
+    text-shadow: 3px 3px 0px #212121;
+    font-size: 3em;
     margin-bottom: 20px;
 }
 
+/* Pulsante "Nuova Discussione" */
 .btn-new {
-    background: #2d3250;
-    color: #fff;
-    padding: 10px 18px;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-    margin-bottom: 18px;
-    text-decoration: none;
     display: inline-block;
+    width: 100%;
+    max-width: 200px; /* Dimensione fissa per il pulsante */
+    padding: 12px 20px;
+    font-family: 'Bangers', cursive;
+    font-size: 1.2em;
+    background-color: #A833FF;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    box-shadow: 3px 3px 0px #212121;
+    transition: background-color 0.2s ease-in-out, transform 0.2s ease-in-out;
+    margin-bottom: 18px;
 }
 
 .btn-new:hover {
-    background: #424769;
+    background-color: #9122E6;
+    transform: scale(1.05);
 }
 
+/* Liste delle comunità/discussioni */
 .community-list, .discussion-list, .discussion-detail {
     margin-top: 30px;
+    text-align: left;
 }
 
+/* Input e textarea */
 input[type="text"], textarea {
     width: 100%;
-    padding: 8px;
+    max-width: 600px; /* Limita la larghezza massima */
+    padding: 10px 15px;
     margin: 8px 0 16px 0;
-    border: 1px solid #ccc;
-    border-radius: 6px;
+    border: 3px solid #A833FF;
+    border-radius: 5px;
+    font-family: 'Bangers', cursive;
     font-size: 1em;
+    background-color: #222222;
+    color: white;
+    transition: border-color 0.2s ease-in-out;
 }
 
+input[type="text"]:focus, textarea:focus {
+    border-color: #9122E6;
+}
+
+/* Etichette */
 label {
-    font-weight: 600;
+    font-size: 1.2em;
+    color: #00AEEF;
+    text-shadow: 1px 1px 0px #212121;
+    margin-bottom: 5px;
+    display: block;
 }
 
+/* Navbar styling con layout ripristinato */
 .navbar {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background: #2d3250;
-    padding: 12px 30px;
+    background-color: #222222;
+    padding: 15px 0;
+    box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.5);
+    border-bottom: 3px solid #FF007F;
 }
 
-.navbar a {
-    color: #fff;
+.navbar-left {
+    padding-left: 1.5%;
+    margin-right: 3%;
+}
+
+.navbar-left .logo {
+    height: 40px;
+    width: auto;
+    margin-right: 10px;
+    transition: transform 0.2s ease-in-out;
+}
+
+.navbar-left .logo:hover {
+    transform: scale(1.1);
+}
+
+.navbar-center {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+}
+
+.navbar-center a {
+    color: #00AEEF;
     text-decoration: none;
-    margin: 0 12px;
-    font-weight: 500;
+    font-size: 1.2em;
+    text-shadow: 1px 1px 0px #212121;
+    transition: 0.2s;
 }
 
-.navbar a.active, .navbar a:hover {
-    color: #f8b400;
+.navbar-center a:hover {
+    color: #E6E300;
+    transform: scale(1.1);
 }
 
+/* Navbar Right */
+.navbar-right {
+    padding-right: 2.5%;
+    display: flex;
+    align-items: center; /* Allinea verticalmente gli elementi */
+    gap: 10px; /* Spazio tra gli elementi */
+}
+
+/* Contenitore per l'immagine e il pulsante logout */
+.navbar-right .profile-actions {
+    display: flex;
+    align-items: center; /* Allinea verticalmente immagine e pulsante */
+    gap: 10px; /* Spazio tra l'immagine e il pulsante */
+}
+
+/* Stile per l'immagine del profilo */
+.navbar-right .profile-pic {
+    width: 40px; /* Dimensione fissa per l'immagine */
+    height: 40px; /* Dimensione fissa per l'immagine */
+    border-radius: 50%; /* Forma circolare */
+    border: 2px solid #A833FF; /* Bordo colorato */
+    box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.5); /* Ombra per dare profondità */
+    transition: transform 0.2s ease-in-out; /* Animazione hover */
+}
+
+.navbar-right .profile-pic:hover {
+    transform: scale(1.1); /* Effetto zoom al passaggio del mouse */
+}
+
+.navbar-right .auth-buttons {
+    display: flex;
+    flex-direction: column; /* Impila i pulsanti verticalmente */
+    gap: 10px; /* Spazio tra i pulsanti */
+    align-items: flex-end; /* Allinea i pulsanti a destra */
+}
+
+/* Pulsante Logout */
+.navbar-right .btn-logout {
+    padding: 8px 15px;
+    font-family: 'Bangers', cursive;
+    background-color: #FF007F; /* Colore rosso acceso */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1em;
+    box-shadow: 2px 2px 0px #212121;
+    transition: background-color 0.2s ease-in-out;
+}
+
+.navbar-right .btn-logout:hover {
+    background-color: #E6006E; /* Colore più scuro al passaggio del mouse */
+    transform: scale(1.05);
+}
+
+/* Pulsanti Login e Registrazione */
+.btn-login,
+.btn-register {
+    padding: 8px 15px; /* Padding interno */
+    font-family: 'Bangers', cursive; /* Font personalizzato */
+    color: white; /* Testo bianco */
+    border: none; /* Nessun bordo */
+    border-radius: 5px; /* Bordi arrotondati */
+    cursor: pointer; /* Cursore a puntatore */
+    font-size: 1em; /* Dimensione del testo */
+    box-shadow: 2px 2px 0px #212121; /* Ombra per dare profondità */
+    width: 120px; /* Larghezza fissa */
+    transition: 0.2s; /* Transizione fluida */
+}
+
+/* Stile specifico per il pulsante Login */
+.btn-login {
+    background-color: #008FCC; /* Colore blu acceso */
+}
+
+/* Stile specifico per il pulsante Registrazione */
+.btn-register {
+    background-color: #A833FF; /* Colore viola acceso */
+}
+
+/* Effetto hover per entrambi i pulsanti */
+.btn-login:hover,
+.btn-register:hover {
+    transform: scale(1.05); /* Effetto zoom leggero */
+}
+
+/* Effetto active per entrambi i pulsanti */
+.btn-login:active,
+.btn-register:active {
+    transform: scale(0.95); /* Effetto compressione al clic */
+    transition: transform 0.1s ease-in-out;
+}
+
+/* Immagine del profilo */
 .profile-pic {
-    width: 36px;
-    height: 36px;
-    border-radius: 50%;
+    width: 40px; /* Dimensione fissa per l'immagine */
+    height: 40px; /* Dimensione fissa per l'immagine */
+    border-radius: 50%; /* Forma circolare */
+    border: 2px solid #A833FF; /* Bordo colorato */
+    box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.5); /* Ombra per dare profondità */
     object-fit: cover;
     margin-right: 10px;
+    transition: transform 0.2s ease-in-out;
 }
 
-.auth-buttons button, .btn-logout {
-    background: #f8b400;
-    color: #2d3250;
-    border: none;
-    border-radius: 6px;
-    padding: 8px 14px;
-    margin-left: 8px;
-    cursor: pointer;
-    font-weight: 600;
-}
-
-.auth-buttons button:hover, .btn-logout:hover {
-    background: #ffd966;
-    color: #2d3250;
+.profile-pic:hover {
+    transform: scale(1.1); /* Effetto zoom al passaggio del mouse */
 }

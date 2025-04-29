@@ -28,6 +28,12 @@
                     }
             %>
             <div class="profile-actions">
+                <span class="user-name-navbar"><%
+                    String nome = (String) session.getAttribute("nome");
+                    if (nome != null && !nome.isEmpty()) {
+                        out.print(nome);
+                    }
+                %></span>
                 <a href="profilo.jsp">
                     <img src="${pageContext.request.contextPath}/<%= fotoProfilo %>" alt="Foto Profilo" class="profile-pic">
                 </a>
@@ -51,9 +57,17 @@
         <h1>Discussione</h1>
         <div class="discussion-detail">
             <%-- Qui verrà inserito il dettaglio della discussione tramite backend --%>
-            <jsp:include page="/DiscussioneServlet" />
+            <div id="discussione-servlet"></div>
         </div>
         <a href="DiscussioneServlet?action=nuovoPost&discussioneId=${param.discussioneId}" class="btn-new">Rispondi</a>
     </div>
+    <script>
+	    fetch('/DiscussioneServlet')
+	        .then(response => response.text())
+	        .then(data => {
+	            document.getElementById('dynamic-content').innerHTML = data;
+	        })
+	        .catch(error => console.error('Errore durante il caricamento del contenuto:', error));
+	</script>
 </body>
 </html>

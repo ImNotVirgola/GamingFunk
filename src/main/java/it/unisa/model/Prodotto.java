@@ -31,7 +31,7 @@ public class Prodotto {
     public int getIdProdotto() { return idProdotto; }
     public void setIdProdotto(int idProdotto) { this.idProdotto = idProdotto; }
     public int getQuantitaDisponibile() { return quantitaDisponibile; }
-    public void setQuantitaDisponibile(int quantitaDisponibile) { this.quantitaDisponibile = quantitaDisponibile; }
+    public void setQuantitaDisponibile(int quantitaDisponibile) { this.quantitaDisponibile += quantitaDisponibile; }
     public double getPrezzo() { return prezzo; }
     public void setPrezzo(double prezzo) { this.prezzo = prezzo; }
     public double getMediaRecensioni() { return mediaRecensioni; }

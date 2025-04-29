@@ -21,6 +21,12 @@
         <div class="navbar-right">
             <% if (session.getAttribute("utente") != null) { %>
             <div class="profile-actions">
+                <span class="user-name-navbar"><%
+                    String nome = (String) session.getAttribute("nome");
+                    if (nome != null && !nome.isEmpty()) {
+                        out.print(nome);
+                    }
+                %></span>
                 <a href="profilo.jsp">
                     <img src="${pageContext.request.contextPath}/<%= session.getAttribute("fotoProfilo") != null ? session.getAttribute("fotoProfilo") : "images/default/profile.png" %>" alt="Foto Profilo" class="profile-pic">
                 </a>

@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
+import org.mindrot.jbcrypt.BCrypt;
 
 @WebServlet("/updateProfile")
 @MultipartConfig(
@@ -61,7 +62,7 @@ public class AggiornaProfilo extends HttpServlet {
         citta = (citta == null || citta.trim().isEmpty()) ? utente.getCitta() : citta; // Gestione città
         provincia = (provincia == null || provincia.trim().isEmpty()) ? utente.getProvincia() : provincia; // Gestione provincia
         cap = (cap == null || cap.trim().isEmpty()) ? utente.getCap() : cap; // Gestione CAP
-        password = (password == null || password.trim().isEmpty()) ? utente.getPassword() : password;
+        password = (password == null || password.trim().isEmpty()) ? utente.getPassword() : BCrypt.hashpw(password, BCrypt.gensalt());
 
         // Gestione del file caricato
         Part filePart = request.getPart("immagine");

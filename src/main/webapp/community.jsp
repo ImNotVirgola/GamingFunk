@@ -28,6 +28,12 @@
                     }
             %>
             <div class="profile-actions">
+                <span class="user-name-navbar"><%
+                    String nome = (String) session.getAttribute("nome");
+                    if (nome != null && !nome.isEmpty()) {
+                        out.print(nome);
+                    }
+                %></span>
                 <a href="profilo.jsp">
                     <img src="${pageContext.request.contextPath}/<%= fotoProfilo %>" alt="Foto Profilo" class="profile-pic">
                 </a>
@@ -52,8 +58,16 @@
         <a href="CommunityServlet?action=nuova" class="btn-new">Crea nuova community</a>
         <div class="community-list">
             <%-- Qui verrà inserita la lista delle community tramite backend --%>
-            <jsp:include page="/CommunityServlet" />
+            <div id="community-servlet"></div>
         </div>
     </div>
+    <script>
+	    fetch('/CommunityServlet')
+	        .then(response => response.text())
+	        .then(data => {
+	            document.getElementById('dynamic-content').innerHTML = data;
+	        })
+	        .catch(error => console.error('Errore durante il caricamento del contenuto:', error));
+	</script>
 </body>
 </html>

@@ -1,0 +1,185 @@
+@charset "UTF-8";
+@import url('https://fonts.googleapis.com/css2?family=Bangers&display=swap');
+
+body {
+    font-family: 'Bangers', cursive;
+    background-color: #1A1A2E;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+    color: #FFFFFF;
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #222222;
+    padding: 15px 0;
+    box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.5);
+    border-bottom: 3px solid #FF007F;
+}
+
+.navbar-left {
+    padding-left: 1.5%;
+    margin-right: 5.5%;
+}
+
+.navbar-left .logo {
+    height: 40px;
+}
+
+.navbar-center {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+}
+
+.navbar-center a {
+    color: #00AEEF;
+    text-decoration: none;
+    font-size: 1.2em;
+    text-shadow: 1px 1px 0px #212121;
+    transition: 0.2s;
+}
+
+.navbar-center a:hover {
+    color: #E6E300;
+    transform: scale(1.1);
+}
+
+/* Navbar Right */
+.navbar-right {
+    padding-right: 2.5%;
+    display: flex;
+    align-items: center; /* Allinea verticalmente gli elementi */
+    gap: 10px; /* Spazio tra gli elementi */
+}
+
+/* Contenitore per l'immagine e il pulsante logout */
+.navbar-right .profile-actions {
+    display: flex;
+    align-items: center; /* Allinea verticalmente immagine e pulsante */
+    gap: 10px; /* Spazio tra l'immagine e il pulsante */
+}
+
+/* Stile per l'immagine del profilo */
+.navbar-right .profile-pic {
+    width: 40px;
+    object-fit: cover;
+    margin-right: 10px;
+    height: 40px;
+    border-radius: 50%;
+    border: 2px solid #A833FF;
+    box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.5);
+    transition: transform 0.2sease-in-out;
+}
+
+.navbar-right .profile-pic:hover {
+    transform: scale(1.1); /* Effetto zoom al passaggio del mouse */
+}
+
+.navbar-right .auth-buttons {
+    display: flex;
+    flex-direction: column; /* Impila i pulsanti verticalmente */
+    gap: 10px; /* Spazio tra i pulsanti */
+    align-items: flex-end; /* Allinea i pulsanti a destra */
+}
+
+/* Pulsante Logout */
+.navbar-right .btn-logout {
+    padding: 8px 15px;
+    font-family: 'Bangers', cursive;
+    background-color: #FF007F;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1em;
+    box-shadow: 2px 2px 0px #212121;
+    transition: background-color 0.2sease-in-out;
+}
+
+.navbar-right .btn-logout:hover {
+    background-color: #E6006E; /* Colore più scuro al passaggio del mouse */
+    transform: scale(1.05);
+}
+
+/* Pulsanti Login e Registrazione */
+.btn-login,
+.btn-register {
+    padding: 8px 15px;
+    font-family: 'Bangers', cursive;
+    background-color: #008FCC;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1em;
+    box-shadow: 2px 2px 0px #212121;
+    width: 120px; /* Larghezza fissa */
+    transition: 0.2s;
+}
+
+.btn-register {
+    background-color: #A833FF;
+}
+
+.btn-login:hover,
+.btn-register:hover {
+    transform: scale(1.05);
+}
+
+.profile-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.user-name-navbar {
+    display: inline-block;
+    margin-right: 10px;
+    font-family: 'Bangers', cursive;
+    font-size: 1.1em;
+    color: #A833FF;
+    vertical-align: middle;
+    max-width: 120px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.profile-pic {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 2px solid #A833FF;
+    box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.5);
+    object-fit: cover;
+    margin-right: 10px;
+    transition: transform 0.2s ease-in-out;
+}
+
+.profile-pic:hover {
+    transform: scale(1.1);
+}
+
+.auth-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: flex-end;
+}
+
+h1 {
+    color: #E6E300;
+    text-shadow: 3px 3px 0px #212121;
+    font-size: 2.5em;
+    margin-top: 60px;
+}
+
+p {
+    font-size: 1.3em;
+    margin-top: 20px;
+    color: #FF007F;
+}
