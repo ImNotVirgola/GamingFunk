@@ -18,15 +18,15 @@ public abstract class GenericDAOImpl<T, ID> implements GenericDao<T, ID> {
         this.idColumn = idColumn;
     }
 
-    protected Connection getConnection() throws SQLException {
+    protected static Connection getConnection() throws SQLException {
         try {
             // Registra il driver manualmente (opzionale ma consigliato)
             Class.forName("org.mariadb.jdbc.Driver");
 
             // Parametri di connessione
             String url = "jdbc:mariadb://localhost:3306/gamingfunk";
-            String user = "root";
-            String password = "root";
+            String user = "giovanni";
+            String password = "new_password_here";
 
             // Restituisce la connessione
             return DriverManager.getConnection(url, user, password);

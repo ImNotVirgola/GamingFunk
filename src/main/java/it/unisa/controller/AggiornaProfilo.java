@@ -73,7 +73,7 @@ public class AggiornaProfilo extends HttpServlet {
             fileName = utente.getNome() + utente.getIdUtente() + ".png";
 
             // Percorso relativo alla directory "images/profile"
-            String relativePath = "/images/profile";
+            String relativePath = "images/profile";
 
             // Percorso assoluto della directory di upload
             String uploadPath = getServletContext().getRealPath(relativePath);
@@ -86,6 +86,7 @@ public class AggiornaProfilo extends HttpServlet {
                     throw new IOException("Impossibile creare la directory: " + uploadPath);
                 }
             }
+            System.out.print(uploadDir);
 
             // Salva il file nella directory
             File file = new File(uploadDir, fileName);

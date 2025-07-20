@@ -27,16 +27,30 @@
     <div class="container">
         <h1>🔑 Accesso</h1>
 
-        <!-- Messaggio di errore -->
+        <!-- Messaggi di successo o errore -->
         <%
-            // Verifica se ci sono messaggi di errore passati tramite request o session
-            String errorMessage = (String) request.getAttribute("errorMessage");
-            if (errorMessage != null) {
+            if (session != null) {
+                // Messaggio di successo (es. registrazione riuscita)
+                String successMessage = (String) session.getAttribute("successMessage");
+                if (successMessage != null) {
         %>
-                <div class="error-message">
-                    <%= errorMessage %>
-                </div>
+                    <div class="success-message">
+                        <%= successMessage %>
+                    </div>
         <%
+                    session.removeAttribute("successMessage");
+                }
+
+                // Messaggio di errore (es. credenziali errate)
+                String errorMessage = (String) session.getAttribute("errorMessage");
+                if (errorMessage != null) {
+        %>
+                    <div class="error-message">
+                        <%= errorMessage %>
+                    </div>
+        <%
+                    session.removeAttribute("errorMessage");
+                }
             }
         %>
 

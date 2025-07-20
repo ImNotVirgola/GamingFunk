@@ -99,6 +99,9 @@
         
 	        <!-- Pulsante per modificare i dati -->
 	        <button id="edit-profile-btn" class="btn-save">Modifica Dati</button>
+	        <!-- Pulsante per visualizzare gli ordini -->
+            <a href="visualizzaOrdini" class="btn-view-orders">Visualizza i tuoi ordini</a>
+	        
         </div>
 
         <!-- Form per la modifica dei dati -->

@@ -60,4 +60,6 @@ public class Utente {
     public void setTotaleSpeso(Double totaleSpeso) { this.totaleSpeso = totaleSpeso; }
     public String getImmagine() { return fotoProfilo; }
     public void setImmagine(String path) { this.fotoProfilo = path; }
+
+	
 }

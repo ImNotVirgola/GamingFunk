@@ -22,10 +22,12 @@ public class AggiungiAlCarrello extends HttpServlet {
         // Recupera i parametri dal form
         String nomeProdotto = request.getParameter("nome");
         String prezzoProdottoStr = request.getParameter("prezzo");
+        String idProdottoStr = request.getParameter("id");
+
 
         // Validazione dei parametri
-        if (nomeProdotto == null || prezzoProdottoStr == null || nomeProdotto.isEmpty() || prezzoProdottoStr.isEmpty()) {
-            response.sendRedirect(request.getContextPath() + "/catalogo.jsp?errore=Parametri%20mancanti");
+        if (nomeProdotto == null || prezzoProdottoStr == null || idProdottoStr == null || nomeProdotto.isEmpty() || prezzoProdottoStr.isEmpty() || idProdottoStr.isEmpty()) {
+        response.sendRedirect(request.getContextPath() + "/catalogo.jsp?errore=Parametri%20mancanti");
             return;
         }
 
@@ -36,6 +38,15 @@ public class AggiungiAlCarrello extends HttpServlet {
             response.sendRedirect(request.getContextPath() + "/catalogo.jsp?errore=Prezzo%20non%20valido");
             return;
         }
+        
+        int idProdotto;
+        try {
+            idProdotto = Integer.parseInt(idProdottoStr);
+        } catch (NumberFormatException e) {
+            response.sendRedirect(request.getContextPath() + "/catalogo.jsp?errore=ID%20non%20valido");
+            return;
+        }
+
 
         // Recupera la sessione
         HttpSession session = request.getSession();
@@ -51,17 +62,36 @@ public class AggiungiAlCarrello extends HttpServlet {
         // Controlla se il prodotto è già nel carrello
         boolean prodottoEsistente = false;
         for (Map<String, Object> item : carrello) {
-            if (item.get("nome").equals(nomeProdotto)) {
-                int quantita = (int) item.get("quantità");
-                item.put("quantità", quantita + 1);
-                prodottoEsistente = true;
-                break;
-            }
+        	if (item.get("nome").equals(nomeProdotto)) {
+        	    Object quantitaObj = item.get("quantità");
+        	    int quantita = 0;
+
+        	    if (quantitaObj instanceof Integer) {
+        	        quantita = (Integer) quantitaObj;
+        	    } else if (quantitaObj != null) {
+        	        try {
+        	            quantita = Integer.parseInt(quantitaObj.toString());
+        	        } catch (NumberFormatException e) {
+        	            quantita = 0;
+        	        }
+        	    }
+
+        	    // Correggi ID se mancante
+        	    if (item.get("id") == null || ((Integer)item.get("id")) <= 0) {
+        	        item.put("id", idProdotto);
+        	    }
+
+        	    item.put("quantità", quantita + 1);
+        	    prodottoEsistente = true;
+        	    break;
+        	}
+
         }
 
         // Se il prodotto non è nel carrello, aggiungilo
         if (!prodottoEsistente) {
             Map<String, Object> nuovoProdotto = new HashMap<>();
+            nuovoProdotto.put("id", idProdotto);
             nuovoProdotto.put("nome", nomeProdotto);
             nuovoProdotto.put("prezzo", prezzoProdotto);
             nuovoProdotto.put("quantità", 1);

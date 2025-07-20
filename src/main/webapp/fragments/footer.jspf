@@ -1,0 +1,8 @@
+<footer class="site-footer" style="padding:20px; text-align:center; background-color:#f5f5f5; margin-top:40px;">
+    <p style="margin:0;">
+        &copy; <%= java.time.Year.now() %> GamingFunk. Tutti i diritti riservati.
+        <br>
+        <a href="<%= request.getContextPath() %>/termsofservice.jsp">Termini di servizio</a> |
+        <a href="<%= request.getContextPath() %>/privacy.jsp">Privacy Policy</a>
+    </p>
+</footer>

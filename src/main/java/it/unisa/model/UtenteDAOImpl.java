@@ -11,8 +11,31 @@ public class UtenteDAOImpl extends GenericDAOImpl<Utente, Integer> {
         super("utente", "id_utente");
     }
     
+    public static boolean emailExists(String email) {
+        String query = "SELECT * FROM utente WHERE email = ?";
+
+        try (Connection conn = getConnection(); // Ottieni la connessione al database
+             PreparedStatement stmt = conn.prepareStatement(query)) {
+
+            // Imposta il parametro della query
+            stmt.setString(1, email);
+
+            // Esegui la query
+            ResultSet rs = stmt.executeQuery();
+
+            // Se trovi un risultato, ritorna true
+            if (rs.next()) {
+            	return true;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+       
+    
     public Utente getUtenteByEmail(String email) {
-        String query = "SELECT * FROM Utente WHERE email = ?";
+        String query = "SELECT * FROM utente WHERE email = ?";
         Utente utente = null;
 
         try (Connection conn = getConnection(); // Ottieni la connessione al database
