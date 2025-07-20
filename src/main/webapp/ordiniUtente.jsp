@@ -2,15 +2,15 @@
 <%@ page import="it.unisa.model.*" %>
 <%@ page import="javax.servlet.http.*, java.util.*, java.text.DecimalFormat" %>
 <%
-    Utente utente = (Utente) session.getAttribute("utente");
-    if (utente == null) {
+    Utente utente1 = (Utente) session.getAttribute("utente");
+    if (utente1 == null) {
         response.sendRedirect("login.jsp");
         return;
     }
 
     OrdineDAOImpl ordineDAO = new OrdineDAOImpl();
     OrdineProdottoDAOImpl ordineProdottoDAO = new OrdineProdottoDAOImpl();
-    List<Ordine> ordini = ordineDAO.getOrdiniByUtenteId(utente.getIdUtente());
+    List<Ordine> ordini = ordineDAO.getOrdiniByUtenteId(utente1.getIdUtente());
     DecimalFormat df = new DecimalFormat("#.00");
 %>
 <!DOCTYPE html>
@@ -21,7 +21,7 @@
     <link rel="stylesheet" href="<%= request.getContextPath() %>/css/catalogo.css">
 </head>
 <body>
-
+<%@ include file = "fragments/header.jspf" %>
 <div class="container">
     <h1>📦 I miei ordini</h1>
 
