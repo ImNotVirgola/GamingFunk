@@ -44,7 +44,7 @@ public class Catalogo extends HttpServlet {
     	
     	
     	if(cat == 0) {
-    		prodotti = prodottoDAO.getAll();
+    		prodotti = prodottoDAO.getProdottiAttivi();
     	} else {
     		try {
 				prodotti = prodottoDAO.getFilteredProducts(cat);

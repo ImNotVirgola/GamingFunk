@@ -15,6 +15,39 @@ public class OrdineProdottoDAOImpl extends GenericDAOImpl<OrdineProdotto, Ordine
         super("ordine_prodotto", "id_ordine, id_prodotto");
     }
     
+    public void aggiungiNomeProdotto() {
+    	String updateSQL = "UPDATE ordine_prodotto SET nome_prodotto = ? " +
+                "WHERE id_ordine = ? AND id_prodotto = ?";
+    	String selectSQL = "SELECT op.id_ordine, op.id_prodotto, p.nome " +
+    			"FROM ordine_prodotto op " +
+    			"JOIN prodotto p ON op.id_prodotto = p.id_prodotto " +
+    			"WHERE op.nome_prodotto IS NULL";
+    	
+		try (Connection conn = getConnection();
+		  PreparedStatement selectStmt = conn.prepareStatement(selectSQL);
+		  PreparedStatement updateStmt = conn.prepareStatement(updateSQL)) {
+		
+		 ResultSet rs = selectStmt.executeQuery();
+		
+		 while (rs.next()) {
+		     int idOrdine = rs.getInt("id_ordine");
+		     int idProdotto = rs.getInt("id_prodotto");
+		     String nome = rs.getString("nome");
+		
+		     updateStmt.setString(1, nome);
+		     updateStmt.setInt(2, idOrdine);
+		     updateStmt.setInt(3, idProdotto);
+		     updateStmt.addBatch();
+		 }
+		
+		 updateStmt.executeBatch();
+		
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+    }
+    
     public List<Map<String, Object>> getProdottiDettagliatiByOrdineId(int idOrdine) {
         List<Map<String, Object>> prodotti = new ArrayList<>();
 

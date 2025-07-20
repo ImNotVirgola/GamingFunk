@@ -9,38 +9,56 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ProdottoDAOImpl extends GenericDAOImpl<Prodotto, Integer> {
-	
-	public int addAndReturnId(Prodotto prodotto) {
-		String query = "INSERT INTO prodotto (nome, descrizione, prezzo, quantita_disponibile, id_categoria, media_recensioni) VALUES (?, ?, ?, ?, ?, ?)";
-	    try (Connection conn = getConnection();
-	         PreparedStatement stmt = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS)) {
-
-	    	stmt.setString(1, prodotto.getNome());
-	    	stmt.setString(2, prodotto.getDescrizione());
-	    	stmt.setDouble(3, prodotto.getPrezzo());
-	    	stmt.setInt(4, prodotto.getQuantitaDisponibile());
-	    	stmt.setInt(5, prodotto.getIdCategoria());
-	    	stmt.setDouble(6, prodotto.getMediaRecensioni());
-
-
-	        stmt.executeUpdate();
-	        ResultSet rs = stmt.getGeneratedKeys();
-	        if (rs.next()) {
-	            return rs.getInt(1);
-	        }
-	    } catch (SQLException e) {
-	        e.printStackTrace();
-	    }
-	    return -1;
-	}
-
 
     public ProdottoDAOImpl() {
         super("prodotto", "id_prodotto");
     }
 
+    public List<Prodotto> getProdottiAttivi() {
+        List<Prodotto> prodotti = new ArrayList<>();
+        String query = "SELECT * FROM prodotto WHERE attivo = 1";
+
+        try (Connection conn = getConnection();
+             PreparedStatement stmt = conn.prepareStatement(query);
+             ResultSet rs = stmt.executeQuery()) {
+
+            while (rs.next()) {
+                prodotti.add(mapResultSetToEntity(rs));
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return prodotti;
+    }
+
+    public int addAndReturnId(Prodotto prodotto) {
+        String query = "INSERT INTO prodotto (nome, descrizione, prezzo, quantita_disponibile, id_categoria, media_recensioni, attivo) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        try (Connection conn = getConnection();
+             PreparedStatement stmt = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS)) {
+
+            stmt.setString(1, prodotto.getNome());
+            stmt.setString(2, prodotto.getDescrizione());
+            stmt.setDouble(3, prodotto.getPrezzo());
+            stmt.setInt(4, prodotto.getQuantitaDisponibile());
+            stmt.setInt(5, prodotto.getIdCategoria());
+            stmt.setDouble(6, prodotto.getMediaRecensioni());
+            stmt.setInt(7, prodotto.getAttivo());
+
+            stmt.executeUpdate();
+            ResultSet rs = stmt.getGeneratedKeys();
+            if (rs.next()) {
+                return rs.getInt(1);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return -1;
+    }
+
     public List<Prodotto> getFilteredProducts(int cat) throws SQLException {
-        String query = "SELECT * FROM prodotto WHERE id_categoria = ?";
+        String query = "SELECT * FROM prodotto WHERE id_categoria = ? AND attivo = 1";
         List<Prodotto> entities = new ArrayList<>();
 
         try (Connection conn = getConnection();
@@ -72,18 +90,19 @@ public class ProdottoDAOImpl extends GenericDAOImpl<Prodotto, Integer> {
                 rs.getString("path_immagine"),
                 rs.getString("descrizione"),
                 rs.getInt("id_categoria"),
-                rs.getInt("id_admin")
+                rs.getInt("id_admin"),
+                rs.getInt("attivo")
         );
     }
 
     @Override
     protected String getInsertColumns() {
-        return "quantita_disponibile, prezzo, media_recensioni, nome, quantita_venduta, path_immagine, descrizione, id_categoria, id_admin";
+        return "quantita_disponibile, prezzo, media_recensioni, nome, quantita_venduta, path_immagine, descrizione, id_categoria, id_admin, attivo";
     }
 
     @Override
     protected String getInsertPlaceholders() {
-        return "?, ?, ?, ?, ?, ?, ?, ?, ?";
+        return "?, ?, ?, ?, ?, ?, ?, ?, ?, ?";
     }
 
     @Override
@@ -97,11 +116,12 @@ public class ProdottoDAOImpl extends GenericDAOImpl<Prodotto, Integer> {
         stmt.setString(7, prodotto.getDescrizione());
         stmt.setInt(8, prodotto.getIdCategoria());
         stmt.setInt(9, prodotto.getIdAdmin());
+        stmt.setInt(10, prodotto.getAttivo());
     }
 
     @Override
     protected String getUpdateSetClause() {
-        return "quantita_disponibile = ?, prezzo = ?, media_recensioni = ?, nome = ?, quantita_venduta = ?, path_immagine = ?, descrizione = ?, id_categoria = ?, id_admin = ?";
+        return "quantita_disponibile = ?, prezzo = ?, media_recensioni = ?, nome = ?, quantita_venduta = ?, path_immagine = ?, descrizione = ?, id_categoria = ?, id_admin = ?, attivo = ?";
     }
 
     @Override
@@ -115,7 +135,8 @@ public class ProdottoDAOImpl extends GenericDAOImpl<Prodotto, Integer> {
         stmt.setString(7, prodotto.getDescrizione());
         stmt.setInt(8, prodotto.getIdCategoria());
         stmt.setInt(9, prodotto.getIdAdmin());
-        stmt.setInt(10, prodotto.getIdProdotto());
+        stmt.setInt(10, prodotto.getAttivo());
+        stmt.setInt(11, prodotto.getIdProdotto());
     }
 
     public List<String> getNomiProdottiSimili(String term) {
@@ -150,18 +171,7 @@ public class ProdottoDAOImpl extends GenericDAOImpl<Prodotto, Integer> {
 
             try (ResultSet rs = stmt.executeQuery()) {
                 while (rs.next()) {
-                    risultati.add(new Prodotto(
-                        rs.getInt("id_prodotto"),
-                        rs.getInt("quantita_disponibile"),
-                        rs.getDouble("prezzo"),
-                        rs.getDouble("media_recensioni"),
-                        rs.getString("nome"),
-                        rs.getInt("quantita_venduta"),
-                        rs.getString("path_immagine"),
-                        rs.getString("descrizione"),
-                        rs.getInt("id_categoria"),
-                        rs.getInt("id_admin")
-                    ));
+                    risultati.add(mapResultSetToEntity(rs));
                 }
             }
         } catch (SQLException e) {

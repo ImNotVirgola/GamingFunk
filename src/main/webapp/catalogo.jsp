@@ -55,6 +55,8 @@
                         double prezzo = (double) prodotto.getClass().getMethod("getPrezzo").invoke(prodotto);
                         String pathImmagine = (String) prodotto.getClass().getMethod("getPathImmagine").invoke(prodotto);
                         int id = (int) prodotto.getClass().getMethod("getIdProdotto").invoke(prodotto);
+                        int attivo = (int) prodotto.getClass().getMethod("getAttivo").invoke(prodotto);
+                        if(attivo == 1) {
             %>
             <div class="prodotto" id="prod<%= counter %>" data-nome="<%= nome.toLowerCase() %>">
 			    <% if (isAdmin) { %>
@@ -83,6 +85,7 @@
 
 
             <%
+                        }
                         counter++;
                     }
                 }
@@ -142,12 +145,12 @@
 
         // Funzioni di esempio
         function modificaProdotto(id) {
-            window.location.href = "modifica-prodotto.jsp?id=" + id;
+            window.location.href = "modInsProdotto.jsp?id=" + id;
         }
 
         function eliminaProdotto(id) {
             if (confirm("Sei sicuro di voler eliminare questo prodotto?")) {
-                window.location.href = "elimina-prodotto?id=" + id;
+                window.location.href = "eliminaProdotto?id=" + id;
             }
         }
 

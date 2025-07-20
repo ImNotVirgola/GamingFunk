@@ -80,7 +80,13 @@
         <% } %>
         <input type="file" name="immagine" id="immagine" <%= isModifica ? "" : "required" %>>
 
-        <button type="submit" class="btn-submit"><%= isModifica ? "Salva modifiche" : "Aggiungi Prodotto" %></button>
+        <div style="display: flex; gap: 10px;">
+		    <button type="submit" class="btn-submit"><%= isModifica ? "Salva modifiche" : "Aggiungi Prodotto" %></button>
+		    <% if (isModifica) { %>
+		        <a href="catalogo.jsp" class="btn-submit" style="background-color: #888;">Annulla</a>
+		    <% } %>
+		</div>
+
     </form>
 </div>
 

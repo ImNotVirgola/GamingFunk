@@ -44,6 +44,7 @@ public class AggiungiProdotto extends HttpServlet {
         prodotto.setIdCategoria(categoria);
         prodotto.setMediaRecensioni(0.0);
         prodotto.setIdAdmin(idAdmin);
+        prodotto.setAttivo(1);
 
 
         ProdottoDAOImpl dao = new ProdottoDAOImpl();

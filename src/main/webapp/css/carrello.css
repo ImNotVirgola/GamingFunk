@@ -118,6 +118,43 @@ body {
     transform: scale(1.05);
 }
 
+.errore-carrello {
+    width: 90%; /* proporzionale */
+    max-width: 1200px; /* come il container del carrello */
+    margin: 0 auto 30px auto; /* centrato con margine inferiore */
+    background-color: #2A2A40;
+    border: 3px solid #FF007F;
+    padding: 20px;
+    border-radius: 10px;
+    color: #FFFFFF;
+    box-shadow: 5px 5px 0px #121212;
+    font-family: 'Bangers', cursive;
+    text-align: center;
+}
+
+.errore-carrello h3 {
+    color: #FF007F;
+    font-size: 1.5em;
+    margin-bottom: 10px;
+    text-shadow: 1px 1px 0px #000;
+}
+
+.errore-carrello ul {
+    margin: 0;
+    padding-left: 0;
+    list-style: none;
+    text-align: center;
+}
+
+.errore-carrello ul li {
+    padding: 5px 0;
+    font-size: 1.1em;
+    color: #E6E300;
+}
+
+
+
+
 /* Pulsanti Login e Registrazione */
 .btn-login,
 .btn-register {

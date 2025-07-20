@@ -11,55 +11,31 @@
 </head>
 
 <body>
-<nav class="navbar">
-    <div class="navbar-left">
-        <img src="images/logo/logo.png" alt="Logo" class="logo">
-    </div>
-    <div class="navbar-center">
-        <a href="catalogo.jsp">Catalogo</a>
-        <a href="CommunityServlet">Community</a>
-        <a href="blog.jsp">Blog</a>
-        <a href="carrello.jsp">Carrello</a>
-    </div>
-    <div class="navbar-right">
-        <%
-            // Verifica se l'utente è loggato
-            if (session.getAttribute("utente") != null) {
-                String fotoProfilo = (String) session.getAttribute("fotoProfilo");
-        %>
-        <div class="profile-actions">
-            <span class="user-name-navbar"><%
-                String nome = (String) session.getAttribute("nome");
-                if (nome != null && !nome.isEmpty()) {
-                    out.print(nome);
-                }
-            %></span>
-            <a href="profilo.jsp">
-                <img src="${pageContext.request.contextPath}/<%= fotoProfilo != null ? fotoProfilo : "images/default/profile.png" %>" alt="Foto Profilo" class="profile-pic">
-            </a>
-            <form action="logout" method="post" style="display: inline;">
-                <button type="submit" class="btn-logout">Logout</button>
-            </form>
-        </div>
-        <%
-            } else {
-        %>
-        <div class="auth-buttons">
-            <button class="btn-login" onclick="window.location.href='login.jsp'">Login</button>
-            <button class="btn-register" onclick="window.location.href='register.jsp'">Registrazione</button>
-        </div>
-        <%
-            }
-        %>
-    </div>
-</nav>
+
+<%@ include file="fragments/header.jspf" %>
 
 <div class="container">
     <h1>🛒 Il tuo carrello</h1>
+
+    <%
+        String errorMsg = (String) request.getAttribute("errorMessage");
+        List<String> dettagliErrori = (List<String>) request.getAttribute("dettagliErrori");
+    %>
+
+    <% if (errorMsg != null && dettagliErrori != null && !dettagliErrori.isEmpty()) { %>
+        <div class="errore-carrello">
+            <h3><%= errorMsg %></h3>
+            <ul>
+                <% for (String dettaglio : dettagliErrori) { %>
+                    <li><%= dettaglio %></li>
+                <% } %>
+            </ul>
+        </div>
+    <% } %>
+
     <div class="carrello">
         <ul id="lista-carrello">
             <%
-                // Recupera il carrello dalla sessione
                 @SuppressWarnings("unchecked")
                 java.util.List<Map<String, Object>> carrello = (java.util.List<Map<String, Object>>) session.getAttribute("carrello");
 
@@ -88,10 +64,12 @@
                             }
                         }
 
-                        totalePrezzo += prezzo * quantita;
+                        double subtotale = prezzo * quantita;
+                        totalePrezzo += subtotale;
             %>
                 <li>
-                    <%= nome %> - €<%= String.format("%.2f", prezzo) %> x <%= quantita %>
+                    <strong><%= nome %></strong> – €<%= String.format("%.2f", prezzo) %> x <%= quantita %> = 
+                    €<%= String.format("%.2f", subtotale) %>
 
                     <!-- Aumenta quantità -->
                     <form action="modifica-quantita-carrello" method="post" style="display: inline;">
@@ -118,22 +96,33 @@
                 }
             %>
         </ul>
-        <p>Totale: €<%= String.format("%.2f", totalePrezzo) %></p>
-        <form action="svuota-carrello" method="post" style="display: inline;">
-            <button type="submit" class="btn-svuota-carrello">Svuota Carrello</button>
-        </form>
 
-        <%-- Bottone acquista --%>
-        <%
-            if (session.getAttribute("utente") != null && carrello != null && !carrello.isEmpty()) {
-        %>
-            <form action="acquista" method="post" style="display: inline;">
-                <button type="submit" class="btn-acquista">Acquista Ora</button>
+        <% if (carrello != null && !carrello.isEmpty()) { %>
+            <p><strong>Totale: €<%= String.format("%.2f", totalePrezzo) %></strong></p>
+
+            <form action="svuota-carrello" method="post" style="display: inline;">
+                <button type="submit" class="btn-svuota-carrello">Svuota Carrello</button>
             </form>
-        <%
-            }
-        %>
+
+            <% if (session.getAttribute("utente") != null) { %>
+                <form action="acquista" method="post" style="display: inline;">
+                    <button type="submit" class="btn-acquista">Acquista Ora</button>
+                </form>
+            <% } %>
+        <% } %>
     </div>
 </div>
+<script>
+    // Nasconde automaticamente il messaggio di errore dopo 5 secondi
+    setTimeout(() => {
+        const alertBox = document.querySelector(".errore-carrello");
+        if (alertBox) {
+            alertBox.style.transition = "opacity 1s ease-out";
+            alertBox.style.opacity = "0";
+            setTimeout(() => alertBox.remove(), 1000); // Rimuove del tutto dopo dissolvenza
+        }
+    }, 5000);
+</script>
+
 </body>
 </html>

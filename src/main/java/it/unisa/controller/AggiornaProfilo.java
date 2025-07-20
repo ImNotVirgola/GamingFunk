@@ -65,6 +65,7 @@ public class AggiornaProfilo extends HttpServlet {
         password = (password == null || password.trim().isEmpty()) ? utente.getPassword() : BCrypt.hashpw(password, BCrypt.gensalt());
 
         // Gestione del file caricato
+     // Gestione del file caricato
         Part filePart = request.getPart("immagine");
         String fileName = "";
 
@@ -86,7 +87,6 @@ public class AggiornaProfilo extends HttpServlet {
                     throw new IOException("Impossibile creare la directory: " + uploadPath);
                 }
             }
-            System.out.print(uploadDir);
 
             // Salva il file nella directory
             File file = new File(uploadDir, fileName);

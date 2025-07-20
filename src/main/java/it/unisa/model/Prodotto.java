@@ -11,10 +11,11 @@ public class Prodotto {
     private String descrizione;
     private int idCategoria;
     private int idAdmin;
+    private int attivo;
 
     public Prodotto() {}
 
-    public Prodotto(int idProdotto, int quantitaDisponibile, double prezzo, double mediaRecensioni, String nome, int quantitaVenduta, String pathImmagine, String descrizione, int idCategoria, int idAdmin) {
+    public Prodotto(int idProdotto, int quantitaDisponibile, double prezzo, double mediaRecensioni, String nome, int quantitaVenduta, String pathImmagine, String descrizione, int idCategoria, int idAdmin, int attivo) {
         this.idProdotto = idProdotto;
         this.quantitaDisponibile = quantitaDisponibile;
         this.prezzo = prezzo;
@@ -25,13 +26,14 @@ public class Prodotto {
         this.descrizione = descrizione;
         this.idCategoria = idCategoria;
         this.idAdmin = idAdmin;
+        this.attivo = attivo;
     }
 
     // Getter e Setter
     public int getIdProdotto() { return idProdotto; }
     public void setIdProdotto(int idProdotto) { this.idProdotto = idProdotto; }
     public int getQuantitaDisponibile() { return quantitaDisponibile; }
-    public void setQuantitaDisponibile(int quantitaDisponibile) { this.quantitaDisponibile += quantitaDisponibile; }
+    public void setQuantitaDisponibile(int quantitaDisponibile) { this.quantitaDisponibile = quantitaDisponibile; }
     public double getPrezzo() { return prezzo; }
     public void setPrezzo(double prezzo) { this.prezzo = prezzo; }
     public double getMediaRecensioni() { return mediaRecensioni; }
@@ -48,4 +50,6 @@ public class Prodotto {
     public void setIdCategoria(int idCategoria) { this.idCategoria = idCategoria; }
     public int getIdAdmin() { return idAdmin; }
     public void setIdAdmin(int idAdmin) { this.idAdmin = idAdmin; }
+    public int getAttivo() { return this.attivo; }
+    public void setAttivo(int attivo) { this.attivo = attivo;}
 }
