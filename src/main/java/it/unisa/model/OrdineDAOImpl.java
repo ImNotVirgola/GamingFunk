@@ -13,6 +13,31 @@ public class OrdineDAOImpl extends GenericDAOImpl<Ordine, Integer> {
     public OrdineDAOImpl() {
         super("ordine", "id_ordine");
     }
+    
+    public List<Ordine> getOrdiniByUtenteId(int idUtente) {
+        List<Ordine> ordini = new ArrayList<>();
+        String sql = "SELECT * FROM ordine WHERE id_utente = ? ORDER BY id_ordine DESC";
+
+        try (Connection conn = getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setInt(1, idUtente);
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                Ordine ordine = new Ordine();
+                ordine.setIdOrdine(rs.getInt("id_ordine"));
+                ordine.setIdUtente(rs.getInt("id_utente"));
+                ordine.setTotale(rs.getBigDecimal("totale"));
+                ordini.add(ordine);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return ordini;
+    }
+
 
     @Override
     protected Ordine mapResultSetToEntity(ResultSet rs) throws SQLException {
@@ -21,13 +46,14 @@ public class OrdineDAOImpl extends GenericDAOImpl<Ordine, Integer> {
                 rs.getString("stato"),
                 rs.getBigDecimal("totale"),
                 rs.getInt("dati_ordine"),
+                rs.getDate("data_ordine"),
                 rs.getInt("id_utente")
         );
     }
 
     @Override
     protected String getInsertColumns() {
-        return "stato, totale, dati_ordine, id_utente";
+        return "stato, totale, data_ordine, id_utente";
     }
 
     @Override
@@ -39,20 +65,20 @@ public class OrdineDAOImpl extends GenericDAOImpl<Ordine, Integer> {
     protected void setPreparedStatementValues(PreparedStatement stmt, Ordine ordine) throws SQLException {
         stmt.setString(1, ordine.getStato());
         stmt.setBigDecimal(2, ordine.getTotale());
-        stmt.setInt(3, ordine.getDatiOrdine());
+        stmt.setDate(3, ordine.getDataOrdine());
         stmt.setInt(4, ordine.getIdUtente());
     }
 
     @Override
     protected String getUpdateSetClause() {
-        return "stato = ?, totale = ?, dati_ordine = ?, id_utente = ?";
+        return "stato = ?, totale = ?, data_ordine = ?, id_utente = ?";
     }
 
     @Override
     protected void setPreparedStatementValuesForUpdate(PreparedStatement stmt, Ordine ordine) throws SQLException {
         stmt.setString(1, ordine.getStato());
         stmt.setBigDecimal(2, ordine.getTotale());
-        stmt.setInt(3, ordine.getDatiOrdine());
+        stmt.setDate(3, ordine.getDataOrdine());
         stmt.setInt(4, ordine.getIdUtente());
         stmt.setInt(5, ordine.getIdOrdine());
     }
@@ -78,13 +104,15 @@ public class OrdineDAOImpl extends GenericDAOImpl<Ordine, Integer> {
 
             System.out.println("💰 Totale calcolato: " + totale);
             try (PreparedStatement ps = con.prepareStatement(
-                    "INSERT INTO ordine (stato, totale, dati_ordine, id_utente) VALUES (?, ?, ?, ?)",
+                    "INSERT INTO ordine (stato, totale, dati_ordine, data_ordine, id_utente) VALUES (?, ?, ?, ?, ?)",
                     PreparedStatement.RETURN_GENERATED_KEYS)) {
 
+            	java.util.Date utilDate = new java.util.Date();
                 ps.setString(1, "in elaborazione");
                 ps.setBigDecimal(2, new java.math.BigDecimal(totale));
                 ps.setInt(3, 0); // dati_ordine placeholder
-                ps.setInt(4, idUtente);
+                ps.setDate(4, new java.sql.Date(utilDate.getTime()));
+                ps.setInt(5, idUtente);
 
                 int righeInserite = ps.executeUpdate();
                 System.out.println("📝 Inserite " + righeInserite + " righe in 'ordine'");

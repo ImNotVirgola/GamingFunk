@@ -1,35 +1,62 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ page import="java.util.*, it.unisa.model.Ordine" %>
-<%@ page import="java.text.SimpleDateFormat" %>
+<%@ page import="it.unisa.model.*" %>
+<%@ page import="javax.servlet.http.*, java.util.*, java.text.DecimalFormat" %>
+<%
+    Utente utente = (Utente) session.getAttribute("utente");
+    if (utente == null) {
+        response.sendRedirect("login.jsp");
+        return;
+    }
+
+    OrdineDAOImpl ordineDAO = new OrdineDAOImpl();
+    OrdineProdottoDAOImpl ordineProdottoDAO = new OrdineProdottoDAOImpl();
+    List<Ordine> ordini = ordineDAO.getOrdiniByUtenteId(utente.getIdUtente());
+    DecimalFormat df = new DecimalFormat("#.00");
+%>
 <!DOCTYPE html>
-<html>
+<html lang="it">
 <head>
-    <title>I tuoi ordini - GamingFunk</title>
-    <link rel="stylesheet" href="css/ordini.css">
+    <meta charset="UTF-8">
+    <title>Storico Ordini</title>
+    <link rel="stylesheet" href="<%= request.getContextPath() %>/css/catalogo.css">
 </head>
 <body>
-    <h1>I tuoi ordini</h1>
-    <%
-        List<Ordine> ordini = (List<Ordine>) request.getAttribute("ordini");
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
+<div class="container">
+    <h1>📦 I miei ordini</h1>
+
+    <%
         if (ordini == null || ordini.isEmpty()) {
     %>
         <p>Non hai ancora effettuato ordini.</p>
     <%
         } else {
-            for (Ordine o : ordini) {
+            for (Ordine ordine : ordini) {
+            	List<Map<String, Object>> prodotti = ordineProdottoDAO.getProdottiDettagliatiByOrdineId(ordine.getIdOrdine());
+
     %>
-        <div class="ordine">
-            <p><strong>ID Ordine:</strong> <%= o.getIdOrdine() %></p>
-            <p><strong>Totale:</strong> €<%= o.getTotale() %></p>
-            <p><strong>Stato:</strong> <%= o.getStato() %></p>
+        <div class="prodotto" style="text-align: left;">
+            <h2>Ordine #<%= ordine.getIdOrdine() %></h2>
+            <p><strong>Totale:</strong> € <%= df.format(ordine.getTotale()) %></p>
+            <ul>
+                <% for (Map<String, Object> prodotto : prodotti) { %>
+				    <li>
+				        <strong>Prodotto:</strong> <%= prodotto.get("nome") %>
+				        <br> - 
+				        <strong>Quantità:</strong> <%= prodotto.get("quantita") %> 
+				        <br> - 
+				        <strong>Prezzo unitario:</strong> € <%= df.format(prodotto.get("prezzo_unitario")) %>
+				    </li>
+				<% } %>
+
+            </ul>
         </div>
-        <hr>
+        <br>
     <%
             }
         }
     %>
-    <a href="profilo.jsp">Torna al profilo</a>
+</div>
+
 </body>
 </html>
