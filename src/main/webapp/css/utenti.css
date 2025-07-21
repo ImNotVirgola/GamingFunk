@@ -1,0 +1,238 @@
+@charset "UTF-8";
+@import url('https://fonts.googleapis.com/css2?family=Bangers&display=swap');
+
+/* Reset base */
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    font-family: 'Bangers', cursive;
+    background-color: #1A1A2E;
+    color: #FFFFFF;
+    display: flex;
+    flex-direction: column;
+}
+
+body {
+    text-align: center;
+}
+
+main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+/* Header - Navbar */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #222222;
+    padding: 15px 0;
+    box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.5);
+    border-bottom: 3px solid #FF007F;
+}
+
+.navbar-left {
+    padding-left: 1.5%;
+    margin-right: 3%;
+}
+
+.navbar-left .logo {
+    height: 40px;
+    width: auto;
+    margin-right: 10px;
+    transition: transform 0.2s ease-in-out;
+}
+
+.navbar-left .logo:hover {
+    transform: scale(1.1);
+}
+
+.navbar-center {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+}
+
+.navbar-center a {
+    color: #00AEEF;
+    text-decoration: none;
+    font-size: 1.2em;
+    text-shadow: 1px 1px 0px #212121;
+    transition: 0.2s;
+}
+
+.navbar-center a:hover {
+    color: #E6E300;
+    transform: scale(1.1);
+}
+
+.navbar-right {
+    padding-right: 2.5%;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.navbar-right .profile-pic {
+    width: 40px;
+    height: 40px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 2px solid #A833FF;
+    box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.5);
+    transition: transform 0.2s ease-in-out;
+}
+
+.navbar-right .profile-pic:hover {
+    transform: scale(1.1);
+}
+
+.btn-logout, .btn-login, .btn-register {
+    padding: 8px 15px;
+    font-family: 'Bangers', cursive;
+    background-color: #FF007F;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1em;
+    box-shadow: 2px 2px 0px #212121;
+    transition: background-color 0.2s ease-in-out;
+}
+
+.btn-login {
+    background-color: #008FCC;
+}
+
+.btn-register {
+    background-color: #A833FF;
+}
+
+.btn-logout:hover, .btn-login:hover, .btn-register:hover {
+    transform: scale(1.05);
+}
+
+/* Titolo pagina */
+h1 {
+    color: #E6E300;
+    text-shadow: 3px 3px 0px #212121;
+    font-size: 3em;
+    margin: 30px 0;
+}
+
+/* Tabella utenti */
+table {
+    margin: 0 auto 30px;
+    border-collapse: collapse;
+    width: 80%;
+    background-color: #222222;
+    color: #FFFFFF;
+    border: 3px solid #FF007F;
+    box-shadow: 5px 5px 0px #212121;
+}
+
+thead tr {
+    background-color: #A833FF;
+    color: white;
+    font-size: 1.2em;
+}
+
+thead th, tbody td {
+    padding: 12px 15px;
+    border: 1px solid #444;
+}
+
+tbody tr:nth-child(even) {
+    background-color: #1A1A2E;
+}
+
+tbody tr:hover {
+    background-color: #2E2E4D;
+    transition: background-color 0.2s ease-in-out;
+}
+
+/* Bottone stile link */
+.btn-link {
+    display: inline-block;
+    margin-bottom: 40px;
+    padding: 12px 25px;
+    font-family: 'Bangers', cursive;
+    font-size: 1.2em;
+    color: white;
+    background-color: #A833FF;
+    border: none;
+    border-radius: 5px;
+    text-decoration: none;
+    box-shadow: 2px 2px 0px #212121;
+    transition: all 0.2s ease-in-out;
+}
+
+.btn-link:hover {
+    background-color: #9122E6;
+    transform: scale(1.1);
+}
+
+.btn-azione {
+    display: inline-block;
+    padding: 6px 12px;
+    margin: 2px;
+    font-family: 'Bangers', cursive;
+    font-size: 1em;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    text-decoration: none;
+    box-shadow: 2px 2px 0px #212121;
+    transition: background-color 0.2s ease-in-out, transform 0.2s;
+}
+
+.btn-azione.modifica {
+    background-color: #00AEEF;
+    color: white;
+}
+
+.btn-azione.elimina {
+    background-color: #FF007F;
+    color: white;
+}
+
+.btn-azione:hover {
+    transform: scale(1.05);
+    filter: brightness(1.1);
+}
+
+
+/* Footer */
+.site-footer {
+    border-top: 3px solid #FF007F;
+    font-family: 'Bangers', cursive;
+    font-size: 1.1em;
+    padding: 20px 10px;
+    text-align: center;
+    box-shadow: 0 -5px 10px rgba(0, 0, 0, 0.5);
+    margin-top: auto;
+}
+
+.site-footer p {
+    margin: 0;
+    line-height: 1.6em;
+    color: #CCCCCC;
+}
+
+.site-footer a {
+    color: #00AEEF;
+    text-decoration: none;
+    margin: 0 10px;
+    transition: color 0.2s ease-in-out;
+}
+
+.site-footer a:hover {
+    color: #E6E300;
+    text-decoration: underline;
+}

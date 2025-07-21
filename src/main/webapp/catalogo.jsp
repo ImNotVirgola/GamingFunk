@@ -82,7 +82,8 @@
 					</h2>
 	
 				    <p class="prezzo">€ <%= String.format("%.2f", prezzo) %></p>
-				    <form action="aggiungi-al-carrello" method="post">
+				    <form action="aggiungi-al-carrello" method="post" onsubmit="return mostraConferma(this);">
+
 				        <input type="hidden" name="id" value="<%= id %>">
 				        <input type="hidden" name="nome" value="<%= nome %>">
 				        <input type="hidden" name="prezzo" value="<%= prezzo %>">
@@ -160,12 +161,31 @@
 	                window.location.href = "eliminaProdotto?id=" + id;
 	            }
 	        }
-	
+			
+	        function mostraConferma(form) {
+	            const popup = document.getElementById("popup-carrello");
+	            popup.style.display = "block";
+
+	            setTimeout(() => {
+	                popup.style.display = "none";
+	                form.submit(); // invia il form dopo 1 secondo
+	            }, 1000);
+
+	            return false; // blocca il submit immediato
+	        }
+
+
 	
 	    </script>
 		<%@ include file = "fragments/footer.jspf"%>
 	    <!-- JavaScript per i suggerimenti -->
     <script src="${pageContext.request.contextPath}/js/catalogo.js"></script>
+    <div class="popup-container" id="popup-carrello" style="display: none;">
+	    <div class="popup">
+	        🛒 Prodotto aggiunto al carrello!
+	    </div>
+	</div>
+    
     </main>
 </body>
 </html>

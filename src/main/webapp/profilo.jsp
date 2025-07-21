@@ -1,4 +1,5 @@
 <%@ page import="javax.servlet.http.HttpSession" %>
+<%@ page import="it.unisa.model.Utente" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html lang="it">
@@ -60,7 +61,17 @@
 	        <!-- Pulsante per visualizzare gli ordini -->
             <a href="visualizzaOrdini" class="btn-view-orders">Visualizza i tuoi ordini</a>
             <br>
+            <%
+            	if(isAdmin) {
+            %>
 	        <a href="gestioneOrdini" class = "btn-all-orders">Gestione ordini</a>
+	        <%} %>
+	        <br>
+	        <%
+            	if(session.getAttribute("ruolo").equals("gestore")) {
+            %>
+	        <a href="utenti.jsp" class = "btn-all-orders">Gestione utenti</a>
+	        <%} %>
         </div>
 
         <!-- Form per la modifica dei dati -->

@@ -499,25 +499,6 @@ h1 {
 }
 
 /* Stile per i popup di conferma */
-#popup-carrello .popup {
-    background: #222222;
-    color: #FFFFFF;
-    padding: 15px 20px;
-    border-radius: 10px;
-    border: 3px solid #00AEEF;
-    box-shadow: 5px 5px 0px #212121;
-    font-family: 'Bangers', cursive;
-    font-size: 1.1em;
-    animation: fadeInOut 2.5s ease-in-out;
-}
-
-@keyframes fadeInOut {
-    0%   { opacity: 0; transform: translateY(20px); }
-    10%  { opacity: 1; transform: translateY(0); }
-    90%  { opacity: 1; transform: translateY(0); }
-    100% { opacity: 0; transform: translateY(-20px); }
-}
-
 .popup-container {
     position: fixed;
     bottom: 20px;

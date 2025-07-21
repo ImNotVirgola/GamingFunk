@@ -18,7 +18,7 @@
             try {
                 Object utente = session.getAttribute("utente");
                 String ruolo = (String) utente.getClass().getMethod("getRuolo").invoke(utente);
-                isAdmin = "admin".equalsIgnoreCase(ruolo);
+                isAdmin = "admin".equalsIgnoreCase(ruolo) || "gestore".equalsIgnoreCase(ruolo);
             } catch (Exception e) {
                 isAdmin = false;
             }

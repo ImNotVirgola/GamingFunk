@@ -3,12 +3,15 @@
 <html>
 <head>
 <title>Ordine Confermato</title>
+<link rel="stylesheet" href="css/ordine-confermato.css">
 </head>
 <body>
 <%@ include file="fragments/header.jspf" %>
-    <h1>✅ Ordine Confermato!</h1>
+<main>
+	<h1>✅ Ordine Confermato!</h1>
     <p>Il tuo ordine è stato registrato con successo. ID ordine: <%= request.getParameter("id") %></p>
     <a href="catalogo.jsp">Torna al catalogo</a>
     <%@ include file = "fragments/footer.jspf" %>
+</main>
 </body>
 </html>

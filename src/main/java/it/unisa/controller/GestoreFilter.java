@@ -1,25 +1,25 @@
 package it.unisa.controller;
 
 import java.io.IOException;
-import javax.servlet.*;
+import javax.servlet.Filter;
+import javax.servlet.FilterChain;
+import javax.servlet.FilterConfig;
+import javax.servlet.ServletException;
+import javax.servlet.ServletRequest;
+import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebFilter;
+import javax.servlet.http.HttpFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 @WebFilter(
-		filterName = "AdminFilter", 
+		filterName = "GestoreFilter", 
 		urlPatterns = {
-				"/gestioneProdotti.jsp", 
-				"/modificaProdotto.jsp", 
-				"/nuovoProdotto.jsp", 
 				"/utenti.jsp", 
-				"/ordini.jsp", 
-				"/gestioneOrdini.jsp",
-				"/modInsProdotto.jsp",
 				}
 		)
-public class AdminFilter implements Filter {
+public class GestoreFilter implements Filter {
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
         // Nessuna inizializzazione necessaria
@@ -38,7 +38,7 @@ public class AdminFilter implements Filter {
             try {
                 // Assumiamo che il metodo getRuolo() esista in Utente
                 String ruolo = (String) utenteObj.getClass().getMethod("getRuolo").invoke(utenteObj);
-                if (ruolo != null && (ruolo.equals("admin") || ruolo.equals("gestore"))) {
+                if (ruolo != null && ruolo.equals("gestore")) {
                     isAdmin = true;
                 }
             } catch (Exception e) {
@@ -48,7 +48,7 @@ public class AdminFilter implements Filter {
         }
 
         if (!isAdmin) {
-            httpResponse.sendRedirect(httpRequest.getContextPath() + "/catalogo.jsp?errore=accesso_admin");
+            httpResponse.sendRedirect(httpRequest.getContextPath() + "/catalogo.jsp?errore=accesso_gestore");
             return;
         }
         chain.doFilter(request, response);

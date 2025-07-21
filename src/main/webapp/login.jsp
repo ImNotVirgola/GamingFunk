@@ -57,10 +57,10 @@
         <!-- Form di login -->
         <form class="login-form" action="login" method="post">
             <label for="email">Email:</label>
-            <input type="email" id="email" name="email" required>
+            <input type="email" id="email" name="email" placeholder = "Es. prova@example.it" required>
 
             <label for="password">Password:</label>
-            <input type="password" id="password" name="password" required>
+            <input type="password" id="password" name="password" placeholder = "Inserisci la tua password" required>
 
             <br>
             Non sei registrato?

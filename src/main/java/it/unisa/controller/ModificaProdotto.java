@@ -6,10 +6,7 @@ import it.unisa.model.ProdottoDAOImpl;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.Part;
+import javax.servlet.http.*;
 import java.io.File;
 import java.io.IOException;
 
@@ -20,6 +17,8 @@ import java.io.IOException;
 public class ModificaProdotto extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
+    private static final String RELATIVE_PATH = "images/prodotti";
+
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
             int id = Integer.parseInt(request.getParameter("id"));
@@ -29,38 +28,51 @@ public class ModificaProdotto extends HttpServlet {
             int quantita = Integer.parseInt(request.getParameter("quantita"));
             int idCategoria = Integer.parseInt(request.getParameter("categoria"));
 
-            // Gestione file immagine (se presente)
-            Part filePart = request.getPart("immagine");
-            String fileName = filePart.getSubmittedFileName();
-            String pathImmagine = null;
-
-            if (fileName != null && !fileName.isEmpty()) {
-                String uploadPath = getServletContext().getRealPath("") + File.separator + "images" + File.separator + "prodotti";
-                File uploadDir = new File(uploadPath);
-                if (!uploadDir.exists()) uploadDir.mkdirs();
-
-                String fullPath = uploadPath + File.separator + fileName;
-                filePart.write(fullPath);
-
-                pathImmagine = "images/prodotti/" + fileName;
-            }
-
             ProdottoDAOImpl dao = new ProdottoDAOImpl();
             Prodotto prodotto = dao.getById(id);
-            if (prodotto != null) {
-                prodotto.setNome(nome);
-                prodotto.setDescrizione(descrizione);
-                prodotto.setPrezzo(prezzo);
-                prodotto.setQuantitaDisponibile(quantita);
-                prodotto.setIdCategoria(idCategoria);
 
-                if (pathImmagine != null) {
-                    prodotto.setPathImmagine(pathImmagine);
-                }
-
-                dao.update(prodotto);
+            if (prodotto == null) {
+                response.sendRedirect("errore.jsp");
+                return;
             }
 
+            // Aggiorna i campi
+            prodotto.setNome(nome);
+            prodotto.setDescrizione(descrizione);
+            prodotto.setPrezzo(prezzo);
+            prodotto.setQuantitaDisponibile(quantita);
+            prodotto.setIdCategoria(idCategoria);
+
+            // Gestione immagine (se presente)
+            Part filePart = request.getPart("immagine");
+            String fileName = filePart.getSubmittedFileName();
+
+            if (fileName != null && !fileName.isEmpty()) {
+                // Percorso reale per salvataggio immagini
+                String uploadPath = getServletContext().getRealPath("/") + RELATIVE_PATH;
+                File uploadDir = new File(uploadPath);
+                if (!uploadDir.exists() && !uploadDir.mkdirs()) {
+                    throw new IOException("❌ Impossibile creare la directory immagini: " + uploadPath);
+                }
+
+                // Nuovo nome file: prodotto<ID>.png
+                String nuovoNome = id + ".png";
+                File storeFile = new File(uploadDir, nuovoNome);
+
+                // Elimina immagine precedente se esiste
+                if (storeFile.exists() && !storeFile.delete()) {
+                    System.err.println("⚠️ Non sono riuscito a eliminare l'immagine precedente.");
+                }
+
+                // Salva nuova immagine
+                filePart.write(storeFile.getAbsolutePath());
+
+                // Aggiorna path immagine
+                String pathNelDB = RELATIVE_PATH + "/" + nuovoNome;
+                prodotto.setPathImmagine(pathNelDB);
+            }
+
+            dao.update(prodotto);
             response.sendRedirect("catalogo.jsp");
 
         } catch (Exception e) {
