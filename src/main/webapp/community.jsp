@@ -9,6 +9,8 @@
 </head>
 <body>
     <%@ include file="fragments/header.jspf" %>
+    <main>
+    </main>
     <div class="container">
         <h1>Community</h1>
         <a href="CommunityServlet?action=nuova" class="btn-new">Crea nuova community</a>

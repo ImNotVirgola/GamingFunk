@@ -18,6 +18,8 @@
 	</classpathentry>
 	<classpathentry exported="true" kind="lib" path="src/main/webapp/WEB-INF/lib/jbcrypt-0.4.jar"/>
 	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/commons-text-1.13.1.jar"/>
-	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/gson-2.10.1.jar"/>	
+	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/gson-2.10.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Riccardo/Desktop/commons-fileupload-1.6.0.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Riccardo/Desktop/commons-io-2.20.0.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>

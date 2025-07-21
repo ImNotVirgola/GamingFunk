@@ -39,9 +39,11 @@
         %>
 
         <!-- Foto Profilo -->
-        <div class="profile-picture">
-            <img src="${pageContext.request.contextPath}/<%= fotoProfilo %>" alt="Foto Profilo" class="profile-pic-large">
-        </div>
+        <!-- Caricamento fittizio e immagine profilo -->
+		<div class="profile-picture">
+		    <img id="profile-img" src="<%= fotoProfilo %>?v=<%= new java.util.Random().nextInt(999999) %>" alt="Foto Profilo" class="profile-pic-large">
+		</div>
+
 
         <!-- Visualizzazione dei dati dell'utente -->
         <div class="user-info">

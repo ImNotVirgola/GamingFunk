@@ -73,7 +73,8 @@
 				    <% } %>
 				    
 				    <!-- Resto del contenuto prodotto -->
-				    <img src="<%= pathImmagine %>" alt="<%= nome %>">
+				    <img src="<%= request.getContextPath() + "/" + pathImmagine %>" alt="<%= nome %>">
+
 				    <h2>
 					  <a href="visualizzaProdotto?id=<%= id %>" class="link-nome-prodotto">
 					    <%= nome %>

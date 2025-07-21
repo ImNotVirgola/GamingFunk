@@ -37,7 +37,8 @@
                 }
             %></span>
             <a href="profilo.jsp">
-                <img src="${pageContext.request.contextPath}/<%= fotoProfilo %>" alt="Foto Profilo" class="profile-pic">
+                <img src="${utente.immagine}?v=<%= new java.util.Random().nextInt(999999) %>" alt="Foto Profilo" class = "profile-pic">
+
             </a>
             <form action="logout" method="post" style="display: inline;">
                 <button type="submit" class="btn-logout">Logout</button>
