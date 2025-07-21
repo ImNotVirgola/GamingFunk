@@ -38,7 +38,7 @@ CREATE TABLE IF NOT EXISTS `area_amministrativa` (
   PRIMARY KEY (`id_admin`),
   UNIQUE KEY `id_utente` (`id_utente`),
   CONSTRAINT `area_amministrativa_ibfk_1` FOREIGN KEY (`id_utente`) REFERENCES `utente` (`id_utente`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- L’esportazione dei dati non era selezionata.
 
@@ -138,7 +138,7 @@ CREATE TABLE IF NOT EXISTS `ordine` (
   PRIMARY KEY (`id_ordine`),
   KEY `rela_ordine_Utente` (`id_utente`),
   CONSTRAINT `rela_ordine_Utente` FOREIGN KEY (`id_utente`) REFERENCES `utente` (`id_utente`)
-) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- L’esportazione dei dati non era selezionata.
 
@@ -184,12 +184,11 @@ CREATE TABLE IF NOT EXISTS `prodotto` (
   `id_admin` int(4) NOT NULL DEFAULT 1,
   `attivo` tinyint(1) DEFAULT 1,
   PRIMARY KEY (`id_prodotto`),
-  UNIQUE KEY `path_immagine` (`path_immagine`),
   KEY `rela_prodotto_categoria` (`id_categoria`),
   KEY `rela_prodotto_admin` (`id_admin`),
   CONSTRAINT `rela_prodotto_admin` FOREIGN KEY (`id_admin`) REFERENCES `area_amministrativa` (`id_admin`),
   CONSTRAINT `rela_prodotto_categoria` FOREIGN KEY (`id_categoria`) REFERENCES `categoria` (`id_categoria`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- L’esportazione dei dati non era selezionata.
 
@@ -204,13 +203,13 @@ CREATE TABLE IF NOT EXISTS `utente` (
   `provincia` varchar(255) DEFAULT NULL,
   `cap` varchar(10) DEFAULT NULL,
   `password` varchar(255) NOT NULL,
-  `ruolo` enum('admin','regular') NOT NULL,
+  `ruolo` enum('gestore','admin','regular') NOT NULL,
   `num_ordini` int(4) DEFAULT NULL,
   `totale_speso` decimal(10,2) DEFAULT NULL,
   `percorsoImmagine` text DEFAULT 'images/default/profile.png',
   PRIMARY KEY (`id_utente`),
   UNIQUE KEY `email` (`email`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- L’esportazione dei dati non era selezionata.
 
