@@ -12,6 +12,19 @@
     text-overflow: ellipsis;
     white-space: nowrap;
 }
+
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+main {
+    flex: 1;
+}
+
 /* Stili generali */
 body {
     font-family: 'Bangers', cursive;
@@ -320,6 +333,28 @@ h1 {
 
 /* Effetto hover per il pulsante "Svuota Carrello" */
 .btn-svuota-carrello:hover {
+    background-color: #E6006E; /* Colore più scuro al passaggio del mouse */
+    transform: scale(1.05); /* Effetto di ingrandimento */
+}
+
+/* Stile specifico per il pulsante "Svuota Carrello" */
+.btn-acquista{
+    display: inline-block;
+    margin-top: 20px; /* Spazio sopra il pulsante */
+    padding: 10px 20px; /* Padding interno per dimensioni adeguate */
+    font-family: 'Bangers', cursive; /* Tipografia coerente */
+    background-color: #FF007F; /* Colore rosso acceso */
+    color: white; /* Testo bianco */
+    border: none; /* Nessun bordo */
+    border-radius: 5px; /* Bordi arrotondati */
+    cursor: pointer; /* Cursore a puntatore */
+    font-size: 1.2em; /* Dimensione del testo */
+    box-shadow: 3px 3px 0px #212121; /* Ombra per dare profondità */
+    transition: background-color 0.2s ease-in-out, transform 0.2s ease-in-out; /* Transizione fluida */
+}
+
+/* Effetto hover per il pulsante "Svuota Carrello" */
+.btn-acquista:hover {
     background-color: #E6006E; /* Colore più scuro al passaggio del mouse */
     transform: scale(1.05); /* Effetto di ingrandimento */
 }

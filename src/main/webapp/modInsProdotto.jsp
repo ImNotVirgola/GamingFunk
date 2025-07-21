@@ -1,7 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="java.util.*, javax.servlet.*, javax.servlet.http.*" %>
-<%@ page import="it.unisa.model.ProdottoDAOImpl" %> 
-<%@ page import="it.unisa.model.Prodotto" %> 
+<%@ page import="it.unisa.model.ProdottoDAOImpl" %>
+<%@ page import="it.unisa.model.Prodotto" %>
 <%@ page import="it.unisa.model.CategoriaDAOImpl" %>
 <%@ page import="it.unisa.model.Categoria" %>
 <%

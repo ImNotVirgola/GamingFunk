@@ -14,6 +14,18 @@
     white-space: nowrap;
 }
 
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+main {
+    flex: 1;
+}
+
 body {
     font-family: 'Bangers', cursive;
     background-color: #1A1A2E;
@@ -22,6 +34,33 @@ body {
     text-align: center;
     color: #FFFFFF;
 }
+
+.site-footer {
+	    border-top: 3px solid #FF007F;
+	    font-family: 'Bangers', cursive;
+	    font-size: 1.1em;
+	    padding: 20px 10px;
+	    text-align: center;
+	    box-shadow: 0 -5px 10px rgba(0, 0, 0, 0.5);
+	}
+	
+	.site-footer p {
+	    margin: 0;
+	    line-height: 1.6em;
+	    color: #CCCCCC;
+	}
+	
+	.site-footer a {
+	    color: #00AEEF;
+	    text-decoration: none;
+	    margin: 0 10px;
+	    transition: color 0.2s ease-in-out;
+	}
+	
+	.site-footer a:hover {
+	    color: #E6E300;
+	    text-decoration: underline;
+	}
 
 /* Navbar styling */
 .navbar {

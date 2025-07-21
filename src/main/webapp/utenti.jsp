@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="css/admin.css">
 </head>
 <body>
+<%@ include file="fragments/header.jspf" %>
 <h1>Gestione Utenti</h1>
 <table border="1">
     <thead>
@@ -39,5 +40,6 @@
     </tbody>
 </table>
 <a href="catalogo.jsp">Torna al catalogo</a>
+<%@ include file = "fragments/footer.jspf" %>
 </body>
 </html>

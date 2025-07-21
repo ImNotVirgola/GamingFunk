@@ -1,0 +1,78 @@
+body {
+    font-family: 'Arial', sans-serif;
+    color: #eee;
+    background-color: #111;
+    padding: 50px;
+}
+
+h1, h2, h3, p {
+    color: #fff;
+    margin: 0 0 10px 0;
+}
+
+.section {
+    margin-bottom: 40px;
+}
+
+.azienda, .cliente {
+    line-height: 1.6;
+}
+
+a {
+    color: #00aaff;
+    text-decoration: none;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #1c1c1c;
+}
+
+th, td {
+    border: 1px solid #444;
+    padding: 10px;
+    text-align: left;
+    color: #fff;
+}
+
+th {
+    background-color: #222;
+}
+
+.totali {
+    margin-top: 30px;
+    font-size: 1.1em;
+    line-height: 1.8em;
+}
+
+ul {
+    list-style: disc;
+    margin-left: 20px;
+}
+
+.btn {
+    margin-top: 40px;
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #008FCC;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    text-decoration: none;
+}
+
+.btn:hover {
+    background-color: #00AEEF;
+}
+
+@media print {
+    .btn, .no-print {
+        display: none !important;
+    }
+}
+
+@page {
+    margin: 20mm;
+    size: auto;
+}

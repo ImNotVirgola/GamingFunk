@@ -7,7 +7,18 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-@WebFilter(filterName = "AdminFilter", urlPatterns = {"/gestioneProdotti.jsp", "/modificaProdotto.jsp", "/nuovoProdotto.jsp", "/utenti.jsp", "/ordini.jsp"})
+@WebFilter(
+		filterName = "AdminFilter", 
+		urlPatterns = {
+				"/gestioneProdotti.jsp", 
+				"/modificaProdotto.jsp", 
+				"/nuovoProdotto.jsp", 
+				"/utenti.jsp", 
+				"/ordini.jsp", 
+				"/gestioneOrdini.jsp",
+				"/modInsProdotto.jsp",
+				}
+		)
 public class AdminFilter implements Filter {
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {

@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="css/admin.css">
 </head>
 <body>
+<%@ include file="fragments/header.jspf" %>
 <h1>Gestione Prodotti</h1>
 <a href="nuovoProdotto.jsp">Aggiungi nuovo prodotto</a>
 <table border="1">
@@ -42,5 +43,6 @@
     <% } %>
     </tbody>
 </table>
+<%@ include file = "fragments/footer.jspf" %>
 </body>
 </html>

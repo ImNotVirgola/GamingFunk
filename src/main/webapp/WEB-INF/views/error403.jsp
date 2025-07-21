@@ -6,8 +6,8 @@
  </head>
  <body>
 	<%@ include file="../../fragments/header.jspf" %>
-     <h1>Error 404: Page Not Found</h1>
-     <p>Sorry, the page you are looking for does not exist.</p>
+     <h1>Error 403: You Don't have permissions!</h1>
+     <p>Sorry, but you don't have permissions for this page.</p>
      <%@ include file = "../../fragments/footer.jspf" %>
  </body>
  </html>

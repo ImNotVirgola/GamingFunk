@@ -14,6 +14,83 @@ public class OrdineDAOImpl extends GenericDAOImpl<Ordine, Integer> {
         super("ordine", "id_ordine");
     }
     
+    public List<Ordine> getOrdiniByDateRange(String inizio, String fine) {
+        List<Ordine> lista = new ArrayList<>();
+        String sql = "SELECT * FROM ordine WHERE DATE(data_ordine) BETWEEN ? AND ? ORDER BY data_ordine DESC";
+
+        try (Connection con = ConPool.getConnection();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+
+            ps.setDate(1, java.sql.Date.valueOf(inizio));
+            ps.setDate(2, java.sql.Date.valueOf(fine));
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                lista.add(mappaOrdine(rs));
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return lista;
+    }
+
+
+    public List<Ordine> getOrdiniByIdAndDateRange(int idUtente, String inizio, String fine) {
+        List<Ordine> lista = new ArrayList<>();
+        String sql = "SELECT * FROM ordine WHERE id_utente = ? AND DATE(data_ordine) BETWEEN ? AND ? ORDER BY data_ordine DESC";
+
+        try (Connection con = ConPool.getConnection();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+
+            ps.setInt(1, idUtente);
+            ps.setDate(2, java.sql.Date.valueOf(inizio));
+            ps.setDate(3, java.sql.Date.valueOf(fine));
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                lista.add(mappaOrdine(rs));
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return lista;
+    }
+
+
+    
+    public List<Ordine> getAllOrdini() {
+        List<Ordine> lista = new ArrayList<>();
+        String sql = "SELECT * FROM ordine ORDER BY data_ordine DESC";
+
+        try (Connection con = ConPool.getConnection();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                lista.add(mappaOrdine(rs));
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return lista;
+    }
+
+    private Ordine mappaOrdine(ResultSet rs) throws SQLException {
+        Ordine o = new Ordine();
+        o.setIdOrdine(rs.getInt("id_ordine"));
+        o.setIdUtente(rs.getInt("id_utente"));
+        o.setDataOrdine(rs.getDate("data_ordine"));
+        o.setTotale(rs.getBigDecimal("totale"));
+        return o;
+    }
+
+    
     public List<Ordine> getOrdiniByUtenteId(int idUtente) {
         List<Ordine> ordini = new ArrayList<>();
         String sql = "SELECT * FROM ordine WHERE id_utente = ? ORDER BY id_ordine DESC";

@@ -1,0 +1,327 @@
+@charset "UTF-8";
+@import url('https://fonts.googleapis.com/css2?family=Bangers&display=swap');
+
+.user-name-navbar {
+    display: inline-block;
+    margin-right: 10px;
+    font-family: 'Bangers', cursive;
+    font-size: 1.1em;
+    color: #A833FF;
+    vertical-align: middle;
+    max-width: 120px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+body {
+    font-family: 'Bangers', cursive;
+    background-color: #1A1A2E;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+    color: #FFFFFF;
+}
+
+/* Navbar styling */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #222222;
+    padding: 15px 0;
+    box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.5);
+    border-bottom: 3px solid #FF007F;
+}
+
+.navbar-left {
+    padding-left: 1.5%;
+    margin-right: 3%;
+}
+
+.navbar-left .logo {
+    height: 40px;
+    width: auto;
+    margin-right: 10px;
+    transition: transform 0.2s ease-in-out;
+}
+
+.navbar-left .logo:hover {
+    transform: scale(1.1);
+}
+
+.navbar-center {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+}
+
+.navbar-center a {
+    color: #00AEEF;
+    text-decoration: none;
+    font-size: 1.2em;
+    text-shadow: 1px 1px 0px #212121;
+    transition: 0.2s;
+}
+
+.navbar-center a:hover {
+    color: #E6E300;
+    transform: scale(1.1);
+}
+
+/* Navbar Right */
+.navbar-right {
+    padding-right: 2.5%;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+/* Contenitore per l'immagine e il pulsante logout */
+.navbar-right .profile-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+/* Stile per l'immagine del profilo */
+.navbar-right .profile-pic {
+    width: 40px;
+    height: 40px;
+    object-fit: cover;
+    margin-right: 10px;
+    border-radius: 50%;
+    border: 2px solid #A833FF;
+    box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.5);
+    transition: transform 0.2s ease-in-out;
+}
+
+.navbar-right .profile-pic:hover {
+    transform: scale(1.1);
+}
+
+.navbar-right .auth-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: flex-end;
+}
+
+/* Pulsante Logout */
+.navbar-right .btn-logout {
+    padding: 8px 15px;
+    font-family: 'Bangers', cursive;
+    background-color: #FF007F;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1em;
+    box-shadow: 2px 2px 0px #212121;
+    transition: background-color 0.2s ease-in-out;
+}
+
+.navbar-right .btn-logout:hover {
+    background-color: #E6006E;
+    transform: scale(1.05);
+}
+/* Pulsanti Login e Registrazione */
+.btn-login,
+.btn-register {
+    padding: 8px 15px;
+    font-family: 'Bangers', cursive;
+    background-color: #008FCC;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1em;
+    box-shadow: 2px 2px 0px #212121;
+    width: 120px;
+    transition: 0.2s;
+}
+
+.btn-register {
+    background-color: #A833FF;
+}
+
+.btn-login:hover,
+.btn-register:hover {
+    transform: scale(1.05);
+}
+
+.btn:active {
+    transform: scale(0.95);
+    transition: transform 0.1s ease-in-out;
+}
+
+.prodotto-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: flex-start;
+    max-width: 1000px;
+    margin: 40px auto;
+    background-color: #1A1A2E;
+    border-radius: 16px;
+    padding: 30px;
+    box-shadow: 0 0 30px rgba(255, 0, 127, 0.2), 0 0 10px rgba(168, 51, 255, 0.4);
+    transition: all 0.3s ease-in-out;
+}
+
+.img-box {
+    flex: 1;
+    max-width: 400px;
+    margin-bottom: 20px;
+}
+
+.img-box img {
+    width: 100%;
+    height: auto;
+    border-radius: 12px;
+    border: 3px solid #FF007F;
+    box-shadow: 0 0 20px rgba(255, 0, 127, 0.3);
+}
+
+.info-box {
+    flex: 1;
+    text-align: left;
+    padding: 0 20px;
+}
+
+.info-box h1 {
+    font-size: 2.4em;
+    color: #E6E300;
+    margin-bottom: 15px;
+    text-shadow: 2px 2px 4px #000;
+}
+
+.info-box .prezzo {
+    font-size: 2em;
+    color: #FF007F;
+    margin-bottom: 10px;
+    text-shadow: 1px 1px 2px #000;
+}
+
+.info-box .disponibilita {
+    font-size: 1.2em;
+    margin-bottom: 10px;
+    color: #00FF66;
+}
+
+.disponibile {
+    color: #00FF66;
+    font-weight: bold;
+}
+
+.non-disponibile {
+    color: #FF4444;
+    font-weight: bold;
+}
+
+.info-box .descrizione {
+    font-size: 1.15em;
+    color: #CCCCCC;
+    line-height: 1.6;
+    margin-bottom: 25px;
+}
+
+/* Etichetta quantità */
+.info-box label {
+    display: inline-block;
+    font-size: 1.1em;
+    margin-right: 10px;
+    color: #A833FF;
+}
+
+/* Quantità input */
+.info-box input[type="number"] {
+    width: 70px;
+    padding: 8px;
+    font-family: 'Bangers', cursive;
+    font-size: 1.1em;
+    color: #fff;
+    background-color: #2D2D44;
+    border: 2px solid #A833FF;
+    border-radius: 8px;
+    box-shadow: inset 0 0 6px #A833FF, 0 0 5px #121212;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+/* Rimozione spin per number */
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+input[type="number"] {
+    -moz-appearance: textfield;
+}
+
+/* Bottone Aggiungi al Carrello */
+.btn-acquista {
+    padding: 12px 24px;
+    background-color: #A833FF;
+    color: white;
+    font-family: 'Bangers', cursive;
+    font-size: 1.3em;
+    border: none;
+    border-radius: 10px;
+    box-shadow: 0 4px 0px #121212;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.btn-acquista:hover {
+    background-color: #9122E6;
+    transform: scale(1.05);
+}
+
+.admin-actions {
+    margin-top: 25px;
+}
+
+.admin-actions button {
+    padding: 8px 14px;
+    font-family: 'Bangers', cursive;
+    font-size: 1em;
+    background-color: #FF007F;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    margin-right: 10px;
+    cursor: pointer;
+    box-shadow: 2px 2px 4px #000;
+}
+
+.admin-actions button:hover {
+    background-color: #E6006E;
+}
+
+/* Responsive mobile migliorato */
+@media (max-width: 768px) {
+    .prodotto-container {
+        flex-direction: column;
+        align-items: center;
+        padding: 20px;
+    }
+
+    .info-box {
+        text-align: center;
+        padding: 0;
+    }
+
+    .info-box h1,
+    .info-box .prezzo,
+    .info-box .descrizione {
+        text-align: center;
+    }
+
+    .btn-acquista {
+        width: 100%;
+        font-size: 1.2em;
+    }
+}
+
+

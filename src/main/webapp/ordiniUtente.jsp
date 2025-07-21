@@ -21,7 +21,7 @@
     <link rel="stylesheet" href="<%= request.getContextPath() %>/css/catalogo.css">
 </head>
 <body>
-<%@ include file = "fragments/header.jspf" %>
+<%@ include file="fragments/header.jspf" %>
 <div class="container">
     <h1>📦 I miei ordini</h1>
 
@@ -31,32 +31,38 @@
         <p>Non hai ancora effettuato ordini.</p>
     <%
         } else {
-            for (Ordine ordine : ordini) {
-            	List<Map<String, Object>> prodotti = ordineProdottoDAO.getProdottiDettagliatiByOrdineId(ordine.getIdOrdine());
-
     %>
-        <div class="prodotto" style="text-align: left;">
-            <h2>Ordine #<%= ordine.getIdOrdine() %></h2>
-            <p><strong>Totale:</strong> € <%= df.format(ordine.getTotale()) %></p>
-            <ul>
-                <% for (Map<String, Object> prodotto : prodotti) { %>
-				    <li>
-				        <strong>Prodotto:</strong> <%= prodotto.get("nome") %>
-				        <br> - 
-				        <strong>Quantità:</strong> <%= prodotto.get("quantita") %> 
-				        <br> - 
-				        <strong>Prezzo unitario:</strong> € <%= df.format(prodotto.get("prezzo_unitario")) %>
-				    </li>
-				<% } %>
+    <div class="catalogo">
+        <%
+            for (Ordine ordine : ordini) {
+                List<Map<String, Object>> prodotti = ordineProdottoDAO.getProdottiDettagliatiByOrdineId(ordine.getIdOrdine());
+        %>
+            <div class="prodotto" style="width: 300px;">
+                <h2>Ordine #<%= ordine.getIdOrdine() %></h2>
+                <p><strong>Totale:</strong> € <%= df.format(ordine.getTotale()) %></p>
+                <ul style="text-align: left;">
+                    <% for (Map<String, Object> prodotto : prodotti) { %>
+                        <li>
+                            <strong>Prodotto:</strong> <%= prodotto.get("nome") %><br>
+                            <strong>Quantità:</strong> <%= prodotto.get("quantita") %><br>
+                            <strong>Prezzo unitario:</strong> € <%= df.format(prodotto.get("prezzo_unitario")) %>
+                        </li>
+                    <% } %>
+                </ul>
 
-            </ul>
-        </div>
-        <br>
-    <%
+                <!-- Pulsante per la stampa della fattura -->
+                <form method="get" action="fattura.jsp" target="_blank" style="margin-top: 10px;">
+                    <input type="hidden" name="idOrdine" value="<%= ordine.getIdOrdine() %>">
+                    <button type="submit" class="btn">🧾 Stampa Fattura</button>
+                </form>
+            </div>
+        <%
             }
+        %>
+    </div>
+    <%
         }
     %>
 </div>
-
 </body>
 </html>
