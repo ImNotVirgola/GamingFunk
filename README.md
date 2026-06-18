@@ -94,7 +94,7 @@ Particolare attenzione è stata dedicata alla protezione delle pagine e dei dati
 Progetto sviluppato in gruppo. Suddivisione principale del lavoro:
 
 - **Riccardo Di Girolamo** ([@ImNotVirgola](https://github.com/ImNotVirgola)) — ruolo principale di sviluppo: progettazione della struttura del database, impostazione dello scheletro dell'applicazione, sviluppo del layout e dei fogli di stile (CSS) e gestione della sicurezza delle pagine.
-- Altri membri del gruppo — `[Giovanni Esposito](https://github.com/GioVan1098), Marianna Diograzia`.
+- Altri membri del gruppo — [Giovanni Esposito](https://github.com/GioVan1098), Marianna Diograzia`.
 
 ## Autori
 
