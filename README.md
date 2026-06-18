@@ -1,6 +1,6 @@
 # GamingFunk
 
-E-commerce per la vendita di videogiochi e prodotti gaming, sviluppato come progetto per l'esame di **Tecnologie e Sviluppo per il Web** del Corso di Laurea in Informatica (classe L-31) presso l'**Università degli Studi di Salerno**.
+E-commerce per la vendita di videogiochi e prodotti gaming, sviluppato come progetto per l'esame di **Tecnologie Software per il Web** del Corso di Laurea in Informatica (classe L-31) presso l'**Università degli Studi di Salerno**.
 
 L'applicazione è una web app Java EE che permette agli utenti di sfogliare un catalogo di prodotti, gestire un carrello, effettuare ordini e amministrare il proprio account, con un'area riservata per la gestione amministrativa del catalogo.
 
